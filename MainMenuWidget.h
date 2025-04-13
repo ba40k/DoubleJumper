@@ -12,12 +12,18 @@
 
 class MainMenuWidget : public QWidget {
     Q_OBJECT
+    const int buttonWidth =222;
+    const int buttonHeight = 80;
+    const int crossSide = 44;
     QString backgroundImagePath;
     QString playButtonImagePath;
     QString highScoresButtonImagePath;
     QString optionsButtonImagePath;
     QString exitButtonImagePath;
     QPushButton *exitButton;
+    QPushButton *playButton;
+    QPushButton *optionsButton;
+    QPushButton *highScoresButton;
     QLabel *backgroundLabel;
 protected:
     void resizeEvent(QResizeEvent* event) override;
