@@ -7,7 +7,7 @@
 #include <QMessageBox>
 #include <QDialog>
 #include <QMenu>
-
+#include "MainMenuWidget.h"
 QT_BEGIN_NAMESPACE
 namespace Ui {
     class MainWindow;
@@ -17,10 +17,14 @@ QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
 {
-public:
-
 private:
+    const int HEIGHT = 850;
+    const int WIDTH = 640;
+    QWidget *centralWidget;
     Ui::MainWindow *ui;
+    MainMenuWidget *mainMenuWidget;
+public:
+    MainWindow(QWidget *parent = nullptr);
 };
 
 #endif // MAINWINDOW_H
