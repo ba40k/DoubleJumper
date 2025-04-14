@@ -34,6 +34,9 @@ class MainMenuWidget : public QWidget {
     QLabel *backgroundLabel;
     QString doubleJumperImagePath;
     QLabel *doubleJumperLabel;
+
+    long double speed;
+    long double velocity;
     void animationRun();
     public:
 
