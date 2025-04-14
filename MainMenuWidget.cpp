@@ -14,7 +14,7 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) {
     backgroundLabel->resize(width(),height());
 
     prefixPath = "requirments/Sprites/Doodle Jump/";
-    backgroundImagePath =   "bck@2x.png";
+    backgroundImagePath =   "Default@2x.png";
 
     QPixmap bgPixmap(prefixPath + backgroundImagePath);
 
@@ -30,13 +30,14 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) {
     optionsButton = new QPushButton(this);
     highScoresButton = new QPushButton(this);
 
-    playButton->setGeometry(100,200,buttonWidth,buttonHeight);
+    playButton->setGeometry(120,300,buttonWidth,buttonHeight);
     exitButton->setGeometry(width() - crossSide, 0, crossSide,crossSide);
-    optionsButton->setGeometry(width() - buttonWidth,height() - buttonHeight,buttonWidth,buttonHeight);
-    highScoresButton->setGeometry(width() - buttonWidth,600,buttonWidth,buttonHeight);
+    optionsButton->setGeometry(width() - buttonWidth,530,buttonWidth,buttonHeight);
+    highScoresButton->setGeometry(width() - buttonWidth,650,buttonWidth,buttonHeight);
 
     playButton->setStyleSheet(
      "QPushButton {"
+     "opacity: 0;"
      "   background-image: url(\"" + prefixPath +  playButtonImagePath + "\");"
      "   background-repeat: no-repeat;"       // Не повторять изображение
      "   background-position: center;"        // Центрировать

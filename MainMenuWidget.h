@@ -9,7 +9,7 @@
 #include <QPushButton>
 #include <QWidget>
 #include <QString>
-
+#include <QLabel>
 class MainMenuWidget : public QWidget {
     Q_OBJECT
     QString prefixPath;
@@ -21,6 +21,8 @@ class MainMenuWidget : public QWidget {
     QString highScoresButtonImagePath;
     QString optionsButtonImagePath;
     QString exitButtonImagePath;
+    QString gameTitleImagePath;
+    QLabel *gameTitleLabel;
     QPushButton *exitButton;
     QPushButton *playButton;
     QPushButton *optionsButton;
