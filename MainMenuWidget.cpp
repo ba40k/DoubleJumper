@@ -12,16 +12,18 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) {
     backgroundLabel = new QLabel(this);
     backgroundLabel->setScaledContents(true);
     backgroundLabel->resize(width(),height());
-    backgroundImagePath = "requirments/Sprites/Doodle Jump/bck@2x.png";
 
-    QPixmap bgPixmap(backgroundImagePath);
+    prefixPath = "requirments/Sprites/Doodle Jump/";
+    backgroundImagePath =   "bck@2x.png";
+
+    QPixmap bgPixmap(prefixPath + backgroundImagePath);
 
     backgroundLabel->setPixmap(bgPixmap);
 
-    playButtonImagePath =  "requirments/Sprites/Doodle Jump/play@2x.png";
-    exitButtonImagePath = "requirments/Sprites/Doodle Jump/news-close@2x.png";
-    optionsButtonImagePath = "requirments/Sprites/Doodle Jump/options@2x.png";
-    highScoresButtonImagePath = "requirments/Sprites/Doodle Jump/scores@2x.png";
+    playButtonImagePath =  "play@2x.png";
+    exitButtonImagePath = "news-close@2x.png";
+    optionsButtonImagePath = "options@2x.png";
+    highScoresButtonImagePath = "scores@2x.png";
 
     playButton = new QPushButton(this);
     exitButton = new QPushButton(this);
@@ -35,7 +37,7 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) {
 
     playButton->setStyleSheet(
      "QPushButton {"
-     "   background-image: url(\"" + playButtonImagePath + "\");"
+     "   background-image: url(\"" + prefixPath +  playButtonImagePath + "\");"
      "   background-repeat: no-repeat;"       // Не повторять изображение
      "   background-position: center;"        // Центрировать
      "   border: none;"                       // Убрать стандартную рамку
@@ -46,7 +48,7 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) {
 
     optionsButton->setStyleSheet(
      "QPushButton {"
-     "   background-image: url(\"" + optionsButtonImagePath + "\");"
+     "   background-image: url(\"" + prefixPath + optionsButtonImagePath + "\");"
      "   background-repeat: no-repeat;"       // Не повторять изображение
      "   background-position: center;"        // Центрировать
      "   border: none;"                       // Убрать стандартную рамку
@@ -57,7 +59,7 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) {
 
     highScoresButton->setStyleSheet(
      "QPushButton {"
-     "   background-image: url(\"" + highScoresButtonImagePath + "\");"
+     "   background-image: url(\"" + prefixPath + highScoresButtonImagePath + "\");"
      "   background-repeat: no-repeat;"       // Не повторять изображение
      "   background-position: center;"        // Центрировать
      "   border: none;"                       // Убрать стандартную рамку
@@ -68,7 +70,7 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) {
 
    exitButton->setStyleSheet(
      "QPushButton {"
-     "   background-image: url(\"" + exitButtonImagePath + "\");"
+     "   background-image: url(\"" + prefixPath +  exitButtonImagePath + "\");"
      "   background-repeat: no-repeat;"       // Не повторять изображение
      "   background-position: center;"        // Центрировать
      "   border: none;"                       // Убрать стандартную рамку
@@ -77,10 +79,4 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) {
 
     );
 
-}
-void MainMenuWidget::resizeEvent(QResizeEvent* event) {
-    QPixmap bgPixmap(backgroundImagePath);
-    bgPixmap = bgPixmap.scaled(size(), Qt::KeepAspectRatioByExpanding);
-    backgroundLabel->setPixmap(bgPixmap);
-    QWidget::resizeEvent(event);
 }

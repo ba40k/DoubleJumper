@@ -12,6 +12,7 @@
 
 class MainMenuWidget : public QWidget {
     Q_OBJECT
+    QString prefixPath;
     const int buttonWidth =222;
     const int buttonHeight = 80;
     const int crossSide = 44;
@@ -26,7 +27,7 @@ class MainMenuWidget : public QWidget {
     QPushButton *highScoresButton;
     QLabel *backgroundLabel;
 protected:
-    void resizeEvent(QResizeEvent* event) override;
+
     public:
     MainMenuWidget(QWidget *parent = nullptr);
 
