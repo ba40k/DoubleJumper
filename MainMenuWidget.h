@@ -12,6 +12,7 @@
 #include <QLabel>
 class MainMenuWidget : public QWidget {
     Q_OBJECT
+    QTimer* timer;
     QString prefixPath;
     const int doubleJumperStartX = 55;
     const int doubleJumperStartY = 550;
@@ -36,10 +37,17 @@ class MainMenuWidget : public QWidget {
     QLabel *doubleJumperLabel;
 
     long double speed;
-    long double velocity;
-    void animationRun();
+    long double gravitation;
+    long double currentX;
+    long double currentY;
+    const int deltaTime  = 10;
+    long double nullEpsilon;
+    long double sign = 1;
+    bool stopped;
     public:
-
+    void animationRun();
+    void stop();
+    void play();
     MainMenuWidget(QWidget *parent = nullptr);
 
 

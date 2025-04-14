@@ -18,6 +18,7 @@ QT_END_NAMESPACE
 class MainWindow : public QMainWindow
 {
 private:
+
     const int HEIGHT = 850;
     const int WIDTH = 640;
     QWidget *centralWidget;
