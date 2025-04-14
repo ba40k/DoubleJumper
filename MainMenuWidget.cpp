@@ -30,10 +30,16 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) {
     optionsButton = new QPushButton(this);
     highScoresButton = new QPushButton(this);
 
-    playButton->setGeometry(120,300,buttonWidth,buttonHeight);
+    playButton->setGeometry(120,200,buttonWidth,buttonHeight);
     exitButton->setGeometry(width() - crossSide, 0, crossSide,crossSide);
     optionsButton->setGeometry(width() - buttonWidth,530,buttonWidth,buttonHeight);
     highScoresButton->setGeometry(width() - buttonWidth,650,buttonWidth,buttonHeight);
+
+   doubleJumperImagePath = "lik-right@2x.png";
+   doubleJumperLabel = new QLabel(this);
+   doubleJumperLabel->setPixmap(prefixPath + doubleJumperImagePath);
+   doubleJumperLabel->setScaledContents(true);
+   doubleJumperLabel->setGeometry(doubleJumperStartX,doubleJumperStartY,doubleJumperWidth,doubleJumperHeight);
 
     playButton->setStyleSheet(
      "QPushButton {"

@@ -13,9 +13,13 @@
 class MainMenuWidget : public QWidget {
     Q_OBJECT
     QString prefixPath;
+    const int doubleJumperStartX = 55;
+    const int doubleJumperStartY = 550;
     const int buttonWidth =222;
     const int buttonHeight = 80;
     const int crossSide = 44;
+    const int doubleJumperHeight = 120;
+    const int doubleJumperWidth = 124;
     QString backgroundImagePath;
     QString playButtonImagePath;
     QString highScoresButtonImagePath;
@@ -28,9 +32,11 @@ class MainMenuWidget : public QWidget {
     QPushButton *optionsButton;
     QPushButton *highScoresButton;
     QLabel *backgroundLabel;
-protected:
-
+    QString doubleJumperImagePath;
+    QLabel *doubleJumperLabel;
+    void animationRun();
     public:
+
     MainMenuWidget(QWidget *parent = nullptr);
 
 
