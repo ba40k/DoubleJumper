@@ -103,7 +103,6 @@ void MainMenuWidget::animationRun() {
                                    doubleJumperHeight);
     doubleJumper.setCoordinateY(doubleJumper.getCoordinateY() + doubleJumper.getDirection() * deltaY);
     ufoTicks++;
-    std::cout<<ufoTicks<<std::endl;
     if (ufoTicks ==25) {
 
         ufoLabel->setPixmap(imagePrefixPath + ufoNoLightImagePath);
