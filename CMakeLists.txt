@@ -9,6 +9,8 @@ find_package(Qt6 COMPONENTS
         Core
         Gui
         Widgets
+        Multimedia
+        MultimediaWidgets
         REQUIRED)
 
 set(CMAKE_AUTOMOC ON)
@@ -23,6 +25,8 @@ target_link_libraries(DoubleJumper
         Qt::Core
         Qt::Gui
         Qt::Widgets stdc++
+        Qt::Multimedia
+        Qt::MultimediaWidgets
 
 )
 

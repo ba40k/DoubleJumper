@@ -10,10 +10,15 @@
 #include <QWidget>
 #include <QString>
 #include <QLabel>
+#include <QSoundEffect>
+
 class MainMenuWidget : public QWidget {
     Q_OBJECT
     QTimer* timer;
-    QString prefixPath;
+    QString imagePrefixPath;
+    QString soundPrefixPath;
+    QString jumpSoundPath ;
+    QSoundEffect jumpSound;
     const int doubleJumperStartX = 55;
     const int doubleJumperStartY = 550;
     const int buttonWidth =222;
@@ -44,7 +49,10 @@ class MainMenuWidget : public QWidget {
     long double nullEpsilon;
     long double sign = 1;
     bool stopped;
+    void setDefaultStylnig(QString &prefix, QString &suffix, QPushButton *button);
+
     public:
+
     void animationRun();
     void stop();
     void play();

@@ -8,6 +8,7 @@
 #include<QTime>
 #include<QTimer>
 #include <iostream>
+#include <QSoundEffect>
 MainMenuWidget::MainMenuWidget(QWidget *parent) {
      // Создаем layout
     resize(parent->width(), parent->height());
@@ -16,10 +17,13 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) {
     backgroundLabel->setScaledContents(true);
     backgroundLabel->resize(width(),height());
 
-    prefixPath = "requirments/Sprites/Doodle Jump/";
+    imagePrefixPath = "requirments/Sprites/Doodle Jump/";
+    soundPrefixPath =  "requirments/Doodle Jump SFX/";
     backgroundImagePath =   "Default@2x.png";
+    jumpSoundPath = "jump.wav";
+    jumpSound.setSource(QUrl::fromLocalFile(soundPrefixPath + jumpSoundPath));
 
-    QPixmap bgPixmap(prefixPath + backgroundImagePath);
+    QPixmap bgPixmap(imagePrefixPath + backgroundImagePath);
 
     backgroundLabel->setPixmap(bgPixmap);
 
@@ -40,54 +44,17 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) {
 
    doubleJumperImagePath = "lik-right@2x.png";
    doubleJumperLabel = new QLabel(this);
-   doubleJumperLabel->setPixmap(prefixPath + doubleJumperImagePath);
+   doubleJumperLabel->setPixmap(imagePrefixPath + doubleJumperImagePath);
    doubleJumperLabel->setScaledContents(true);
    doubleJumperLabel->setGeometry(doubleJumperStartX,doubleJumperStartY,doubleJumperWidth,doubleJumperHeight);
 
-    playButton->setStyleSheet(
-     "QPushButton {"
-     "opacity: 0;"
-     "   background-image: url(\"" + prefixPath +  playButtonImagePath + "\");"
-     "   background-repeat: no-repeat;"       // Не повторять изображение
-     "   background-position: center;"        // Центрировать
-     "   border: none;"                       // Убрать стандартную рамку
-     "   padding: 10px;"                      // Отступ для текста/иконки
-     "}"
+    setDefaultStylnig(imagePrefixPath, playButtonImagePath,playButton);
 
-    );
+    setDefaultStylnig(imagePrefixPath,optionsButtonImagePath,optionsButton);
 
-    optionsButton->setStyleSheet(
-     "QPushButton {"
-     "   background-image: url(\"" + prefixPath + optionsButtonImagePath + "\");"
-     "   background-repeat: no-repeat;"       // Не повторять изображение
-     "   background-position: center;"        // Центрировать
-     "   border: none;"                       // Убрать стандартную рамку
-     "   padding: 10px;"                      // Отступ для текста/иконки
-     "}"
+    setDefaultStylnig(imagePrefixPath, highScoresButtonImagePath, highScoresButton);
 
-    );
-
-    highScoresButton->setStyleSheet(
-     "QPushButton {"
-     "   background-image: url(\"" + prefixPath + highScoresButtonImagePath + "\");"
-     "   background-repeat: no-repeat;"       // Не повторять изображение
-     "   background-position: center;"        // Центрировать
-     "   border: none;"                       // Убрать стандартную рамку
-     "   padding: 10px;"                      // Отступ для текста/иконки
-     "}"
-
-    );
-
-   exitButton->setStyleSheet(
-     "QPushButton {"
-     "   background-image: url(\"" + prefixPath +  exitButtonImagePath + "\");"
-     "   background-repeat: no-repeat;"       // Не повторять изображение
-     "   background-position: center;"        // Центрировать
-     "   border: none;"                       // Убрать стандартную рамку
-     "   padding: 10px;"                      // Отступ для текста/иконки
-     "}"
-
-    );
+   setDefaultStylnig(imagePrefixPath, exitButtonImagePath, exitButton);
    gravitation = 0.0019;
    speed =1.0;
    nullEpsilon = 0.0001;
@@ -116,6 +83,9 @@ void MainMenuWidget::animationRun() {
       if ( speed < 0 || currentY > doubleJumperStartY) {
        sign*=-1;
        sign<0?speed=0:speed=1.0;
+       if (sign == 1) {
+        jumpSound.play();
+       }
       }
       if (sign == 1) { // ударяется, получает скорость и теряет её
        long double deltaY = speed * deltaTime +  gravitation*deltaTime*deltaTime;
@@ -132,3 +102,15 @@ void MainMenuWidget::animationRun() {
       timer->start();
 }
 
+void MainMenuWidget::setDefaultStylnig(QString &prefix, QString &suffix, QPushButton *button) {
+ button->setStyleSheet(
+     "QPushButton {"
+     "   background-image: url(\"" + prefix +  suffix + "\");"
+     "   background-repeat: no-repeat;"       // Не повторять изображение
+     "   background-position: center;"        // Центрировать
+     "   border: none;"                       // Убрать стандартную рамку
+     "   padding: 10px;"                      // Отступ для текста/иконки
+     "}"
+
+    );
+}
