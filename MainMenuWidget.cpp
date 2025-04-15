@@ -111,7 +111,7 @@ void MainMenuWidget::animationRun() {
 
         ufoLabel->setPixmap(imagePrefixPath + ufoImagePath);
     }
-    if (ufoTicks %3 == 0) {
+    if (ufoTicks %2 == 0) {
 
         ufoLabel->setGeometry(ufoPositions[currentUfoPosition].first,ufoPositions[currentUfoPosition].second,ufoWidth, ufoHeight);
         currentUfoPosition = (currentUfoPosition + 1) % ufoPositions.size();
