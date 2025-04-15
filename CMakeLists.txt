@@ -19,7 +19,7 @@ set(CMAKE_AUTORCC ON)
 set(FORMS
         mainwindow.ui
 )
-add_executable(DoubleJumper main.cpp mainwindow.cpp MainMenuWidget.cpp PhysicsModel.cpp)
+add_executable(DoubleJumper main.cpp mainwindow.cpp MainMenuWidget.cpp PhysicsModel.cpp DoubleJumper.cpp)
 target_link_libraries(DoubleJumper
 
         Qt::Core

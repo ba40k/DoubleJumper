@@ -12,11 +12,11 @@
 #include <QLabel>
 #include <QSoundEffect>
 #include "PhysicsModel.h"
+#include "DoubleJumper.h"
 
 class MainMenuWidget : public QWidget {
     Q_OBJECT
     QTimer* timer;
-
     QString imagePrefixPath;
     QString soundPrefixPath;
     QString jumpSoundPath ;
@@ -27,7 +27,6 @@ class MainMenuWidget : public QWidget {
     QString exitButtonImagePath;
     QString gameTitleImagePath;
     QString doubleJumperImagePath;
-
     QSoundEffect jumpSound;
     const int doubleJumperStartX = 55;
     const int doubleJumperStartY = 550;
@@ -36,21 +35,20 @@ class MainMenuWidget : public QWidget {
     const int crossSide = 44;
     const int doubleJumperHeight = 120;
     const int doubleJumperWidth = 124;
-
     QLabel *gameTitleLabel;
     QPushButton *exitButton;
     QPushButton *playButton;
     QPushButton *optionsButton;
     QPushButton *highScoresButton;
     QLabel *backgroundLabel;
-
     QLabel *doubleJumperLabel;
 
-    long double currentX;
-    long double currentY;
+
+    DoubleJumper doubleJumper;
+
     const int deltaTime  = 10;
-    long double speed;
-    long double direction = -1; //  обозначил движение вверх отрицательным кожэффиенцтом, потому что он же теряет скорость
+
+
     bool stopped;
     PhysicsModel physicsModel;
     void setDefaultStylnig(const QString &prefix,const QString &suffix, QPushButton *button);

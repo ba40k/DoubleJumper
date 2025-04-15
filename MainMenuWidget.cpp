@@ -10,7 +10,7 @@
 #include <iostream>
 #include <QSoundEffect>
 
-MainMenuWidget::MainMenuWidget(QWidget *parent) : physicsModel(0.0019) {
+MainMenuWidget::MainMenuWidget(QWidget *parent) : physicsModel(0.0019), doubleJumper(doubleJumperStartX,doubleJumperStartY,1.0,-1) {
 
     resize(parent->width(), parent->height());
     setMinimumSize(QSize(width(), height()));
@@ -56,9 +56,8 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) : physicsModel(0.0019) {
     setDefaultStylnig(imagePrefixPath, highScoresButtonImagePath, highScoresButton);
 
     setDefaultStylnig(imagePrefixPath, exitButtonImagePath, exitButton);
-    speed = 1.0;
-    currentX = doubleJumperStartX;
-    currentY = doubleJumperStartY;
+
+
     timer = new QTimer(this);
     timer->setSingleShot(true);
     timer->setInterval(deltaTime);
@@ -78,29 +77,19 @@ void MainMenuWidget::play() {
 void MainMenuWidget::animationRun() {
     // x - неизменен
     // y меняется по закону : y0 + v0*t + at^2/2
-    // std::cout<<speed<<' '<<gravitation<<' '<<deltaTime<<' '<<' '<<gravitation*deltaTime<<' '<<direction<<'\n';
 
-
-    if (speed < 0 || currentY > doubleJumperStartY) {
-        direction *= -1;
-        direction > 0 ? speed = 0 : speed = 1.0;
-        if (direction == -1) {
+    if (doubleJumper.getSpeed() < 0 || doubleJumper.getCoordinateY() > doubleJumperStartY) {
+        doubleJumper.changeDirection();
+        doubleJumper.getDirection() > 0 ? doubleJumper.setSpeed(0) : doubleJumper.setSpeed(1.0);
+        if (doubleJumper.getDirection() == -1) {
             jumpSound.play();
         }
     }
 
-    long double deltaY = physicsModel.calculateDistace(deltaTime,speed);
-    speed =physicsModel.calculateSpeed(deltaTime,speed,direction);
-    std::cout<<speed<<' '<<physicsModel.getGravitation()<<' '<<direction<<'\n';
-    if (direction == -1) {
-        // ударяется, получает скорость и теряет её
-        currentY -= deltaY; // минус потому что чем меньше координата тем выше объедок
-        doubleJumperLabel->setGeometry(currentX, currentY, doubleJumperWidth, doubleJumperHeight);
-    } else {
-        // падает и набирает скорость
-        currentY += deltaY; // плюс потому что чем юольше координата тем ниже объедок
-        doubleJumperLabel->setGeometry(currentX, currentY, doubleJumperWidth, doubleJumperHeight);
-    }
+    long double deltaY = physicsModel.calculateDistace(deltaTime,doubleJumper.getSpeed());
+    doubleJumper.setSpeed(physicsModel.calculateSpeed(deltaTime,doubleJumper.getSpeed(),doubleJumper.getDirection()));
+    doubleJumperLabel->setGeometry(doubleJumper.getCoordinateX(), doubleJumper.getCoordinateY(), doubleJumperWidth, doubleJumperHeight);
+    doubleJumper.setCoordinateY(doubleJumper.getCoordinateY() + doubleJumper.getDirection()* deltaY);
     timer->setSingleShot(true);
     timer->start();
 }
