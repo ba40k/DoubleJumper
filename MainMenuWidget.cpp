@@ -10,14 +10,16 @@
 #include <iostream>
 #include <QSoundEffect>
 
-MainMenuWidget::MainMenuWidget(QWidget *parent) : physicsModel(0.0019), doubleJumper(doubleJumperStartX,doubleJumperStartY,1.0,-1) {
-
+MainMenuWidget::MainMenuWidget(QWidget *parent) : physicsModel(0.0019),
+                                                  doubleJumper(doubleJumperStartX, doubleJumperStartY, 1.0, -1) {
     resize(parent->width(), parent->height());
     setMinimumSize(QSize(width(), height()));
     backgroundLabel = new QLabel(this);
     backgroundLabel->setScaledContents(true);
     backgroundLabel->resize(width(), height());
 
+
+    ufoPosititionsJsonPath = "requirments/ufoPoint.json";
     imagePrefixPath = "requirments/Sprites/Doodle Jump/";
     soundPrefixPath = "requirments/Doodle Jump SFX/";
     backgroundImagePath = "Default@2x.png";
@@ -25,13 +27,14 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) : physicsModel(0.0019), doubleJu
     jumpSound.setSource(QUrl::fromLocalFile(soundPrefixPath + jumpSoundPath));
 
     QPixmap bgPixmap(imagePrefixPath + backgroundImagePath);
-
     backgroundLabel->setPixmap(bgPixmap);
 
     playButtonImagePath = "play@2x.png";
     exitButtonImagePath = "news-close@2x.png";
     optionsButtonImagePath = "options@2x.png";
     highScoresButtonImagePath = "scores@2x.png";
+    ufoImagePath = "ufo@2x.png";
+    ufoNoLightImagePath = "ufo-no-light@2x.png";
 
     playButton = new QPushButton(this);
     exitButton = new QPushButton(this);
@@ -63,6 +66,13 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) : physicsModel(0.0019), doubleJu
     timer->setInterval(deltaTime);
     connect(timer, &QTimer::timeout, this, &MainMenuWidget::animationRun);
     timer->start();
+    currentUfoPosition = 0;
+    ufoPositions = parseJson(ufoPosititionsJsonPath);
+
+    ufoLabel = new QLabel(this);
+    ufoLabel->setScaledContents(true);
+    ufoLabel->setGeometry(ufoPositions[0].first,ufoPositions[0].second,ufoWidth, ufoHeight);
+    ufoLabel->setPixmap(imagePrefixPath + ufoImagePath);
 }
 
 void MainMenuWidget::stop() {
@@ -86,15 +96,33 @@ void MainMenuWidget::animationRun() {
         }
     }
 
-    long double deltaY = physicsModel.calculateDistace(deltaTime,doubleJumper.getSpeed());
-    doubleJumper.setSpeed(physicsModel.calculateSpeed(deltaTime,doubleJumper.getSpeed(),doubleJumper.getDirection()));
-    doubleJumperLabel->setGeometry(doubleJumper.getCoordinateX(), doubleJumper.getCoordinateY(), doubleJumperWidth, doubleJumperHeight);
-    doubleJumper.setCoordinateY(doubleJumper.getCoordinateY() + doubleJumper.getDirection()* deltaY);
+
+    long double deltaY = physicsModel.calculateDistace(deltaTime, doubleJumper.getSpeed());
+    doubleJumper.setSpeed(physicsModel.calculateSpeed(deltaTime, doubleJumper.getSpeed(), doubleJumper.getDirection()));
+    doubleJumperLabel->setGeometry(doubleJumper.getCoordinateX(), doubleJumper.getCoordinateY(), doubleJumperWidth,
+                                   doubleJumperHeight);
+    doubleJumper.setCoordinateY(doubleJumper.getCoordinateY() + doubleJumper.getDirection() * deltaY);
+    ufoTicks++;
+    std::cout<<ufoTicks<<std::endl;
+    if (ufoTicks ==25) {
+
+        ufoLabel->setPixmap(imagePrefixPath + ufoNoLightImagePath);
+    }
+    if (ufoTicks == 2) {
+
+        ufoLabel->setPixmap(imagePrefixPath + ufoImagePath);
+    }
+    if (ufoTicks %3 == 0) {
+
+        ufoLabel->setGeometry(ufoPositions[currentUfoPosition].first,ufoPositions[currentUfoPosition].second,ufoWidth, ufoHeight);
+        currentUfoPosition = (currentUfoPosition + 1) % ufoPositions.size();
+        ufoTicks%=50;
+    }
     timer->setSingleShot(true);
     timer->start();
 }
 
-void MainMenuWidget::setDefaultStylnig(const QString &prefix,const QString &suffix, QPushButton *button) {
+void MainMenuWidget::setDefaultStylnig(const QString &prefix, const QString &suffix, QPushButton *button) {
     button->setStyleSheet(
         "QPushButton {"
         "   background-image: url(\"" + prefix + suffix + "\");"
@@ -104,4 +132,46 @@ void MainMenuWidget::setDefaultStylnig(const QString &prefix,const QString &suff
         "   padding: 10px;" // Отступ для текста/иконки
         "}"
     );
+}
+QVector<QPair<int, int> > MainMenuWidget::parseJson(const QString &filename) const {
+    QVector<QPair<int,int>> result;
+
+    QFile file(filename);
+    if (!file.open(QIODevice::ReadOnly)) {
+        qWarning() << "Failed to open file:" << file.errorString();
+        return result;
+    }
+
+    QJsonParseError error;
+    QJsonDocument doc = QJsonDocument::fromJson(file.readAll(), &error);
+    if (error.error != QJsonParseError::NoError) {
+        qWarning() << "JSON parse error:" << error.errorString();
+        return result;
+    }
+
+    if (!doc.isArray()) {
+        qWarning() << "Invalid JSON structure: root is not an array";
+        return result;
+    }
+
+    QJsonArray arr = doc.array();
+    for (const QJsonValue& val : arr) {
+        if (!val.isArray()) {
+            qWarning() << "Invalid point format";
+            continue;
+        }
+
+        QJsonArray point = val.toArray();
+        if (point.size() != 2) {
+            qWarning() << "Invalid point coordinates";
+            continue;
+        }
+
+        result.emplace_back(
+            point[0].toInt(),
+            point[1].toInt()
+        );
+    }
+
+    return result;
 }
