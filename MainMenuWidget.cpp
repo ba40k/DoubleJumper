@@ -102,6 +102,7 @@ void MainMenuWidget::animationRun() {
     doubleJumperLabel->setGeometry(doubleJumper.getCoordinateX(), doubleJumper.getCoordinateY(), doubleJumperWidth,
                                    doubleJumperHeight);
     doubleJumper.setCoordinateY(doubleJumper.getCoordinateY() + doubleJumper.getDirection() * deltaY);
+
     ufoTicks++;
     if (ufoTicks ==25) {
 
