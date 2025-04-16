@@ -15,7 +15,7 @@ class AbstractPlatform {
     int coordinateY;
     public:
     AbstractPlatform(const int coordinateX, const int coordinateY) ;
-    virtual ~AbstractPlatform() = 0;
+    virtual ~AbstractPlatform() = default;
 };
 
 

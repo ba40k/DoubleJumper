@@ -4,6 +4,6 @@
 
 #include "GreenPlatform.h"
 
-GreenPlatform::GreenPlatform() : AbstractPlatform(coordinateX, coordinateY) {
+GreenPlatform::GreenPlatform(int coordinateX, int coordinateY) : AbstractPlatform(coordinateX, coordinateY) {
 
 }

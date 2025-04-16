@@ -10,7 +10,7 @@
 class GreenPlatform  : public AbstractPlatform{
     public:
     GreenPlatform(int coordinateX, int coordinateY);
-    ~GreenPlatform() = default;
+
 };
 
 
