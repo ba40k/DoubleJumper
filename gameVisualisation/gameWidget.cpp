@@ -4,7 +4,7 @@
 
 #include "gameWidget.h"
 
-#include "../platfroms/GreenPlatform.h"
+#include "../platforms/GreenPlatform.h"
 
 GameWidget::GameWidget(QWidget *parent) {
     prefixPath = "requirments/Sprites/Doodle Jump/";

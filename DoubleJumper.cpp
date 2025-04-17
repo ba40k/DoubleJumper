@@ -34,5 +34,18 @@ void DoubleJumper::setSpeed(long double speed) {
 void DoubleJumper::changeDirection() {
     direction*=-1;
 }
+QLabel *DoubleJumper::getLeftOrientedLabel(QWidget *parent) {
+    QLabel *label = new QLabel(parent);
+    label->resize(WIDTH,HEIGHT);
+    label->setPixmap(QPixmap(prefixPath + leftOrientedSpritePath));
+    return label;
+}
+QLabel *DoubleJumper::getRightOrientedLabel(QWidget *parent) {
+    QLabel *label = new QLabel(parent);
+    label->resize(WIDTH,HEIGHT);
+    label->setPixmap(QPixmap(prefixPath + rightOrientedSpritePath));
+    return label;
+}
+
 
 
