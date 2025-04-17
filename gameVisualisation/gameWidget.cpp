@@ -5,8 +5,12 @@
 #include "gameWidget.h"
 
 #include "../platforms/GreenPlatform.h"
-
+#include<iostream>
+#include <QKeyEvent>
 GameWidget::GameWidget(QWidget *parent) {
+    setFocusPolicy(Qt::StrongFocus); // Разрешаем фокус клавиатуры
+    setFocus(); // Захватываем фокус
+    game.gameInitialize();
     prefixPath = "requirments/Sprites/Doodle Jump/";
     backgoundImagePath = "bck@2x.png";
     backgoundLabel = new QLabel(this);
@@ -17,7 +21,67 @@ GameWidget::GameWidget(QWidget *parent) {
 
     backgoundLabel->setPixmap(QPixmap(prefixPath + backgoundImagePath));
 
+    auto gamePlatforms = game.getPlatforms();
+    platforms.resize(gamePlatforms->size());
+    QString  imagePath = "game-tiles@2x.png";
+    for (int i = 0; i < gamePlatforms->size(); i++) {
+     //  std::cout<<(*gamePlatforms)[i]->getX()<<' '<< (*gamePlatforms)[i]->getY()<<'\n';
+        platforms[i] = GreenPlatform((*gamePlatforms)[i]->getX(), (*gamePlatforms)[i]->getY(),imagePath).getQLabel(this);
+    }
+    timer = new QTimer(this);
+    timer->setInterval(deltaTime);
+    timer->setSingleShot(true);
+    timer->start();
+
+    doubleJumperLabel = game.getDoubleJumper()->getLeftOrientedLabel(this);
+
+    connect(timer, &QTimer::timeout ,this, &GameWidget::update);
+    stop();
+}
+void GameWidget::update() {
+
+    game.gameStateUpdate(deltaTime,leftArrowPressed,rightArrowPressed);
+
+    doubleJumperLabel->move(game.getDoubleJumperX(), game.getDoubleJumperY());
 
 
+    timer->setSingleShot(true);
+    timer->start();
+}
+void GameWidget::stop() {
+    timer->stop();
+    stopped = true;
+}
+void GameWidget::run() {
+    timer->start();
+    stopped = false;
+}
+void GameWidget::keyPressEvent(QKeyEvent *event) {
 
+    switch (event->key()) {
+        case Qt::Key_Left:
+            leftArrowPressed = true;
+        break;
+        case Qt::Key_Right:
+            rightArrowPressed = true;
+        break;
+
+        default:
+            QWidget::keyPressEvent(event); // передаём остальные события родителю
+    }
+}
+
+void GameWidget::keyReleaseEvent(QKeyEvent *event) {
+
+    switch (event->key()) {
+        case Qt::Key_Left:
+            leftArrowPressed = false;
+        break;
+        case Qt::Key_Right:
+            rightArrowPressed = false;
+        break;
+
+        default:
+            QWidget::keyPressEvent(event); // передаём остальные события родителю
+    }
 }

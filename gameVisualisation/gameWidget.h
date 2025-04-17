@@ -7,15 +7,28 @@
 
 #include <QWidget>
 #include <QLabel>
-
-
+#include "../game/Game.h"
+#include <QTimer>
 class GameWidget : public QWidget{
     QString prefixPath;
     QString backgoundImagePath;
     QLabel *backgoundLabel;
+    Game game;
+    QLabel* doubleJumperLabel;
+    QVector<QLabel*> platforms;
+    const int deltaTime = 10;
+    QTimer* timer;
+    bool stopped = false;
+    void update();
+    bool leftArrowPressed = false;
+    bool rightArrowPressed = false;
 
     public:
+    void keyPressEvent(QKeyEvent *event);
+    void keyReleaseEvent(QKeyEvent *event);
     GameWidget(QWidget *parent = nullptr);
+    void stop();
+    void run();
 
 };
 

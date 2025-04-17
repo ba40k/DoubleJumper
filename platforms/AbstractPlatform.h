@@ -21,7 +21,7 @@ class AbstractPlatform {
     int getY() const;
     int getWidth() const;
     int getHeight() const;
-    virtual QLabel* getQLabel(QWidget *parent = nullptr) const = 0;
+    virtual  QLabel* getQLabel(QWidget *parent = nullptr) const = 0;
     virtual ~AbstractPlatform() = default;
 };
 

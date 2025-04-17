@@ -28,6 +28,9 @@ private:
     MainMenuWidget *mainMenuWidget;
     GameWidget *gameWidget;
     void playButtonClicked();
+    void keyPressEvent(QKeyEvent *event);
+    void keyReleaseEvent(QKeyEvent *event);
+    bool gameRunning;
 public:
     MainWindow(QWidget *parent = nullptr);
 };

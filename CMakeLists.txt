@@ -20,7 +20,7 @@ set(FORMS
         mainwindow.ui
 )
 add_executable(DoubleJumper main.cpp mainwindow.cpp MainMenuWidget.cpp PhysicsModel.cpp DoubleJumper.cpp platforms/AbstractPlatform.cpp
-        platforms/GreenPlatform.cpp gameVisualisation/gameWidget.cpp)
+        platforms/GreenPlatform.cpp gameVisualisation/gameWidget.cpp game/Game.cpp)
 target_link_libraries(DoubleJumper
 
         Qt::Core

@@ -11,12 +11,12 @@
 class DoubleJumper {
     const int WIDTH = 124;
     const int HEIGHT = 120;
-    QString prefixPath = "requirments/Sprites/Doodle Jump/";
-    QString leftOrientedSpritePath = "lic-left@2x.png";
-    QString rightOrientedSpritePath = "lic-right@2x.png";
+     QString prefixPath ;
+    QString leftOrientedSpritePath ;
+    QString rightOrientedSpritePath;
     int coordinateX;
     int coordinateY;
-
+    const int hitBoxWidth = 57;
     long double speed;
     int8_t direction;
 
@@ -26,12 +26,15 @@ class DoubleJumper {
     void changeDirection();
     void setCoordinateX(int coordinateX);
     void setCoordinateY(int coordinateY);
-    QLabel* getLeftOrientedLabel(QWidget *parent);
-    QLabel* getRightOrientedLabel(QWidget *parent);
+     QLabel* getLeftOrientedLabel(QWidget *parent);
+     QLabel* getRightOrientedLabel(QWidget *parent);
     long double getSpeed() const;
     long double getDirection() const;
     int getCoordinateX() const;
     int getCoordinateY() const;
+    int getHeight() const ;
+    int getWidth() const;
+    int getHitboxWidth() const;
 };
 
 

@@ -9,7 +9,7 @@ GreenPlatform::GreenPlatform(int coordinateX, int coordinateY, QString &imagePat
 }
 QLabel* GreenPlatform::getQLabel(QWidget *parent) const {
     QLabel* label = new QLabel(parent);
-    label->resize(WIDTH, HEIGHT);
+    label->setGeometry(coordinateX,coordinateY,WIDTH, HEIGHT);
     label->setScaledContents(true);
     label->setPixmap(QPixmap(prefixPath + imagePath).copy(0,0,WIDTH,HEIGHT));
     return label;

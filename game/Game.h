@@ -6,11 +6,33 @@
 #define GAME_H
 
 #include "../platforms/GreenPlatform.h"
+#include "../platforms/AbstractPlatform.h"
 #include "../DoubleJumper.h"
+#include "../PhysicsModel.h"
 
+#include <QVector>
+#include <QSoundEffect>
 
 class Game {
-
+    long double difficulcyCoef = 1.0;
+    int defaultPlatformSpawnCount = 5;
+    PhysicsModel physicsModel;
+    DoubleJumper doubleJumper;
+    QVector<AbstractPlatform*> platforms;
+    const int SCREEN_HEIGHT = 850;
+    const int SCREEN_WIDTH = 640;
+    QString soundPrefixPath;
+    QString jumpSoundPath ;
+    QSoundEffect jumpSound;
+    float horizontalSpeed = 0.6;
+    public:
+    Game();
+    void gameInitialize();
+    void gameStateUpdate(int deltaTime, bool leftArrowPressed, bool rightArrowPressed);
+    int getDoubleJumperX() const;
+    int getDoubleJumperY() const;
+    DoubleJumper* getDoubleJumper();
+    QVector<AbstractPlatform*>* getPlatforms();
 };
 
 
