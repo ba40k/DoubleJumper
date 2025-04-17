@@ -4,7 +4,7 @@
 
 #ifndef ABSTRACTPLATFORM_H
 #define ABSTRACTPLATFORM_H
-
+#include <QLabel>
 
 
 class AbstractPlatform {
@@ -13,8 +13,15 @@ class AbstractPlatform {
     const int HEIGHT = 32;
     int coordinateX;
     int coordinateY;
+    QString prefixPath;
+    QString imagePath;
     public:
     AbstractPlatform(const int coordinateX, const int coordinateY) ;
+    int getX() const;
+    int getY() const;
+    int getWidth() const;
+    int getHeight() const;
+    virtual QLabel* getQLabel(QWidget *parent = nullptr) const = 0;
     virtual ~AbstractPlatform() = default;
 };
 

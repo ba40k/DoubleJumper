@@ -4,6 +4,8 @@
 
 #include "gameWidget.h"
 
+#include "../platfroms/GreenPlatform.h"
+
 GameWidget::GameWidget(QWidget *parent) {
     prefixPath = "requirments/Sprites/Doodle Jump/";
     backgoundImagePath = "bck@2x.png";
@@ -14,6 +16,8 @@ GameWidget::GameWidget(QWidget *parent) {
     backgoundLabel->setGeometry(QRect(0, 0, parent->width(), parent->height()));
 
     backgoundLabel->setPixmap(QPixmap(prefixPath + backgoundImagePath));
+
+
 
 
 }
