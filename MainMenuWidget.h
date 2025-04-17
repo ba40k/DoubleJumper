@@ -16,6 +16,7 @@
 #include <QJsonArray>
 #include "PhysicsModel.h"
 #include "DoubleJumper.h"
+#include "gameVisualisation/gameWidget.h"
 
 class MainMenuWidget : public QWidget {
     Q_OBJECT
@@ -68,9 +69,11 @@ class MainMenuWidget : public QWidget {
     int ufoTicks = 0;
 
     QVector<QPair<int,int>> parseJson(const QString& filename) const;
+    void playButtonPressed();
+
     public:
 
-
+    QPushButton* getPlayButton() const;
     void animationRun();
     void stop();
     void play();

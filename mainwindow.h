@@ -9,6 +9,7 @@
 #include <QMenu>
 #include "MainMenuWidget.h"
 #include "gameVisualisation/gameWidget.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
     class MainWindow;
@@ -25,7 +26,8 @@ private:
     QWidget *centralWidget;
     Ui::MainWindow *ui;
     MainMenuWidget *mainMenuWidget;
-
+    GameWidget *gameWidget;
+    void playButtonClicked();
 public:
     MainWindow(QWidget *parent = nullptr);
 };

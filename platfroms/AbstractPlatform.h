@@ -9,8 +9,8 @@
 
 class AbstractPlatform {
     protected:
-    const int width = 120;
-    const int height = 32;
+    const int WIDTH = 120;
+    const int HEIGHT = 32;
     int coordinateX;
     int coordinateY;
     public:

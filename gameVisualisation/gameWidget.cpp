@@ -5,7 +5,7 @@
 #include "gameWidget.h"
 
 GameWidget::GameWidget(QWidget *parent) {
-    prefixPath = "../requirments/Sprites/Doodle Jump";
+    prefixPath = "requirments/Sprites/Doodle Jump/";
     backgoundImagePath = "bck@2x.png";
     backgoundLabel = new QLabel(this);
     resize(parent->width(), parent->height());
@@ -13,6 +13,7 @@ GameWidget::GameWidget(QWidget *parent) {
     backgoundLabel->setScaledContents(true);
     backgoundLabel->setGeometry(QRect(0, 0, parent->width(), parent->height()));
 
-    backgoundLabel->setPixmap(prefixPath + backgoundImagePath);
+    backgoundLabel->setPixmap(QPixmap(prefixPath + backgoundImagePath));
+
 
 }

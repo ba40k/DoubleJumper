@@ -10,6 +10,8 @@
 #include <iostream>
 #include <QSoundEffect>
 
+#include "mainwindow.h"
+
 MainMenuWidget::MainMenuWidget(QWidget *parent) : physicsModel(0.0019),
                                                   doubleJumper(doubleJumperStartX, doubleJumperStartY, 1.0, -1) {
     resize(parent->width(), parent->height());
@@ -64,7 +66,6 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) : physicsModel(0.0019),
     timer = new QTimer(this);
     timer->setSingleShot(true);
     timer->setInterval(deltaTime);
-    connect(timer, &QTimer::timeout, this, &MainMenuWidget::animationRun);
     timer->start();
     currentUfoPosition = 0;
     ufoPositions = parseJson(ufoPosititionsJsonPath);
@@ -73,14 +74,23 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) : physicsModel(0.0019),
     ufoLabel->setScaledContents(true);
     ufoLabel->setGeometry(ufoPositions[0].first,ufoPositions[0].second,ufoWidth, ufoHeight);
     ufoLabel->setPixmap(imagePrefixPath + ufoImagePath);
-}
 
+
+    connect(timer, &QTimer::timeout, this, &MainMenuWidget::animationRun);
+    connect(playButton, &QPushButton::clicked, this, &MainMenuWidget::playButtonPressed);
+}
+void MainMenuWidget::playButtonPressed() {
+    stop();
+
+}
 void MainMenuWidget::stop() {
     stopped = true;
+   timer->stop();
 }
 
 void MainMenuWidget::play() {
     stopped = false;
+    timer->start();
 }
 
 
@@ -174,4 +184,8 @@ QVector<QPair<int, int> > MainMenuWidget::parseJson(const QString &filename) con
     }
 
     return result;
+}
+
+QPushButton *MainMenuWidget::getPlayButton() const {
+    return playButton;
 }
