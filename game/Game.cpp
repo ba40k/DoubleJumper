@@ -16,12 +16,7 @@ void Game::gameInitialize() {
     jumpSound.setSource(QUrl::fromLocalFile(soundPrefixPath + jumpSoundPath));
     int platformsCount = 3 + rand()%defaultPlatformSpawnCount;
     QString path = "game-tiles@2x.png";
-    for(int i = 0; i < platformsCount; i++) {
-        int coordinateX = rand()%SCREEN_WIDTH;
-        int coordinateY = SCREEN_HEIGHT - PLATFORM_HEIGHT - rand()%50; // так как координата зранится как координата левого верхнего угла, сращу надо вытащить на экран, а уже потом немного случайно поднимать
-        AbstractPlatform* platform = new GreenPlatform(coordinateX, coordinateY,path);
-        platforms.push_back(platform);
-    }
+
     AbstractPlatform* startPlatform = new GreenPlatform(260, SCREEN_HEIGHT- PLATFORM_HEIGHT,path);
     platforms.push_back(startPlatform);
 

@@ -33,6 +33,7 @@ class Game {
     QSoundEffect jumpSound;
     float horizontalSpeed = 0.6;
     bool isIntersectAnyPLatfrom();
+
     public:
     Game();
     void gameInitialize();
@@ -41,6 +42,7 @@ class Game {
     int getDoubleJumperY() const;
     DoubleJumper* getDoubleJumper();
     QVector<AbstractPlatform*>* getPlatforms();
+
 };
 
 
