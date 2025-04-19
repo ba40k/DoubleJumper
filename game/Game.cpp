@@ -6,7 +6,8 @@
 
 #include <iostream>
 
-Game::Game() : physicsModel(0.0019), doubleJumper(260,850 - 32 - 115,1.0,-1){
+
+Game::Game() : physicsModel(0.0019), doubleJumper(doubleJumperSpawnX,doubleJumperSpawnY,defaultSpeed,startDirection){
     srand(time(NULL));
 }
 void Game::gameInitialize() {
@@ -17,12 +18,11 @@ void Game::gameInitialize() {
     QString path = "game-tiles@2x.png";
     for(int i = 0; i < platformsCount; i++) {
         int coordinateX = rand()%SCREEN_WIDTH;
-        int coordinateY = SCREEN_HEIGHT - 32 - rand()%50;
-
+        int coordinateY = SCREEN_HEIGHT - PLATFORM_HEIGHT - rand()%50; // так как координата зранится как координата левого верхнего угла, сращу надо вытащить на экран, а уже потом немного случайно поднимать
         AbstractPlatform* platform = new GreenPlatform(coordinateX, coordinateY,path);
         platforms.push_back(platform);
     }
-    AbstractPlatform* startPlatform = new GreenPlatform(260, SCREEN_HEIGHT- 32,path);
+    AbstractPlatform* startPlatform = new GreenPlatform(260, SCREEN_HEIGHT- PLATFORM_HEIGHT,path);
     platforms.push_back(startPlatform);
 
 }
@@ -30,23 +30,17 @@ void Game::gameStateUpdate(int deltaTime, bool leftArrowPressed, bool rightArrow
     long double deltaY = physicsModel.calculateDistace(deltaTime, doubleJumper.getSpeed());
     doubleJumper.setSpeed(physicsModel.calculateSpeed(deltaTime, doubleJumper.getSpeed(), doubleJumper.getDirection()));
     doubleJumper.setCoordinateY(doubleJumper.getCoordinateY() + doubleJumper.getDirection() * deltaY);
-   // std::cout<<doubleJumper.getCoordinateY()<<std::endl;
     if (leftArrowPressed) {
         doubleJumper.setCoordinateX(doubleJumper.getCoordinateX() - deltaTime * horizontalSpeed);
     } else if (rightArrowPressed) {
         doubleJumper.setCoordinateX(doubleJumper.getCoordinateX() + deltaTime * horizontalSpeed);
     }
-    for (auto &platformPointer : platforms) {
-        if ((platformPointer->getY() <= doubleJumper.getCoordinateY() + doubleJumper.getHeight()
-            && doubleJumper.getCoordinateY()+doubleJumper.getHeight() >= platformPointer->getY() + platformPointer->getHeight())
-            && (platformPointer->getX()<=doubleJumper.getCoordinateX() + doubleJumper.getHitboxWidth() &&
-                platformPointer->getX() + platformPointer->getWidth() >= doubleJumper.getCoordinateX() )){
 
-            jumpSound.play();
-            doubleJumper.setSpeed(1.0);
-            break;
-        }
+    if (isIntersectAnyPLatfrom()) {
+        jumpSound.play();
+        doubleJumper.setSpeed(defaultSpeed);
     }
+
 }
 QVector<AbstractPlatform*>* Game::getPlatforms() {
     return &platforms;
@@ -59,4 +53,23 @@ int Game::getDoubleJumperY() const {
 }
 DoubleJumper* Game::getDoubleJumper() {
     return &doubleJumper;
+}
+bool Game::isIntersectAnyPLatfrom() {
+    bool isIntersectVertically = false;
+    bool isIntersectHorizontally = false;
+    for (auto &platformPointer : platforms) {
+        if (platformPointer->getY() <= doubleJumper.getCoordinateY() + doubleJumper.getHeight()&&
+            platformPointer->getY() + platformPointer->getHeight() >= doubleJumper.getCoordinateY() + doubleJumper.getHeight()) {
+            isIntersectVertically = true;
+        }
+        if (platformPointer->getX() <= doubleJumper.getCoordinateX() + doubleJumper.getWidth() &&
+            platformPointer->getX() + platformPointer->getWidth() >= doubleJumper.getCoordinateX()) {
+            isIntersectHorizontally = true;
+        }
+        if (!isIntersectVertically || !isIntersectHorizontally) { // обнуление, чтобы флаги не выставились по отдельности
+            isIntersectVertically = false;
+            isIntersectHorizontally = false;
+        }
+    }
+    return (isIntersectVertically & isIntersectHorizontally);
 }

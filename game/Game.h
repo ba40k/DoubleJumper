@@ -15,6 +15,13 @@
 
 class Game {
     long double difficulcyCoef = 1.0;
+    const int doubleJumperSpawnX = 260;
+    const int doubleJumperSpawnY = 850 - 32 - 115;
+    long double defaultSpeed = 1.0;
+    int startDirection = -1;
+
+    const int PLATFORM_HEIGHT = 32;
+
     int defaultPlatformSpawnCount = 5;
     PhysicsModel physicsModel;
     DoubleJumper doubleJumper;
@@ -25,6 +32,7 @@ class Game {
     QString jumpSoundPath ;
     QSoundEffect jumpSound;
     float horizontalSpeed = 0.6;
+    bool isIntersectAnyPLatfrom();
     public:
     Game();
     void gameInitialize();
