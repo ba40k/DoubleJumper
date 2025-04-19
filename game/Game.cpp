@@ -62,8 +62,8 @@ bool Game::isIntersectAnyPLatfrom() {
             platformPointer->getY() + platformPointer->getHeight() >= doubleJumper.getCoordinateY() + doubleJumper.getHeight()) {
             isIntersectVertically = true;
         }
-        if (platformPointer->getX() <= doubleJumper.getCoordinateX() + doubleJumper.getWidth() &&
-            platformPointer->getX() + platformPointer->getWidth() >= doubleJumper.getCoordinateX()) {
+        if (platformPointer->getX() <=doubleJumper.getRightestHitboxPoint() &&
+            platformPointer->getX() + platformPointer->getWidth() >= doubleJumper.getLeftestHitboxPoint()) {
             isIntersectHorizontally = true;
         }
         if (!isIntersectVertically || !isIntersectHorizontally) { // обнуление, чтобы флаги не выставились по отдельности

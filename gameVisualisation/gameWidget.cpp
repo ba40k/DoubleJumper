@@ -33,7 +33,7 @@ GameWidget::GameWidget(QWidget *parent) {
     timer->setSingleShot(true);
     timer->start();
 
-    doubleJumperLabel = game.getDoubleJumper()->getLeftOrientedLabel(this);
+    doubleJumperLabel = game.getDoubleJumper()->getLabel(this);
 
     connect(timer, &QTimer::timeout ,this, &GameWidget::update);
     stop();
@@ -41,7 +41,7 @@ GameWidget::GameWidget(QWidget *parent) {
 void GameWidget::update() {
 
     game.gameStateUpdate(deltaTime,leftArrowPressed,rightArrowPressed);
-
+    doubleJumperLabel->setPixmap(game.getDoubleJumper()->getLabel(this)->pixmap());
     doubleJumperLabel->move(game.getDoubleJumperX(), game.getDoubleJumperY());
 
 
@@ -60,10 +60,18 @@ void GameWidget::keyPressEvent(QKeyEvent *event) {
 
     switch (event->key()) {
         case Qt::Key_Left:
+            if (game.getDoubleJumper()->getOrintation() == 1) {
+                game.getDoubleJumper()->changeOrintation();
+            }
             leftArrowPressed = true;
+
+
         break;
         case Qt::Key_Right:
             rightArrowPressed = true;
+        if (game.getDoubleJumper()->getOrintation() == 0) {
+            game.getDoubleJumper()->changeOrintation();
+        }
         break;
 
         default:

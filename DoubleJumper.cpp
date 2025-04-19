@@ -37,20 +37,19 @@ void DoubleJumper::setSpeed(long double speed) {
 void DoubleJumper::changeDirection() {
     direction*=-1;
 }
-QLabel *DoubleJumper::getLeftOrientedLabel(QWidget *parent) {
+QLabel *DoubleJumper::getLabel(QWidget *parent) {
     QLabel *label = new QLabel(parent);
     label->setGeometry(coordinateX,coordinateY,WIDTH,HEIGHT);
     label->setScaledContents(true);
-    label->setPixmap(QPixmap(prefixPath + leftOrientedSpritePath));
-
+    if (orintation == false) {
+        label->setPixmap(QPixmap(prefixPath + leftOrientedSpritePath));
+    } else {
+        label->setPixmap(QPixmap(prefixPath + rightOrientedSpritePath));
+    }
     return label;
 }
-QLabel *DoubleJumper::getRightOrientedLabel(QWidget *parent) {
-    QLabel *label = new QLabel(parent);
-    label->setGeometry(coordinateX,coordinateY,WIDTH,HEIGHT);
-    label->setPixmap(QPixmap(prefixPath + rightOrientedSpritePath));
-    label->setScaledContents(true);
-    return label;
+void DoubleJumper::changeOrintation() {
+    orintation = (1 ^ orintation);
 }
 int DoubleJumper::getHeight() const {
     return HEIGHT;
@@ -58,7 +57,18 @@ int DoubleJumper::getHeight() const {
 int DoubleJumper::getWidth() const {
     return WIDTH;
 }
-int DoubleJumper::getHitboxWidth() const {
-    return hitBoxWidth;
+bool DoubleJumper::getOrintation() const {
+    return orintation;
 }
-
+int DoubleJumper::getLeftestHitboxPoint() {
+    if (orintation == false) {
+        return coordinateX + shiftFromBack;
+    }
+    return coordinateX + shiftFromFront;
+}
+int DoubleJumper::getRightestHitboxPoint() {
+    if (orintation == false) {
+        return coordinateX + WIDTH - shiftFromBack;
+    }
+    return coordinateX + WIDTH - shiftFromFront;
+}

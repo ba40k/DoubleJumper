@@ -11,30 +11,33 @@
 class DoubleJumper {
     const int WIDTH = 124;
     const int HEIGHT = 120;
-     QString prefixPath ;
+    const int shiftFromBack=120 - 83; // расстояние от спины до ножки
+    const int shiftFromFront = 30;  // расстояние от хоботка до ножки
+    QString prefixPath ;
     QString leftOrientedSpritePath ;
     QString rightOrientedSpritePath;
     int coordinateX;
     int coordinateY;
-    const int hitBoxWidth = 57;
     long double speed;
     int8_t direction;
-
+    bool orintation = false; // 0 - лево, 1 - право
     public:
     DoubleJumper(int coordinateX, int coordinateY, long double speed, long double direction);
     void setSpeed(long double speed);
     void changeDirection();
     void setCoordinateX(int coordinateX);
     void setCoordinateY(int coordinateY);
-     QLabel* getLeftOrientedLabel(QWidget *parent);
-     QLabel* getRightOrientedLabel(QWidget *parent);
+    QLabel* getLabel(QWidget *parent);
     long double getSpeed() const;
     long double getDirection() const;
     int getCoordinateX() const;
     int getCoordinateY() const;
     int getHeight() const ;
     int getWidth() const;
-    int getHitboxWidth() const;
+    void changeOrintation();
+    bool getOrintation() const;
+    int getLeftestHitboxPoint();
+    int getRightestHitboxPoint();
 };
 
 
