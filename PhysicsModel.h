@@ -10,6 +10,7 @@
 class PhysicsModel {
     long double gravitation;
     public:
+    static int getByModulo(int x, int mod);// вспоминаем, что в плюсах кривой модкль для отрицательных чисел
     PhysicsModel(long double gravitation);
     long double getGravitation() const;
     long double calculateDistace(int time, long double speed);

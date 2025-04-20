@@ -12,7 +12,7 @@
 
 #include <QVector>
 #include <QSoundEffect>
-
+#include "Screen.h"
 class Game {
     long double difficulcyCoef = 1.0;
     const int doubleJumperSpawnX = 260;
@@ -25,7 +25,7 @@ class Game {
     int defaultPlatformSpawnCount = 5;
     PhysicsModel physicsModel;
     DoubleJumper doubleJumper;
-    QVector<AbstractPlatform*> platforms;
+    Screen* firstScreen;
     const int SCREEN_HEIGHT = 850;
     const int SCREEN_WIDTH = 640;
     QString soundPrefixPath;

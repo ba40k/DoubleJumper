@@ -3,6 +3,7 @@
 //
 
 #include "PhysicsModel.h"
+#include "cmath"
 PhysicsModel::PhysicsModel(long double gravitation) {
     this->gravitation = gravitation;
 }
@@ -15,5 +16,6 @@ long double PhysicsModel::calculateSpeed(int time, long double speed, long doubl
 long double PhysicsModel::getGravitation() const {
     return gravitation;
 }
-
-
+int PhysicsModel::getByModulo(int x, int mod) {
+    return (x + (abs(x)/mod+1)*(mod))%mod;
+}

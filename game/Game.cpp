@@ -11,6 +11,7 @@ Game::Game() : physicsModel(0.0019), doubleJumper(doubleJumperSpawnX,doubleJumpe
     srand(time(NULL));
 }
 void Game::gameInitialize() {
+
     soundPrefixPath = "requirments/Doodle Jump SFX/";
     jumpSoundPath = "jump.wav";
     jumpSound.setSource(QUrl::fromLocalFile(soundPrefixPath + jumpSoundPath));
@@ -18,10 +19,14 @@ void Game::gameInitialize() {
     QString path = "game-tiles@2x.png";
 
     AbstractPlatform* startPlatform = new GreenPlatform(260, SCREEN_HEIGHT- PLATFORM_HEIGHT,path);
+    QVector <AbstractPlatform*> platforms;
+    platforms.push_back(startPlatform);
+    firstScreen = new Screen(0,850,platforms,100.0);
     platforms.push_back(startPlatform);
 
 }
 void Game::gameStateUpdate(int deltaTime, bool leftArrowPressed, bool rightArrowPressed) {
+
     long double deltaY = physicsModel.calculateDistace(deltaTime, doubleJumper.getSpeed());
     doubleJumper.setSpeed(physicsModel.calculateSpeed(deltaTime, doubleJumper.getSpeed(), doubleJumper.getDirection()));
     doubleJumper.setCoordinateY(doubleJumper.getCoordinateY() + doubleJumper.getDirection() * deltaY);
@@ -30,15 +35,20 @@ void Game::gameStateUpdate(int deltaTime, bool leftArrowPressed, bool rightArrow
     } else if (rightArrowPressed) {
         doubleJumper.setCoordinateX(doubleJumper.getCoordinateX() + deltaTime * horizontalSpeed);
     }
-
-    if (isIntersectAnyPLatfrom()) {
+    if (doubleJumper.getRightestHitboxPoint() < 0) {
+        doubleJumper.setCoordinateX(SCREEN_WIDTH - 120);
+    }
+    if (doubleJumper.getLeftestHitboxPoint() > SCREEN_WIDTH ) {
+        doubleJumper.setCoordinateX(0);
+    }
+    if (isIntersectAnyPLatfrom() && doubleJumper.getSpeed()<=0) { // делаем отскок только тогда, когда он паадет
         jumpSound.play();
         doubleJumper.setSpeed(defaultSpeed);
     }
 
 }
 QVector<AbstractPlatform*>* Game::getPlatforms() {
-    return &platforms;
+    return firstScreen->getPlatforms();
 }
 int Game::getDoubleJumperX() const {
     return doubleJumper.getCoordinateX();
@@ -52,7 +62,8 @@ DoubleJumper* Game::getDoubleJumper() {
 bool Game::isIntersectAnyPLatfrom() {
     bool isIntersectVertically = false;
     bool isIntersectHorizontally = false;
-    for (auto &platformPointer : platforms) {
+
+    for (auto &platformPointer : *firstScreen->getPlatforms()) {
         if (platformPointer->getY() <= doubleJumper.getCoordinateY() + doubleJumper.getHeight()&&
             platformPointer->getY() + platformPointer->getHeight() >= doubleJumper.getCoordinateY() + doubleJumper.getHeight()) {
             isIntersectVertically = true;

@@ -28,6 +28,7 @@ target_link_libraries(DoubleJumper
         Qt::Widgets stdc++
         Qt::Multimedia
         Qt::MultimediaWidgets
+        m
 
 )
 
