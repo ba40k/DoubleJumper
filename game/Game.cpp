@@ -21,7 +21,7 @@ void Game::gameInitialize() {
     AbstractPlatform* startPlatform = new GreenPlatform(260, SCREEN_HEIGHT- PLATFORM_HEIGHT,path);
     QVector <AbstractPlatform*> platforms;
     platforms.push_back(startPlatform);
-    firstScreen = new Screen(0,850,platforms,100.0);
+    firstScreen = new Screen(0,850,platforms,1.0);
     platforms.push_back(startPlatform);
 
 }

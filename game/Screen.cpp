@@ -4,6 +4,7 @@
 
 #include "Screen.h"
 #include <cmath>
+#include <iostream>
 
 #include "../PhysicsModel.h"
 
@@ -21,23 +22,29 @@ QVector<AbstractPlatform*>* Screen::getPlatforms() {
 void Screen::generatePlatforms() {
     bool upperBoundAchieved = false;
     while (!upperBoundAchieved) {
-        int shiftX = rand() % accesableDistanceX + WIDTH;
-        int shiftY = rand() % accesableDistanceY;
-        int shiftSign = 1;
-        rand()%2==0?shiftSign=-1:1;
-        int newX = PhysicsModel::getByModulo(platforms.back()->getX() + shiftSign*shiftX,WIDTH);
-        int newY = platforms.back()->getY() - shiftY;
-        if ( intersectPrevious(newX,newY)) {
-            continue; // перегенерируем
-        }
+        int numberOfAdditionalPlatforms = std::max(1.0,rand()%5 * difficultyLevel); // так как по логике(весьма странной) чем выше число сожности тем НИЖЕ сложность, то и количество спавнящихся платформ тоже уменшьается
+        //std::cout << numberOfAdditionalPlatforms << std::endl;
+        // теперь от уровня сложности завсит количество платформ на уровне
+        AbstractPlatform *parentPlatform = platforms.back();
+        for (int i = 0; i < numberOfAdditionalPlatforms; i++) {
+            int shiftX = rand() % accesableDistanceX ;
+            int shiftY = rand() % accesableDistanceY;
+            shiftY = std::min(accesableDistanceY, static_cast<int>(shiftY + (1.0 - difficultyLevel)*50)); // чем выше сложность тем большее число будет тут добавляться
+            int shiftSign = 1;
+            rand()%2==0?shiftSign=-1:1;
+            int newX = PhysicsModel::getByModulo(platforms.back()->getX() + shiftSign*shiftX,WIDTH);
+            int newY = parentPlatform->getY() - shiftY;
+            if ( intersectPrevious(newX,newY)) {
+                continue; // перегенерируем
+            }
 
-        if (outOfBoundY(newY)) {
-            upperBoundAchieved = true;
-            break;
+            if (outOfBoundY(newY)) {
+                upperBoundAchieved = true;
+                break;
+            }
+            AbstractPlatform* platform = new GreenPlatform(newX, newY,imagePath);
+            platforms.push_back(platform);
         }
-
-        AbstractPlatform* platform = new GreenPlatform(newX, newY,imagePath);
-        platforms.push_back(platform);
     }
 }
 bool Screen::outOfBoundX(int x) {

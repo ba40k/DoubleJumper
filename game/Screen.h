@@ -12,7 +12,7 @@ class Screen {
     const int HEIGHT = 850;
     const int WIDTH = 640-120;
     const int accesableDistanceX  = 200;
-    const int accesableDistanceY  = 200;
+    const int accesableDistanceY  = 175;
     int lowerBound;
     int upperBound;
     double difficultyLevel;
