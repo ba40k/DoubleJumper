@@ -11,7 +11,7 @@ Game::Game() : physicsModel(0.0019), doubleJumper(doubleJumperSpawnX,doubleJumpe
     srand(time(NULL));
 }
 void Game::gameInitialize() {
-
+    lastDoubleJumperMinCoordinate = getMinDoubleJumperCoordinate();
     soundPrefixPath = "requirments/Doodle Jump SFX/";
     jumpSoundPath = "jump.wav";
     jumpSound.setSource(QUrl::fromLocalFile(soundPrefixPath + jumpSoundPath));
@@ -54,14 +54,16 @@ void Game::gameStateUpdate(int deltaTime, bool leftArrowPressed, bool rightArrow
     }
 
     if (abs(minDoubleJumperCoordinate - firstScreen->getHighestPlatformCoordinate()) < 500) {
-       // difficulcyCoef*=0.9;
-       // firstScreen->setDifficulty(difficulcyCoef);
+        difficulcyCoef*=0.99;
+        firstScreen->setDifficulty(difficulcyCoef);
         firstScreen->generatePlatforms();
     }
 
+    minDoubleJumperCoordinate = std::min(minDoubleJumperCoordinate, doubleJumper.getCoordinateY());
 
 
-     getMinDoubleJumperCoordinate();
+
+
   //  firstScreen->deletePlatformsLowerThan(minDoubleJumperCoordinate,SCREEN_HEIGHT);
 }
 std::deque<AbstractPlatform*>* Game::getPlatforms() {
@@ -82,7 +84,7 @@ bool Game::isIntersectAnyPLatfrom() {
 
     for (auto &platformPointer : *firstScreen->getPlatforms()) {
         if (platformPointer->getY() <= doubleJumper.getCoordinateY() + doubleJumper.getHeight()&&
-            platformPointer->getY() + platformPointer->getHeight() >= doubleJumper.getCoordinateY() + doubleJumper.getHeight()) {
+            platformPointer->getY()  + platformPointer->getHeight() >= doubleJumper.getCoordinateY() + doubleJumper.getHeight()) {
             isIntersectVertically = true;
         }
         if (platformPointer->getX() <=doubleJumper.getRightestHitboxPoint() &&
@@ -99,6 +101,8 @@ bool Game::isIntersectAnyPLatfrom() {
 int Game::getMinDoubleJumperCoordinate() {
     return minDoubleJumperCoordinate;
 }
-int Game::getFOV() {
-    return fieldOfView;
+int Game::getShift() const {
+    int shiftY = abs(lastDoubleJumperMinCoordinate - minDoubleJumperCoordinate);
+    return shiftY;
 }
+
