@@ -53,8 +53,6 @@ void GameWidget::update() {
     }
     platforms.clear();
     platforms.resize(gamePlatforms->size());
-
-    std::cout<<shift<<std::endl;
     for (int i = 0; i < gamePlatforms->size(); i++) {
         platforms[i] = GreenPlatform((*gamePlatforms)[i]->getX(),   (*gamePlatforms)[i]->getY() + shift,imagePath).getQLabel(this);
         platforms[i]->show();

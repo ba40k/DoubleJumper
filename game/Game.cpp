@@ -64,7 +64,7 @@ void Game::gameStateUpdate(int deltaTime, bool leftArrowPressed, bool rightArrow
 
 
 
-  //  firstScreen->deletePlatformsLowerThan(minDoubleJumperCoordinate,SCREEN_HEIGHT);
+    firstScreen->deletePlatformsLowerThan(minDoubleJumperCoordinate,SCREEN_HEIGHT);
 }
 std::deque<AbstractPlatform*>* Game::getPlatforms() {
     return firstScreen->getPlatforms();
