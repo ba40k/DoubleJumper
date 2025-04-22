@@ -8,20 +8,19 @@
 
 #include "../PhysicsModel.h"
 
-Screen::Screen(int lowerBound, int upperBound, QVector<AbstractPlatform*> &platforms, double difficultyLevel) {
+Screen::Screen(int lowerBound, int upperBound, std::deque<AbstractPlatform*> &platforms, double difficultyLevel) {
     srand(time(NULL));
     this->lowerBound = lowerBound;
-    this->upperBound = upperBound;
     this->platforms = platforms;
     this->difficultyLevel = difficultyLevel;
     generatePlatforms();
 }
-QVector<AbstractPlatform*>* Screen::getPlatforms() {
+std::deque<AbstractPlatform*>* Screen::getPlatforms() {
     return &platforms;
 }
 void Screen::generatePlatforms() {
-    bool upperBoundAchieved = false;
-    while (!upperBoundAchieved) {
+   int count = 15;
+    while (count--) {
         int numberOfAdditionalPlatforms = std::max(1.0,rand()%5 * difficultyLevel); // так как по логике(весьма странной) чем выше число сожности тем НИЖЕ сложность, то и количество спавнящихся платформ тоже уменшьается
         //std::cout << numberOfAdditionalPlatforms << std::endl;
         // теперь от уровня сложности завсит количество платформ на уровне
@@ -38,10 +37,7 @@ void Screen::generatePlatforms() {
                 continue; // перегенерируем
             }
 
-            if (outOfBoundY(newY)) {
-                upperBoundAchieved = true;
-                break;
-            }
+
             AbstractPlatform* platform = new GreenPlatform(newX, newY,imagePath);
             platforms.push_back(platform);
         }
@@ -75,3 +71,18 @@ bool Screen::intersectPrevious(int x,int y) {
     }
     return false;
 }
+int Screen::getHighestPlatformCoordinate() const {
+    return platforms.back()->getY();
+}
+void Screen::setDifficulty(double dif) {
+    difficultyLevel = dif;
+}
+void Screen::deletePlatformsLowerThan(int y, int dist) {
+    int index = 0;
+    while (abs(platforms[index]->getY() - y) > dist) {
+        delete platforms[index];
+        platforms.pop_front();
+    }
+}
+
+

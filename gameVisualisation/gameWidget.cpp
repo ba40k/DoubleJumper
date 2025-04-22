@@ -23,15 +23,16 @@ GameWidget::GameWidget(QWidget *parent) {
 
     auto gamePlatforms = game.getPlatforms();
     platforms.resize(gamePlatforms->size());
+
     QString  imagePath = "game-tiles@2x.png";
     for (int i = 0; i < gamePlatforms->size(); i++) {
      //  std::cout<<(*gamePlatforms)[i]->getX()<<' '<< (*gamePlatforms)[i]->getY()<<'\n';
-        platforms[i] = GreenPlatform((*gamePlatforms)[i]->getX(), (*gamePlatforms)[i]->getY(),imagePath).getQLabel(this);
+        platforms[i] = GreenPlatform((*gamePlatforms)[i]->getX(), (  (*gamePlatforms)[i]->getY()) ,imagePath).getQLabel(this);
     }
     timer = new QTimer(this);
     timer->setInterval(deltaTime);
-    timer->setSingleShot(true);
-    timer->start();
+    timer->setSingleShot(false);
+
 
     doubleJumperLabel = game.getDoubleJumper()->getLabel(this);
 
@@ -40,13 +41,25 @@ GameWidget::GameWidget(QWidget *parent) {
 }
 void GameWidget::update() {
 
+
     game.gameStateUpdate(deltaTime,leftArrowPressed,rightArrowPressed);
     doubleJumperLabel->setPixmap(game.getDoubleJumper()->getLabel(this)->pixmap());
     doubleJumperLabel->move(game.getDoubleJumperX(), game.getDoubleJumperY());
+     auto gamePlatforms = game.getPlatforms();
+    QString imagePath = "game-tiles@2x.png";
+  //  std::cout<<platforms.size()<<'\n';
+    for (int i =0 ;i<platforms.size(); i++) {
+        delete platforms[i];
+    }
+    platforms.clear();
+    platforms.resize(gamePlatforms->size());
+    int pos = game.getMinDoubleJumperCoordinate();
+    int
+    for (int i = 0; i < gamePlatforms->size(); i++) {
+        platforms[i] = GreenPlatform((*gamePlatforms)[i]->getX(), pos -  (*gamePlatforms)[i]->getY() ,imagePath).getQLabel(this);
+        platforms[i]->show();
+    }
 
-
-    timer->setSingleShot(true);
-    timer->start();
 }
 void GameWidget::stop() {
     timer->stop();

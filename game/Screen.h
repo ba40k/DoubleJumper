@@ -6,7 +6,7 @@
 #define SCREEN_H
 
 #include "../platforms/GreenPlatform.h"
-#include <QVector>
+#include <deque>
 class Screen {
     QString imagePath = "game-tile@2x.png";
     const int HEIGHT = 850;
@@ -14,18 +14,21 @@ class Screen {
     const int accesableDistanceX  = 200;
     const int accesableDistanceY  = 175;
     int lowerBound;
-    int upperBound;
     double difficultyLevel;
-    QVector<AbstractPlatform*> platforms;
+    std::deque<AbstractPlatform*> platforms;
     bool outOfBoundX(int x);
     bool outOfBoundY(int y);
-    void generatePlatforms();
+
     bool intersectPrevious(int x,int y);
 
 public:
     public:
-    Screen(int lowerBound, int upperBound, QVector<AbstractPlatform*> &platforms, double difficultyLevel);
-    QVector<AbstractPlatform*>* getPlatforms();
+    Screen(int lowerBound, int upperBound, std::deque<AbstractPlatform*> &platforms, double difficultyLevel);
+    std::deque<AbstractPlatform*>* getPlatforms();
+    int getHighestPlatformCoordinate() const;
+    void setDifficulty(double dif);
+    void generatePlatforms();
+    void deletePlatformsLowerThan(int y, int dist);
     ~Screen();
 };
 

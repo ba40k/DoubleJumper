@@ -21,5 +21,6 @@ int AbstractPlatform::getHeight() const {
 int AbstractPlatform::getWidth() const {
     return WIDTH;
 }
-
-
+void AbstractPlatform::setY(int y) {
+    this->coordinateY = y;
+}

@@ -16,6 +16,9 @@
 class Game {
     long double difficulcyCoef = 1.0;
     const int doubleJumperSpawnX = 260;
+    int minDoubleJumperCoordinate=850;
+    int lastDoubleJumperMinCoordinate=850;
+    int fieldOfView = 400;
     const int doubleJumperSpawnY = 850 - 32 - 115;
     long double defaultSpeed = 1.0;
     int startDirection = -1;
@@ -40,8 +43,10 @@ class Game {
     void gameStateUpdate(int deltaTime, bool leftArrowPressed, bool rightArrowPressed);
     int getDoubleJumperX() const;
     int getDoubleJumperY() const;
+    int getFOV();
     DoubleJumper* getDoubleJumper();
-    QVector<AbstractPlatform*>* getPlatforms();
+    int getMinDoubleJumperCoordinate();
+    std::deque<AbstractPlatform*>* getPlatforms();
 
 };
 

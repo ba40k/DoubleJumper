@@ -19,7 +19,7 @@ void Game::gameInitialize() {
     QString path = "game-tiles@2x.png";
 
     AbstractPlatform* startPlatform = new GreenPlatform(260, SCREEN_HEIGHT- PLATFORM_HEIGHT,path);
-    QVector <AbstractPlatform*> platforms;
+    std::deque<AbstractPlatform*> platforms;
     platforms.push_back(startPlatform);
     firstScreen = new Screen(0,850,platforms,1.0);
     platforms.push_back(startPlatform);
@@ -27,7 +27,14 @@ void Game::gameInitialize() {
 }
 void Game::gameStateUpdate(int deltaTime, bool leftArrowPressed, bool rightArrowPressed) {
 
+
+
+
+
     long double deltaY = physicsModel.calculateDistace(deltaTime, doubleJumper.getSpeed());
+
+
+
     doubleJumper.setSpeed(physicsModel.calculateSpeed(deltaTime, doubleJumper.getSpeed(), doubleJumper.getDirection()));
     doubleJumper.setCoordinateY(doubleJumper.getCoordinateY() + doubleJumper.getDirection() * deltaY);
     if (leftArrowPressed) {
@@ -46,8 +53,18 @@ void Game::gameStateUpdate(int deltaTime, bool leftArrowPressed, bool rightArrow
         doubleJumper.setSpeed(defaultSpeed);
     }
 
+    if (abs(minDoubleJumperCoordinate - firstScreen->getHighestPlatformCoordinate()) < 500) {
+       // difficulcyCoef*=0.9;
+       // firstScreen->setDifficulty(difficulcyCoef);
+        firstScreen->generatePlatforms();
+    }
+
+
+
+     getMinDoubleJumperCoordinate();
+  //  firstScreen->deletePlatformsLowerThan(minDoubleJumperCoordinate,SCREEN_HEIGHT);
 }
-QVector<AbstractPlatform*>* Game::getPlatforms() {
+std::deque<AbstractPlatform*>* Game::getPlatforms() {
     return firstScreen->getPlatforms();
 }
 int Game::getDoubleJumperX() const {
@@ -78,4 +95,10 @@ bool Game::isIntersectAnyPLatfrom() {
         }
     }
     return (isIntersectVertically & isIntersectHorizontally);
+}
+int Game::getMinDoubleJumperCoordinate() {
+    return minDoubleJumperCoordinate;
+}
+int Game::getFOV() {
+    return fieldOfView;
 }

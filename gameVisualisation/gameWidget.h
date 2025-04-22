@@ -14,6 +14,9 @@ class GameWidget : public QWidget{
     QString backgoundImagePath;
     QLabel *backgoundLabel;
     Game game;
+    int showUpperDoubleJumper = 500;
+    int showLowerDoubleJumper = 350;
+
     QLabel* doubleJumperLabel;
     QVector<QLabel*> platforms;
     const int deltaTime = 10;

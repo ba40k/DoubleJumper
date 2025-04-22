@@ -16,6 +16,7 @@ class AbstractPlatform {
     QString prefixPath;
     QString imagePath;
     public:
+    void setY(int y);
     AbstractPlatform(const int coordinateX, const int coordinateY) ;
     int getX() const;
     int getY() const;
