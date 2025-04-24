@@ -38,6 +38,5 @@ int AbstractPlatform::getWidth() const {
 void AbstractPlatform::setY(int y) {
     this->coordinateY = y;
 }
-void AbstractPlatform::setBroken() {
+void AbstractPlatform::setBroken() {}
 
-}

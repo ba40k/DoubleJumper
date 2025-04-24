@@ -57,7 +57,11 @@ void GameWidget::update() {
         } else {
             platforms[i] = GreenPlatform((*gamePlatforms)[i]->getX(),   (*gamePlatforms)[i]->getY() + shift,imagePath).getQLabel(this);
         }
-        platforms[i]->show();
+        if ((dynamic_cast<BrownPlatform*>((*gamePlatforms)[i]) && !dynamic_cast<BrownPlatform*>((*gamePlatforms)[i])->isBroken())
+            || dynamic_cast<GreenPlatform*>((*gamePlatforms)[i])) {
+            platforms[i]->show();
+        }
+
 
     }
     doubleJumperLabel->setPixmap(game.getDoubleJumper()->getLabel(this)->pixmap());

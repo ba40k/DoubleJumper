@@ -85,10 +85,13 @@ bool Game::isIntersectAnyPLatfrom() {
             isIntersectVertically = false;
             isIntersectHorizontally = false;
         }
-        bool t =dynamic_cast<BrownPlatform*>(platformPointer);
-        if (isIntersectVertically && isIntersectHorizontally && dynamic_cast<BrownPlatform*>(platformPointer)) {
+        if (isIntersectVertically && isIntersectHorizontally && dynamic_cast<BrownPlatform*>(platformPointer) &&
+            doubleJumper.getSpeed()<=0) {
             platformPointer->setBroken();
-            //return false;
+            return false;
+        }
+        if (isIntersectVertically && isIntersectHorizontally && dynamic_cast<GreenPlatform*>(platformPointer)) {
+            return true;
         }
     }
     return (isIntersectVertically & isIntersectHorizontally);

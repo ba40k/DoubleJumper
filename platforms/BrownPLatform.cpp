@@ -17,3 +17,6 @@ QLabel* BrownPlatform::getQLabel(QWidget *parent) const {
 void BrownPlatform::setBroken() {
     broken = true;
 }
+bool BrownPlatform::isBroken() {
+    return broken;
+}

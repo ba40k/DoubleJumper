@@ -14,6 +14,7 @@ class BrownPlatform : public AbstractPlatform{
     BrownPlatform(int coordinateX, int coordinateY, QString &imagePath);
     QLabel* getQLabel(QWidget *parent = nullptr) const override;
     void setBroken() override;
+    bool isBroken();
 };
 
 
