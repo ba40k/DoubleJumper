@@ -24,15 +24,7 @@ void Game::gameInitialize() {
 
 }
 void Game::gameStateUpdate(int deltaTime, bool leftArrowPressed, bool rightArrowPressed) {
-
-
-
-
-
     long double deltaY = physicsModel.calculateDistace(deltaTime, doubleJumper.getSpeed());
-
-
-
     doubleJumper.setSpeed(physicsModel.calculateSpeed(deltaTime, doubleJumper.getSpeed(), doubleJumper.getDirection()));
     doubleJumper.setCoordinateY(doubleJumper.getCoordinateY() + doubleJumper.getDirection() * deltaY);
     if (leftArrowPressed) {
@@ -92,6 +84,11 @@ bool Game::isIntersectAnyPLatfrom() {
         if (!isIntersectVertically || !isIntersectHorizontally) { // обнуление, чтобы флаги не выставились по отдельности
             isIntersectVertically = false;
             isIntersectHorizontally = false;
+        }
+        bool t =dynamic_cast<BrownPlatform*>(platformPointer);
+        if (isIntersectVertically && isIntersectHorizontally && dynamic_cast<BrownPlatform*>(platformPointer)) {
+            platformPointer->setBroken();
+            //return false;
         }
     }
     return (isIntersectVertically & isIntersectHorizontally);

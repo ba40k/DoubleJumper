@@ -17,7 +17,11 @@ class AbstractPlatform {
     QString imagePath;
     public:
     void setY(int y);
+    virtual void setBroken();
     AbstractPlatform(const int coordinateX, const int coordinateY) ;
+    AbstractPlatform(const int coordinateX, const int coordinateY, const int width) ;
+    AbstractPlatform(const int coordinateX, const int coordinateY, const int width, const int height) ;
+
     int getX() const;
     int getY() const;
     int getWidth() const;

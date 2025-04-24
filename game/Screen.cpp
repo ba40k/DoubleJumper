@@ -26,8 +26,8 @@ void Screen::generatePlatforms() {
         // теперь от уровня сложности завсит количество платформ на уровне
         AbstractPlatform *parentPlatform = platforms.back();
         for (int i = 0; i < numberOfAdditionalPlatforms; i++) {
-            int shiftX = rand() % accesableDistanceX ;
-            int shiftY = rand() % accesableDistanceY;
+            int shiftX = rand() % accesableDistanceX +50;
+            int shiftY = rand() % accesableDistanceY + 50;
             shiftY = std::min(accesableDistanceY, static_cast<int>(shiftY + (1.0 - difficultyLevel)*50)); // чем выше сложность тем большее число будет тут добавляться
             int shiftSign = 1;
             rand()%2==0?shiftSign=-1:1;
@@ -36,9 +36,12 @@ void Screen::generatePlatforms() {
             if ( intersectPrevious(newX,newY)) {
                 continue; // перегенерируем
             }
-
-
-            AbstractPlatform* platform = new GreenPlatform(newX, newY,imagePath);
+            AbstractPlatform* platform;
+            if (rand()%100 < brownPlatformSpawnProbability) {
+                platform = new BrownPlatform(newX, newY,imagePath);
+            } else {
+                platform = new GreenPlatform(newX, newY,imagePath);
+            }
             platforms.push_back(platform);
         }
     }

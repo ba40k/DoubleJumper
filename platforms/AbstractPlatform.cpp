@@ -9,6 +9,20 @@ AbstractPlatform::AbstractPlatform(const int coordinateX, const int coordinateY)
     this->coordinateY = coordinateY;
     prefixPath = "requirments/Sprites/Doodle Jump/";
 }
+AbstractPlatform::AbstractPlatform(const int coordinateX, const int coordinateY, const int width) : WIDTH(width) {
+    this->coordinateX = coordinateX;
+    this->coordinateY = coordinateY;
+
+    prefixPath = "requirments/Sprites/Doodle Jump/";
+}
+
+AbstractPlatform::AbstractPlatform(const int coordinateX, const int coordinateY, const int width, const int height) : WIDTH(width),HEIGHT(height) {
+    this->coordinateX = coordinateX;
+    this->coordinateY = coordinateY;
+    prefixPath = "requirments/Sprites/Doodle Jump/";
+}
+
+
 int AbstractPlatform::getX() const {
     return coordinateX;
 }
@@ -23,4 +37,7 @@ int AbstractPlatform::getWidth() const {
 }
 void AbstractPlatform::setY(int y) {
     this->coordinateY = y;
+}
+void AbstractPlatform::setBroken() {
+
 }

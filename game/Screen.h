@@ -7,12 +7,14 @@
 
 #include "../platforms/GreenPlatform.h"
 #include <deque>
+#include "../platforms/BrownPLatform.h"
 class Screen {
     QString imagePath = "game-tile@2x.png";
     const int HEIGHT = 850;
     const int WIDTH = 640-120;
     const int accesableDistanceX  = 200;
     const int accesableDistanceY  = 200;
+    const int brownPlatformSpawnProbability = 15;
     int lowerBound;
     double difficultyLevel;
     std::deque<AbstractPlatform*> platforms;

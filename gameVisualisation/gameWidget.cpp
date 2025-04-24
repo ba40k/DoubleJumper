@@ -26,7 +26,10 @@ GameWidget::GameWidget(QWidget *parent) {
 
 
     for (int i = 0; i < gamePlatforms->size(); i++) {
-
+        if (dynamic_cast<BrownPlatform*>((*gamePlatforms)[i])) {
+            platforms[i] = BrownPlatform((*gamePlatforms)[i]->getX(), (  (*gamePlatforms)[i]->getY()) ,imagePath).getQLabel(this);
+            continue;
+        }
         platforms[i] = GreenPlatform((*gamePlatforms)[i]->getX(), (  (*gamePlatforms)[i]->getY()) ,imagePath).getQLabel(this);
     }
     timer = new QTimer(this);
@@ -49,7 +52,11 @@ void GameWidget::update() {
     platforms.clear();
     platforms.resize(gamePlatforms->size());
     for (int i = 0; i < gamePlatforms->size(); i++) {
-        platforms[i] = GreenPlatform((*gamePlatforms)[i]->getX(),   (*gamePlatforms)[i]->getY() + shift,imagePath).getQLabel(this);
+        if (dynamic_cast<BrownPlatform*>((*gamePlatforms)[i])) {
+            platforms[i] = BrownPlatform((*gamePlatforms)[i]->getX(),   (*gamePlatforms)[i]->getY() + shift,imagePath).getQLabel(this);
+        } else {
+            platforms[i] = GreenPlatform((*gamePlatforms)[i]->getX(),   (*gamePlatforms)[i]->getY() + shift,imagePath).getQLabel(this);
+        }
         platforms[i]->show();
 
     }
