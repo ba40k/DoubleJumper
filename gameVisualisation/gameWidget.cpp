@@ -57,7 +57,7 @@ void GameWidget::update() {
         } else {
             platforms[i] = GreenPlatform((*gamePlatforms)[i]->getX(),   (*gamePlatforms)[i]->getY() + shift,imagePath).getQLabel(this);
         }
-        if ((dynamic_cast<BrownPlatform*>((*gamePlatforms)[i]) && !dynamic_cast<BrownPlatform*>((*gamePlatforms)[i])->isBroken())
+        if ((dynamic_cast<BrownPlatform*>((*gamePlatforms)[i]) && !dynamic_cast<BrownPlatform*>((*gamePlatforms)[i])->isAnimationEnded())
             || dynamic_cast<GreenPlatform*>((*gamePlatforms)[i])) {
             platforms[i]->show();
         }

@@ -7,7 +7,7 @@
 GreenPlatform::GreenPlatform(int coordinateX, int coordinateY, QString &imagePath) : AbstractPlatform(coordinateX, coordinateY) {
     this->imagePath = imagePath;
 }
-QLabel* GreenPlatform::getQLabel(QWidget *parent) const {
+QLabel* GreenPlatform::getQLabel(QWidget *parent)  {
     QLabel* label = new QLabel(parent);
     label->setGeometry(coordinateX,coordinateY,WIDTH, HEIGHT);
     label->setScaledContents(true);

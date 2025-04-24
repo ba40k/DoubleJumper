@@ -39,6 +39,7 @@ void Screen::generatePlatforms() {
             AbstractPlatform* platform;
             if (rand()%100 < brownPlatformSpawnProbability) {
                 platform = new BrownPlatform(newX, newY,imagePath);
+                i--; // коричневые плафтормы не учитываем при генерации
             } else {
                 platform = new GreenPlatform(newX, newY,imagePath);
             }

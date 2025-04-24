@@ -10,7 +10,7 @@
 class GreenPlatform  : public AbstractPlatform{
     public:
     GreenPlatform(int coordinateX, int coordinateY, QString &imagePath);
-    QLabel* getQLabel(QWidget *parent = nullptr) const override;
+    QLabel* getQLabel(QWidget *parent = nullptr)  override;
 };
 
 

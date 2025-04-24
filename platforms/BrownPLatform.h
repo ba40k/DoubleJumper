@@ -10,11 +10,14 @@
 class BrownPlatform : public AbstractPlatform{
     private:
     bool broken = false;
+    bool animationEnded = false;
+    int animationCounter = 0;
     public:
     BrownPlatform(int coordinateX, int coordinateY, QString &imagePath);
-    QLabel* getQLabel(QWidget *parent = nullptr) const override;
+    QLabel* getQLabel(QWidget *parent = nullptr)  override;
     void setBroken() override;
     bool isBroken();
+    bool isAnimationEnded();
 };
 
 
