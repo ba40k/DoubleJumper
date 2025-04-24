@@ -21,7 +21,6 @@ void Game::gameInitialize() {
     platforms.push_back(startPlatform);
     firstScreen = new Screen(0,850,platforms,1.0);
     platforms.push_back(startPlatform);
-
 }
 void Game::gameStateUpdate(int deltaTime, bool leftArrowPressed, bool rightArrowPressed) {
     long double deltaY = physicsModel.calculateDistace(deltaTime, doubleJumper.getSpeed());
@@ -42,18 +41,12 @@ void Game::gameStateUpdate(int deltaTime, bool leftArrowPressed, bool rightArrow
         jumpSound.play();
         doubleJumper.setSpeed(defaultSpeed);
     }
-
     if (abs(minDoubleJumperCoordinate - firstScreen->getHighestPlatformCoordinate()) < 500) {
         difficulcyCoef*=0.9;
         firstScreen->setDifficulty(difficulcyCoef);
         firstScreen->generatePlatforms();
     }
-
     minDoubleJumperCoordinate = std::min(minDoubleJumperCoordinate, doubleJumper.getCoordinateY());
-
-
-
-
     firstScreen->deletePlatformsLowerThan(getShift());
 }
 std::deque<AbstractPlatform*>* Game::getPlatforms() {
@@ -87,7 +80,7 @@ bool Game::isIntersectAnyPLatfrom() {
         }
         if (isIntersectVertically && isIntersectHorizontally && dynamic_cast<BrownPlatform*>(platformPointer) &&
             doubleJumper.getSpeed()<=0) {
-            platformPointer->setBroken();
+            dynamic_cast<BrownPlatform*>(platformPointer)->setBroken();
             return false;
         }
         if (isIntersectVertically && isIntersectHorizontally && dynamic_cast<GreenPlatform*>(platformPointer)) {

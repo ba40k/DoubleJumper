@@ -6,18 +6,21 @@
 #define BROWNPLATFORM_H
 
 #include "AbstractPlatform.h"
-
+#include <QMediaPlayer>
+#include <QAudioOutput>
 class BrownPlatform : public AbstractPlatform{
     private:
     bool broken = false;
     bool animationEnded = false;
-    int animationCounter = 0;
+    int animationCounter = 1;
     public:
     BrownPlatform(int coordinateX, int coordinateY, QString &imagePath);
     QLabel* getQLabel(QWidget *parent = nullptr)  override;
-    void setBroken() override;
+    void setBroken();
     bool isBroken();
     bool isAnimationEnded();
+    int getAnimationCounter();
+    void setAnimationCounter(int counter);
 };
 
 

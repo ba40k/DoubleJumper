@@ -53,7 +53,15 @@ void GameWidget::update() {
     platforms.resize(gamePlatforms->size());
     for (int i = 0; i < gamePlatforms->size(); i++) {
         if (dynamic_cast<BrownPlatform*>((*gamePlatforms)[i])) {
-            platforms[i] = BrownPlatform((*gamePlatforms)[i]->getX(),   (*gamePlatforms)[i]->getY() + shift,imagePath).getQLabel(this);
+            auto temp =  BrownPlatform((*gamePlatforms)[i]->getX(),   (*gamePlatforms)[i]->getY() + shift,imagePath);
+            if (dynamic_cast<BrownPlatform*>((*gamePlatforms)[i])->isBroken()) {
+                temp.setBroken();
+            }
+            temp.setAnimationCounter(dynamic_cast<BrownPlatform*>((*gamePlatforms)[i])->getAnimationCounter());
+            platforms[i] = temp.getQLabel(this);
+            if (temp.isBroken()) {
+                dynamic_cast<BrownPlatform*>((*gamePlatforms)[i])->setAnimationCounter(dynamic_cast<BrownPlatform*>((*gamePlatforms)[i])->getAnimationCounter()+1);
+            }
         } else {
             platforms[i] = GreenPlatform((*gamePlatforms)[i]->getX(),   (*gamePlatforms)[i]->getY() + shift,imagePath).getQLabel(this);
         }

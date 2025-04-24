@@ -3,7 +3,7 @@
 //
 
 #include "BrownPLatform.h"
-
+#include <iostream>
 BrownPlatform::BrownPlatform(int coordinateX, int coordinateY, QString &imagePath) : AbstractPlatform(coordinateX, coordinateY,125) {
     this->imagePath = imagePath;
 }
@@ -11,17 +11,26 @@ QLabel* BrownPlatform::getQLabel(QWidget *parent)  {
     QLabel* label = new QLabel(parent);
     label->setGeometry(coordinateX,coordinateY,WIDTH, HEIGHT);
     label->setScaledContents(true);
-    if (animationCounter==0 ) {
+
+    if (!broken) {
         label->setPixmap(QPixmap(prefixPath + imagePath).copy(0,145,WIDTH ,HEIGHT));
     }
-    if (animationCounter==1 && broken) {
+    if (animationCounter<=2 && broken) {
          label->setPixmap(QPixmap(prefixPath + imagePath).copy(0,182,WIDTH ,38));
+        animationCounter++;
     }
-    if (animationCounter==2 && broken) {
-         label->setPixmap(QPixmap(prefixPath + imagePath).copy(0,232,WIDTH ,57));
+    if (animationCounter>=2 && animationCounter<=4 && broken) {
+         label->setPixmap(QPixmap(prefixPath + imagePath).copy(0,232,WIDTH ,70));
+        animationCounter++;
     }
-    animationCounter++;
-    if (animationCounter == 3) animationEnded = true;
+    if (animationCounter>=4 && animationCounter<=24 && broken) {
+        label->setPixmap(QPixmap(prefixPath + imagePath).copy(0,297,WIDTH ,70));
+        animationCounter++;
+    }
+
+    if (animationCounter == 24) {
+        animationEnded = true;
+    }
     return label;
 }
 void BrownPlatform::setBroken() {
@@ -33,3 +42,13 @@ bool BrownPlatform::isBroken() {
 bool BrownPlatform::isAnimationEnded() {
     return animationEnded;
 }
+void BrownPlatform::setAnimationCounter(int counter) {
+    animationCounter = counter;
+    if (animationCounter == 24) {
+        animationEnded = true;
+    }
+}
+int BrownPlatform::getAnimationCounter() {
+    return animationCounter;
+}
+
