@@ -12,7 +12,7 @@ class Screen {
     const int HEIGHT = 850;
     const int WIDTH = 640-120;
     const int accesableDistanceX  = 200;
-    const int accesableDistanceY  = 175;
+    const int accesableDistanceY  = 200;
     int lowerBound;
     double difficultyLevel;
     std::deque<AbstractPlatform*> platforms;
@@ -28,7 +28,7 @@ public:
     int getHighestPlatformCoordinate() const;
     void setDifficulty(double dif);
     void generatePlatforms();
-    void deletePlatformsLowerThan(int y, int dist);
+    void deletePlatformsLowerThan(int shift);
     ~Screen();
 };
 

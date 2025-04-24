@@ -13,13 +13,11 @@ class GameWidget : public QWidget{
     QString prefixPath;
     QString backgoundImagePath;
     QLabel *backgoundLabel;
+    QString  imagePath = "game-tiles@2x.png";
     Game game;
-    int showUpperDoubleJumper = 500;
-    int showLowerDoubleJumper = 350;
-
     QLabel* doubleJumperLabel;
     QVector<QLabel*> platforms;
-    const int deltaTime = 10;
+    const int deltaTime = 6;
     QTimer* timer;
     bool stopped = false;
     void update();

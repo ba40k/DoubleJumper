@@ -7,7 +7,7 @@
 #include <iostream>
 
 
-Game::Game() : physicsModel(0.0019), doubleJumper(doubleJumperSpawnX,doubleJumperSpawnY,defaultSpeed,startDirection){
+Game::Game() : physicsModel(0.0025), doubleJumper(doubleJumperSpawnX,doubleJumperSpawnY,defaultSpeed,startDirection){
     srand(time(NULL));
 }
 void Game::gameInitialize() {
@@ -15,9 +15,7 @@ void Game::gameInitialize() {
     soundPrefixPath = "requirments/Doodle Jump SFX/";
     jumpSoundPath = "jump.wav";
     jumpSound.setSource(QUrl::fromLocalFile(soundPrefixPath + jumpSoundPath));
-    int platformsCount = 3 + rand()%defaultPlatformSpawnCount;
     QString path = "game-tiles@2x.png";
-
     AbstractPlatform* startPlatform = new GreenPlatform(260, SCREEN_HEIGHT- PLATFORM_HEIGHT,path);
     std::deque<AbstractPlatform*> platforms;
     platforms.push_back(startPlatform);
@@ -54,7 +52,7 @@ void Game::gameStateUpdate(int deltaTime, bool leftArrowPressed, bool rightArrow
     }
 
     if (abs(minDoubleJumperCoordinate - firstScreen->getHighestPlatformCoordinate()) < 500) {
-        difficulcyCoef*=0.99;
+        difficulcyCoef*=0.9;
         firstScreen->setDifficulty(difficulcyCoef);
         firstScreen->generatePlatforms();
     }
@@ -64,7 +62,7 @@ void Game::gameStateUpdate(int deltaTime, bool leftArrowPressed, bool rightArrow
 
 
 
-    firstScreen->deletePlatformsLowerThan(minDoubleJumperCoordinate,SCREEN_HEIGHT);
+    firstScreen->deletePlatformsLowerThan(getShift());
 }
 std::deque<AbstractPlatform*>* Game::getPlatforms() {
     return firstScreen->getPlatforms();

@@ -19,7 +19,7 @@ std::deque<AbstractPlatform*>* Screen::getPlatforms() {
     return &platforms;
 }
 void Screen::generatePlatforms() {
-   int count = 15;
+   int count = 5;
     while (count--) {
         int numberOfAdditionalPlatforms = std::max(1.0,rand()%5 * difficultyLevel); // так как по логике(весьма странной) чем выше число сожности тем НИЖЕ сложность, то и количество спавнящихся платформ тоже уменшьается
         //std::cout << numberOfAdditionalPlatforms << std::endl;
@@ -56,7 +56,7 @@ Screen::~Screen() {
 }
 
 bool Screen::intersectPrevious(int x,int y) {
-    for (auto platform : platforms) {
+    for (auto &platform : platforms) {
         int x1 = x;
         int w = platform->getWidth();
         int x2 = platform->getX();
@@ -77,9 +77,9 @@ int Screen::getHighestPlatformCoordinate() const {
 void Screen::setDifficulty(double dif) {
     difficultyLevel = dif;
 }
-void Screen::deletePlatformsLowerThan(int y, int dist) {
+void Screen::deletePlatformsLowerThan(int shift) {
     int index = 0;
-    while (abs(platforms[index]->getY() - y) > dist) {
+    while (platforms[index]->getY() + shift > 850) {
         delete platforms[index];
         platforms.pop_front();
     }

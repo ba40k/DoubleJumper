@@ -14,12 +14,12 @@
 #include <QSoundEffect>
 #include "Screen.h"
 class Game {
-    long double difficulcyCoef = 1.0;
+    double difficulcyCoef = 1.0;
     const int doubleJumperSpawnX = 260;
     int minDoubleJumperCoordinate=400;
     int lastDoubleJumperMinCoordinate=850;
     const int doubleJumperSpawnY = 850 - 32 - 115;
-    long double defaultSpeed = 1.0;
+    long double defaultSpeed = 1.5;
     int startDirection = -1;
 
     const int PLATFORM_HEIGHT = 32;
@@ -33,7 +33,7 @@ class Game {
     QString soundPrefixPath;
     QString jumpSoundPath ;
     QSoundEffect jumpSound;
-    float horizontalSpeed = 0.6;
+    float horizontalSpeed = 0.8;
     bool isIntersectAnyPLatfrom();
 
     public:
