@@ -6,6 +6,8 @@
 
 #include <iostream>
 
+#include "../platforms/BluePlatform.h"
+
 
 Game::Game() : physicsModel(0.0025), doubleJumper(doubleJumperSpawnX,doubleJumperSpawnY,defaultSpeed,startDirection){
     srand(time(NULL));
@@ -23,6 +25,7 @@ void Game::gameInitialize() {
     platforms.push_back(startPlatform);
 }
 void Game::gameStateUpdate(int deltaTime, bool leftArrowPressed, bool rightArrowPressed) {
+    moveBluePlatforms(deltaTime);
     long double deltaY = physicsModel.calculateDistace(deltaTime, doubleJumper.getSpeed());
     doubleJumper.setSpeed(physicsModel.calculateSpeed(deltaTime, doubleJumper.getSpeed(), doubleJumper.getDirection()));
     doubleJumper.setCoordinateY(doubleJumper.getCoordinateY() + doubleJumper.getDirection() * deltaY);
@@ -46,6 +49,7 @@ void Game::gameStateUpdate(int deltaTime, bool leftArrowPressed, bool rightArrow
         firstScreen->setDifficulty(difficulcyCoef);
         firstScreen->generatePlatforms();
     }
+
     minDoubleJumperCoordinate = std::min(minDoubleJumperCoordinate, doubleJumper.getCoordinateY());
     firstScreen->deletePlatformsLowerThan(getShift());
 }
@@ -83,7 +87,7 @@ bool Game::isIntersectAnyPLatfrom() {
             dynamic_cast<BrownPlatform*>(platformPointer)->setBroken();
             return false;
         }
-        if (isIntersectVertically && isIntersectHorizontally && dynamic_cast<GreenPlatform*>(platformPointer)) {
+        if (isIntersectVertically && isIntersectHorizontally && !dynamic_cast<BrownPlatform*>(platformPointer)) {
             return true;
         }
     }
@@ -95,5 +99,19 @@ int Game::getMinDoubleJumperCoordinate() {
 int Game::getShift() const {
     int shiftY = abs(lastDoubleJumperMinCoordinate - minDoubleJumperCoordinate);
     return shiftY;
+}
+void Game::moveBluePlatforms(int deltaTime) {
+    for (auto &platfromPointer : *firstScreen->getPlatforms()) {
+        if (dynamic_cast<BluePlatform*>(platfromPointer)) {
+            dynamic_cast<BluePlatform*>(platfromPointer)->updateCoordinate(deltaTime);
+            if (dynamic_cast<BluePlatform*>(platfromPointer)->getSpeedDirection() < 0 && platfromPointer->getX()<=0) {
+                dynamic_cast<BluePlatform*>(platfromPointer)->changeSpeedDirection();
+            }
+            if (dynamic_cast<BluePlatform*>(platfromPointer)->getSpeedDirection()>0
+                && platfromPointer->getX() + platfromPointer->getWidth()>=SCREEN_WIDTH) {
+                dynamic_cast<BluePlatform*>(platfromPointer)->changeSpeedDirection();
+            }
+        }
+    }
 }
 

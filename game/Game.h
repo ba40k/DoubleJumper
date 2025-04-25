@@ -35,7 +35,7 @@ class Game {
     QSoundEffect jumpSound;
     float horizontalSpeed = 0.8;
     bool isIntersectAnyPLatfrom();
-
+    void moveBluePlatforms(int deltaTime);
     public:
     Game();
     void gameInitialize();

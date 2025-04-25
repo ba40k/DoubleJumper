@@ -7,6 +7,7 @@
 #include <iostream>
 
 #include "../PhysicsModel.h"
+#include "../platforms/BluePlatform.h"
 
 Screen::Screen(int lowerBound, int upperBound, std::deque<AbstractPlatform*> &platforms, double difficultyLevel) {
     srand(time(NULL));
@@ -19,11 +20,10 @@ std::deque<AbstractPlatform*>* Screen::getPlatforms() {
     return &platforms;
 }
 void Screen::generatePlatforms() {
+    bluePlatformSpawnProbability += (1 - difficultyLevel) * 0.5;
    int count = 5;
     while (count--) {
         int numberOfAdditionalPlatforms = std::max(1.0,rand()%5 * difficultyLevel); // так как по логике(весьма странной) чем выше число сожности тем НИЖЕ сложность, то и количество спавнящихся платформ тоже уменшьается
-        //std::cout << numberOfAdditionalPlatforms << std::endl;
-        // теперь от уровня сложности завсит количество платформ на уровне
         AbstractPlatform *parentPlatform = platforms.back();
         for (int i = 0; i < numberOfAdditionalPlatforms; i++) {
             int shiftX = rand() % accesableDistanceX +50;
@@ -37,7 +37,10 @@ void Screen::generatePlatforms() {
                 continue; // перегенерируем
             }
             AbstractPlatform* platform;
-            if (rand()%100 < brownPlatformSpawnProbability) {
+            if (rand()%100 < bluePlatformSpawnProbability) {
+                platform = new BluePlatform(newX,newY,imagePath);
+
+            } else if (rand()%100 < brownPlatformSpawnProbability) {
                 platform = new BrownPlatform(newX, newY,imagePath);
                 i--; // коричневые плафтормы не учитываем при генерации
             } else {
@@ -64,10 +67,13 @@ bool Screen::intersectPrevious(int x,int y) {
         int x1 = x;
         int w = platform->getWidth();
         int x2 = platform->getX();
-        bool notOverlapX = ((x1 + w < x2) || (x2 + w < x1));
         int y1 = y;
         int h = platform->getHeight();
         int y2 = platform->getY();
+        if (dynamic_cast<BluePlatform*>(platform)) {
+            w = WIDTH;
+        }
+        bool notOverlapX = ((x1 + w < x2) || (x2 + w < x1));
         bool notOverlapY = ((y1 + h < y2) || (y2 + h < y1));
         if (!(notOverlapX || notOverlapY)) {
             return true;

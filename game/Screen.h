@@ -13,8 +13,9 @@ class Screen {
     const int HEIGHT = 850;
     const int WIDTH = 640-120;
     const int accesableDistanceX  = 200;
-    const int accesableDistanceY  = 200;
+    const int accesableDistanceY  = 175;
     const int brownPlatformSpawnProbability = 15;
+    double bluePlatformSpawnProbability = 15;
     int lowerBound;
     double difficultyLevel;
     std::deque<AbstractPlatform*> platforms;

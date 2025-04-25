@@ -15,11 +15,11 @@ QLabel* BrownPlatform::getQLabel(QWidget *parent)  {
     if (!broken) {
         label->setPixmap(QPixmap(prefixPath + imagePath).copy(0,145,WIDTH ,HEIGHT));
     }
-    if (animationCounter<=2 && broken) {
+    if (animationCounter<=1 && broken) {
          label->setPixmap(QPixmap(prefixPath + imagePath).copy(0,182,WIDTH ,38));
         animationCounter++;
     }
-    if (animationCounter>=2 && animationCounter<=4 && broken) {
+    if (animationCounter>=2 && animationCounter<=12 && broken) {
          label->setPixmap(QPixmap(prefixPath + imagePath).copy(0,232,WIDTH ,70));
         animationCounter++;
     }

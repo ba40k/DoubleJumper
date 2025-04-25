@@ -7,6 +7,9 @@
 #include "../platforms/GreenPlatform.h"
 #include<iostream>
 #include <QKeyEvent>
+
+#include "../platforms/BluePlatform.h"
+
 GameWidget::GameWidget(QWidget *parent) {
     setFocusPolicy(Qt::StrongFocus); // Разрешаем фокус клавиатуры
     setFocus(); // Захватываем фокус
@@ -28,9 +31,11 @@ GameWidget::GameWidget(QWidget *parent) {
     for (int i = 0; i < gamePlatforms->size(); i++) {
         if (dynamic_cast<BrownPlatform*>((*gamePlatforms)[i])) {
             platforms[i] = BrownPlatform((*gamePlatforms)[i]->getX(), (  (*gamePlatforms)[i]->getY()) ,imagePath).getQLabel(this);
-            continue;
+        } else if (dynamic_cast<BluePlatform*>((*gamePlatforms)[i])) {
+            platforms[i] =  BluePlatform((*gamePlatforms)[i]->getX(), (  (*gamePlatforms)[i]->getY()) ,imagePath).getQLabel(this);
+        } else {
+            platforms[i] = GreenPlatform((*gamePlatforms)[i]->getX(), (  (*gamePlatforms)[i]->getY()) ,imagePath).getQLabel(this);
         }
-        platforms[i] = GreenPlatform((*gamePlatforms)[i]->getX(), (  (*gamePlatforms)[i]->getY()) ,imagePath).getQLabel(this);
     }
     timer = new QTimer(this);
     timer->setInterval(deltaTime);
@@ -62,11 +67,13 @@ void GameWidget::update() {
             if (temp.isBroken()) {
                 dynamic_cast<BrownPlatform*>((*gamePlatforms)[i])->setAnimationCounter(dynamic_cast<BrownPlatform*>((*gamePlatforms)[i])->getAnimationCounter()+1);
             }
-        } else {
+        } else if (dynamic_cast<GreenPlatform*>((*gamePlatforms)[i])) {
             platforms[i] = GreenPlatform((*gamePlatforms)[i]->getX(),   (*gamePlatforms)[i]->getY() + shift,imagePath).getQLabel(this);
+        } else {
+            platforms[i] = BluePlatform((*gamePlatforms)[i]->getX(),   (*gamePlatforms)[i]->getY() + shift,imagePath).getQLabel(this);
         }
         if ((dynamic_cast<BrownPlatform*>((*gamePlatforms)[i]) && !dynamic_cast<BrownPlatform*>((*gamePlatforms)[i])->isAnimationEnded())
-            || dynamic_cast<GreenPlatform*>((*gamePlatforms)[i])) {
+            || dynamic_cast<GreenPlatform*>((*gamePlatforms)[i]) || dynamic_cast<BluePlatform*>((*gamePlatforms)[i])) {
             platforms[i]->show();
         }
 
