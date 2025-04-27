@@ -6,6 +6,12 @@
 #include <iostream>
 BrownPlatform::BrownPlatform(int coordinateX, int coordinateY, QString &imagePath) : AbstractPlatform(coordinateX, coordinateY,125) {
     this->imagePath = imagePath;
+    player = new QMediaPlayer();
+    player->setSource(QUrl::fromLocalFile(soundPrefixPath + breakingSoundPath));
+    audioOutput = new QAudioOutput();
+    // Настройте аудиовыход
+    player->setAudioOutput(audioOutput);
+
 }
 QLabel* BrownPlatform::getQLabel(QWidget *parent)  {
     QLabel* label = new QLabel(parent);
@@ -16,6 +22,7 @@ QLabel* BrownPlatform::getQLabel(QWidget *parent)  {
         label->setPixmap(QPixmap(prefixPath + imagePath).copy(0,145,WIDTH ,HEIGHT));
     }
     if (animationCounter<=1 && broken) {
+        player->play();
          label->setPixmap(QPixmap(prefixPath + imagePath).copy(0,182,WIDTH ,38));
         animationCounter++;
     }

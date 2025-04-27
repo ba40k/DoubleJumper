@@ -20,11 +20,15 @@ std::deque<AbstractPlatform*>* Screen::getPlatforms() {
     return &platforms;
 }
 void Screen::generatePlatforms() {
-    bluePlatformSpawnProbability += (1 - difficultyLevel) * 0.5;
+    bluePlatformSpawnProbability += (1 - difficultyLevel) * 0.25;
    int count = 5;
     while (count--) {
         int numberOfAdditionalPlatforms = std::max(1.0,rand()%5 * difficultyLevel); // так как по логике(весьма странной) чем выше число сожности тем НИЖЕ сложность, то и количество спавнящихся платформ тоже уменшьается
-        AbstractPlatform *parentPlatform = platforms.back();
+        int parentPlatformIndex = platforms.size() - 1;
+        while (dynamic_cast<BrownPlatform*>(platforms[parentPlatformIndex])) {
+            parentPlatformIndex--;
+        }
+        AbstractPlatform *parentPlatform = platforms[parentPlatformIndex];
         for (int i = 0; i < numberOfAdditionalPlatforms; i++) {
             int shiftX = rand() % accesableDistanceX +50;
             int shiftY = rand() % accesableDistanceY + 50;
@@ -33,9 +37,7 @@ void Screen::generatePlatforms() {
             rand()%2==0?shiftSign=-1:1;
             int newX = PhysicsModel::getByModulo(platforms.back()->getX() + shiftSign*shiftX,WIDTH);
             int newY = parentPlatform->getY() - shiftY;
-            if ( intersectPrevious(newX,newY)) {
-                continue; // перегенерируем
-            }
+
             AbstractPlatform* platform;
             if (rand()%100 < bluePlatformSpawnProbability) {
                 platform = new BluePlatform(newX,newY,imagePath);
@@ -45,6 +47,10 @@ void Screen::generatePlatforms() {
                 i--; // коричневые плафтормы не учитываем при генерации
             } else {
                 platform = new GreenPlatform(newX, newY,imagePath);
+            }
+            if ( intersectPrevious(newX,newY, dynamic_cast<BluePlatform*>(platform))) {
+                delete platform;
+                continue; // перегенерируем
             }
             platforms.push_back(platform);
         }
@@ -62,7 +68,7 @@ Screen::~Screen() {
     }
 }
 
-bool Screen::intersectPrevious(int x,int y) {
+bool Screen::intersectPrevious(int x,int y, bool isBlue) {
     for (auto &platform : platforms) {
         int x1 = x;
         int w = platform->getWidth();
@@ -70,7 +76,7 @@ bool Screen::intersectPrevious(int x,int y) {
         int y1 = y;
         int h = platform->getHeight();
         int y2 = platform->getY();
-        if (dynamic_cast<BluePlatform*>(platform)) {
+        if (dynamic_cast<BluePlatform*>(platform) ||isBlue) {
             w = WIDTH;
         }
         bool notOverlapX = ((x1 + w < x2) || (x2 + w < x1));

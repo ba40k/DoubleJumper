@@ -13,16 +13,16 @@ class Screen {
     const int HEIGHT = 850;
     const int WIDTH = 640-120;
     const int accesableDistanceX  = 200;
-    const int accesableDistanceY  = 175;
+    const int accesableDistanceY  = 225;
     const int brownPlatformSpawnProbability = 15;
-    double bluePlatformSpawnProbability = 15;
+    double bluePlatformSpawnProbability = 1.0;
     int lowerBound;
     double difficultyLevel;
     std::deque<AbstractPlatform*> platforms;
     bool outOfBoundX(int x);
     bool outOfBoundY(int y);
 
-    bool intersectPrevious(int x,int y);
+    bool intersectPrevious(int x,int y, bool isBlue);
 
 public:
     public:

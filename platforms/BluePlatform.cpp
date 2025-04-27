@@ -4,15 +4,17 @@
 #include "BluePlatform.h"
 
 #include <iostream>
+#include <QMediaPlayer>
 
 BluePlatform::BluePlatform(int coordinateX, int coordinateY, QString &imagePath) : AbstractPlatform(coordinateX, coordinateY) {
     this->imagePath = imagePath;
+    QMediaPlayer *player = new QMediaPlayer();
+
 }
 void BluePlatform::changeSpeedDirection() {
     speed*=-1;
 }
 void BluePlatform::updateCoordinate(int deltaTime) {
-    std::cout<<speed<<' '<<coordinateX<<'\n';
     this->coordinateX += (double)speed*deltaTime;
 }
 QLabel *BluePlatform::getQLabel(QWidget *parent) {

@@ -38,6 +38,7 @@ class Game {
     void moveBluePlatforms(int deltaTime);
     public:
     Game();
+    int getScore() const;
     void gameInitialize();
     void gameStateUpdate(int deltaTime, bool leftArrowPressed, bool rightArrowPressed);
     int getDoubleJumperX() const;
