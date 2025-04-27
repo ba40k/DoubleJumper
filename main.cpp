@@ -4,7 +4,6 @@
 #include <QLoggingCategory>
 
 int main(int argc, char *argv[]) {
-    QLoggingCategory::setFilterRules("*.debug=false");
 
     QApplication a(argc, argv);
     MainWindow w;

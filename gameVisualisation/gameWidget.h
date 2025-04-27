@@ -9,6 +9,7 @@
 #include <QLabel>
 #include "../game/Game.h"
 #include <QTimer>
+#include "ScoreBar.h"
 class GameWidget : public QWidget{
     QString prefixPath;
     QString backgoundImagePath;
@@ -23,6 +24,9 @@ class GameWidget : public QWidget{
     void update();
     bool leftArrowPressed = false;
     bool rightArrowPressed = false;
+    ScoreBar* scoreBar;
+    const int scoreUpdateTick = 10;
+    int currentScoreTick = 0;
 
     public:
     void keyPressEvent(QKeyEvent *event);

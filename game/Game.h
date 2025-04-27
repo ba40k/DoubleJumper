@@ -36,6 +36,7 @@ class Game {
     float horizontalSpeed = 0.8;
     bool isIntersectAnyPLatfrom();
     void moveBluePlatforms(int deltaTime);
+    int bestScore = 0;
     public:
     Game();
     int getScore() const;

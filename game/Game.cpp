@@ -25,6 +25,7 @@ void Game::gameInitialize() {
     platforms.push_back(startPlatform);
 }
 void Game::gameStateUpdate(int deltaTime, bool leftArrowPressed, bool rightArrowPressed) {
+    bestScore = std::max(bestScore,850 - doubleJumper.getCoordinateY());
     moveBluePlatforms(deltaTime);
     long double deltaY = physicsModel.calculateDistace(deltaTime, doubleJumper.getSpeed());
     doubleJumper.setSpeed(physicsModel.calculateSpeed(deltaTime, doubleJumper.getSpeed(), doubleJumper.getDirection()));
@@ -115,3 +116,6 @@ void Game::moveBluePlatforms(int deltaTime) {
     }
 }
 
+int Game::getScore() const {
+    return bestScore;
+}

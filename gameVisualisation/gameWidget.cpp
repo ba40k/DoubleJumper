@@ -14,6 +14,9 @@ GameWidget::GameWidget(QWidget *parent) {
     setFocusPolicy(Qt::StrongFocus); // Разрешаем фокус клавиатуры
     setFocus(); // Захватываем фокус
     game.gameInitialize();
+
+
+
     prefixPath = "requirments/Sprites/Doodle Jump/";
     backgoundImagePath = "bck@2x.png";
     backgoundLabel = new QLabel(this);
@@ -23,7 +26,7 @@ GameWidget::GameWidget(QWidget *parent) {
     backgoundLabel->setGeometry(QRect(0, 0, parent->width(), parent->height()));
 
     backgoundLabel->setPixmap(QPixmap(prefixPath + backgoundImagePath));
-
+    scoreBar = new ScoreBar(this);
     auto gamePlatforms = game.getPlatforms();
     platforms.resize(gamePlatforms->size());
 
@@ -77,11 +80,15 @@ void GameWidget::update() {
             platforms[i]->show();
         }
 
-
     }
     doubleJumperLabel->setPixmap(game.getDoubleJumper()->getLabel(this)->pixmap());
     doubleJumperLabel->move(game.getDoubleJumperX(), game.getDoubleJumperY() + shift);
     doubleJumperLabel->raise();
+    if (currentScoreTick%scoreUpdateTick==0) {
+        scoreBar->displayScore(game.getScore());
+    }
+    scoreBar->raise();
+    ++currentScoreTick;
 }
 void GameWidget::stop() {
     timer->stop();
