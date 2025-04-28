@@ -12,7 +12,7 @@ class Spring : public AbstractItem{
     const int nonActivatedOnTileCoordinateX = 806;
     const int nonActivatedOnTileCoordinateY = 196;
     const int nonActivatedWidth = 35;
-    const int nonActivatedHeight = 35;
+    const int nonActivatedHeight = 21;
     const int ActivatedOnTileCoordinateX = 808;
     const int ActivatedOnTileCoordinateY = 230;
     const int ActivatedWidth = 35;

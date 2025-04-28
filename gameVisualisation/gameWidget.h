@@ -18,6 +18,7 @@ class GameWidget : public QWidget{
     Game game;
     QLabel* doubleJumperLabel;
     QVector<QLabel*> platforms;
+    QVector<QLabel*> items;
     const int deltaTime = 6;
     QTimer* timer;
     bool stopped = false;
@@ -27,7 +28,7 @@ class GameWidget : public QWidget{
     ScoreBar* scoreBar;
     const int scoreUpdateTick = 10;
     int currentScoreTick = 0;
-
+    void visualizeItems();
     public:
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);

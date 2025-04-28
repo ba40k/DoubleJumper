@@ -8,6 +8,7 @@
 #include<iostream>
 #include <QKeyEvent>
 
+#include "../items/Spring.h"
 #include "../platforms/BluePlatform.h"
 
 GameWidget::GameWidget(QWidget *parent) {
@@ -81,6 +82,7 @@ void GameWidget::update() {
         }
 
     }
+    visualizeItems();
     doubleJumperLabel->setPixmap(game.getDoubleJumper()->getLabel(this)->pixmap());
     doubleJumperLabel->move(game.getDoubleJumperX(), game.getDoubleJumperY() + shift);
     doubleJumperLabel->raise();
@@ -133,5 +135,18 @@ void GameWidget::keyReleaseEvent(QKeyEvent *event) {
 
         default:
             QWidget::keyPressEvent(event); // передаём остальные события родителю
+    }
+}
+void GameWidget::visualizeItems() {
+    auto gameItems = game.getItems();
+    for (int i =0 ;i<items.size(); i++) {
+        delete items[i];
+    }
+    items.clear();
+    items.resize(gameItems->size());
+    for (int i = 0; i < gameItems->size(); i++) {
+        items[i] = dynamic_cast<Spring*>((*gameItems)[i])->getQLabel(this);
+        items[i]->move(items[i]->x(), items[i]->y() + game.getShift());
+        items[i]->show();
     }
 }

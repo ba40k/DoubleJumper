@@ -13,6 +13,7 @@ class AbstractItem {
     int width;
     int height;
     int coordinateX;
+    int shiftY;
     AbstractPlatform* platform; // хранится платформа и координата относительно платформы
     int onTileCoordinateX;
     int onTileCoordinateY;
@@ -24,6 +25,8 @@ class AbstractItem {
     virtual  QLabel* getQLabel(QWidget *parent = nullptr)  = 0;
     int getCoordinateX();
     int getCoordinateY();
+    int getHeight();
+    int getWidth();
     virtual ~AbstractItem() = default;
 
 };

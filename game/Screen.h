@@ -7,6 +7,8 @@
 
 #include "../platforms/GreenPlatform.h"
 #include <deque>
+
+#include "../items/AbstractItem.h"
 #include "../platforms/BrownPLatform.h"
 class Screen {
     QString imagePath = "game-tile@2x.png";
@@ -16,10 +18,14 @@ class Screen {
     const int accesableDistanceY  = 225;
     const int brownPlatformSpawnProbability = 15;
     double bluePlatformSpawnProbability = 1.0;
-    const int
+    const int springSpawnProbability = 10;
+
+
     int lowerBound;
     double difficultyLevel;
     std::deque<AbstractPlatform*> platforms;
+    std::deque<AbstractItem*> items;
+
     bool outOfBoundX(int x);
     bool outOfBoundY(int y);
 
@@ -29,10 +35,12 @@ public:
     public:
     Screen(int lowerBound, int upperBound, std::deque<AbstractPlatform*> &platforms, double difficultyLevel);
     std::deque<AbstractPlatform*>* getPlatforms();
+    std::deque<AbstractItem*>* getItems();
     int getHighestPlatformCoordinate() const;
     void setDifficulty(double dif);
     void generatePlatforms();
     void deletePlatformsLowerThan(int shift);
+    void deleteItemsLowerThan(int shift);
     ~Screen();
 };
 

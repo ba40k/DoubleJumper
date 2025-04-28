@@ -12,11 +12,16 @@ AbstractItem::AbstractItem(int coordinateX, int width, int height, AbstractPlatf
     this->platform = platform;
 }
 int AbstractItem::getCoordinateX() {
-    return platform->getY() + coordinateX;
+    return platform->getX() + coordinateX;
 }
 int AbstractItem::getCoordinateY() {
-    return platform->getX()  + height;
+    return platform->getY()  - height + shiftY;
 }
-
+int AbstractItem::getWidth() {
+    return width;
+}
+int AbstractItem::getHeight() {
+    return height;
+}
 
 

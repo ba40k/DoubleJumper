@@ -3,10 +3,11 @@
 //
 
 #include "Spring.h"
-
-Spring::Spring(int coordinateX, AbstractPlatform* platform) : AbstractItem( coordinateX,nonActivatedWidth,nonActivatedHeight,platform) {
+#include <iostream>
+Spring::Spring(int coordinateX, AbstractPlatform* platform) : AbstractItem(coordinateX,35,21,platform) {
     onTileCoordinateX =  nonActivatedOnTileCoordinateX;
     onTileCoordinateY =  nonActivatedOnTileCoordinateY;
+    shiftY = 3;
 }
 QLabel *Spring::getQLabel(QWidget *parent) {
     QLabel *label = new QLabel(parent);
@@ -23,8 +24,9 @@ void Spring::setActivated() {
     onTileCoordinateY = ActivatedOnTileCoordinateY;
 }
 void Spring::activate(DoubleJumper &activator) {
+   // std::cout<<1;
     setActivated();
-    activator.setSpeed(activator.getSpeed() +  speedBuff);
+    activator.setSpeed(speedBuff);
 }
 
 

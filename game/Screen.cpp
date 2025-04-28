@@ -7,6 +7,7 @@
 #include <iostream>
 
 #include "../PhysicsModel.h"
+#include "../items/Spring.h"
 #include "../platforms/BluePlatform.h"
 
 Screen::Screen(int lowerBound, int upperBound, std::deque<AbstractPlatform*> &platforms, double difficultyLevel) {
@@ -48,6 +49,15 @@ void Screen::generatePlatforms() {
             } else {
                 platform = new GreenPlatform(newX, newY,imagePath);
             }
+
+            if (rand()%100 < springSpawnProbability && !dynamic_cast<BrownPlatform*>(platform)) {
+                Spring temp(0,0);
+                int springWidth = temp.getWidth();
+                int onPlatformX =rand()%(platform->getWidth() - springWidth);
+                AbstractItem *spring = new Spring(onPlatformX,platform);
+                items.push_back(spring);
+            }
+
             if ( intersectPrevious(newX,newY, dynamic_cast<BluePlatform*>(platform))) {
                 delete platform;
                 continue; // перегенерируем
@@ -65,6 +75,9 @@ bool Screen::outOfBoundY(int y) {
 Screen::~Screen() {
     for (int i =0 ;i<platforms.size();i++) {
         delete platforms[i];
+    }
+    for (int i =0;i<items.size();i++) {
+        delete items[i];
     }
 }
 
@@ -100,5 +113,15 @@ void Screen::deletePlatformsLowerThan(int shift) {
         platforms.pop_front();
     }
 }
+void Screen::deleteItemsLowerThan(int shift) {
+    int index = 0;
+    while (index<items.size() && items[index]->getCoordinateY() + shift > 850) {
+        delete items[index];
+        items.pop_front();
+    }
+}
 
+std::deque<AbstractItem *> *Screen::getItems() {
+    return &items;
+}
 

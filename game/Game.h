@@ -37,6 +37,7 @@ class Game {
     bool isIntersectAnyPLatfrom();
     void moveBluePlatforms(int deltaTime);
     int bestScore = 0;
+    void processItemPickup();
     public:
     Game();
     int getScore() const;
@@ -47,6 +48,7 @@ class Game {
     DoubleJumper* getDoubleJumper();
     int getMinDoubleJumperCoordinate();
     std::deque<AbstractPlatform*>* getPlatforms();
+    std::deque<AbstractItem*>* getItems();
     int getShift() const;
 };
 

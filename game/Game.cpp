@@ -6,6 +6,7 @@
 
 #include <iostream>
 
+#include "../items/Spring.h"
 #include "../platforms/BluePlatform.h"
 
 
@@ -26,9 +27,11 @@ void Game::gameInitialize() {
 }
 void Game::gameStateUpdate(int deltaTime, bool leftArrowPressed, bool rightArrowPressed) {
     moveBluePlatforms(deltaTime);
+    processItemPickup();
     long double deltaY = physicsModel.calculateDistace(deltaTime, doubleJumper.getSpeed());
     doubleJumper.setSpeed(physicsModel.calculateSpeed(deltaTime, doubleJumper.getSpeed(), doubleJumper.getDirection()));
     doubleJumper.setCoordinateY(doubleJumper.getCoordinateY() + doubleJumper.getDirection() * deltaY);
+
     if (leftArrowPressed) {
         doubleJumper.setCoordinateX(doubleJumper.getCoordinateX() - deltaTime * horizontalSpeed);
     } else if (rightArrowPressed) {
@@ -53,6 +56,7 @@ void Game::gameStateUpdate(int deltaTime, bool leftArrowPressed, bool rightArrow
     minDoubleJumperCoordinate = std::min(minDoubleJumperCoordinate, doubleJumper.getCoordinateY());
     bestScore = std::max(bestScore,(850 - doubleJumper.getCoordinateY())/5);
     firstScreen->deletePlatformsLowerThan(getShift());
+    firstScreen->deleteItemsLowerThan(getShift());
 }
 std::deque<AbstractPlatform*>* Game::getPlatforms() {
     return firstScreen->getPlatforms();
@@ -115,7 +119,36 @@ void Game::moveBluePlatforms(int deltaTime) {
         }
     }
 }
+void Game::processItemPickup() {
+    for (auto &itemPointer : *firstScreen->getItems()) {
+        bool isIntersectVertically = false;
+        bool isIntersectHorizontally = false;
+
+        if (itemPointer->getCoordinateY() <= doubleJumper.getCoordinateY() + doubleJumper.getHeight()&&
+           itemPointer->getCoordinateY()  + itemPointer->getHeight() >= doubleJumper.getCoordinateY() + doubleJumper.getHeight()) {
+            isIntersectVertically = true;
+           }
+        if (itemPointer->getCoordinateX() <=doubleJumper.getRightestHitboxPoint() &&
+            itemPointer->getCoordinateX() + itemPointer->getWidth() >= doubleJumper.getLeftestHitboxPoint()) {
+            isIntersectHorizontally = true;
+            }
+        if (!isIntersectVertically || !isIntersectHorizontally) { // обнуление, чтобы флаги не выставились по отдельности
+            isIntersectVertically = false;
+            isIntersectHorizontally = false;
+        }
+
+        if (isIntersectVertically && isIntersectHorizontally && doubleJumper.getSpeed() <=0 && dynamic_cast<Spring*>(itemPointer)) {
+            // активируем пружинку только если упали на неё
+            itemPointer->activate(doubleJumper);
+            break;
+        }
+    }
+}
 
 int Game::getScore() const {
     return bestScore;
+}
+
+std::deque<AbstractItem *> *Game::getItems() {
+    return firstScreen->getItems();
 }
