@@ -16,6 +16,7 @@ class Screen {
     const int accesableDistanceY  = 225;
     const int brownPlatformSpawnProbability = 15;
     double bluePlatformSpawnProbability = 1.0;
+    const int
     int lowerBound;
     double difficultyLevel;
     std::deque<AbstractPlatform*> platforms;

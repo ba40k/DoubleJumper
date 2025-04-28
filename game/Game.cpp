@@ -25,7 +25,6 @@ void Game::gameInitialize() {
     platforms.push_back(startPlatform);
 }
 void Game::gameStateUpdate(int deltaTime, bool leftArrowPressed, bool rightArrowPressed) {
-    bestScore = std::max(bestScore,850 - doubleJumper.getCoordinateY());
     moveBluePlatforms(deltaTime);
     long double deltaY = physicsModel.calculateDistace(deltaTime, doubleJumper.getSpeed());
     doubleJumper.setSpeed(physicsModel.calculateSpeed(deltaTime, doubleJumper.getSpeed(), doubleJumper.getDirection()));
@@ -52,6 +51,7 @@ void Game::gameStateUpdate(int deltaTime, bool leftArrowPressed, bool rightArrow
     }
 
     minDoubleJumperCoordinate = std::min(minDoubleJumperCoordinate, doubleJumper.getCoordinateY());
+    bestScore = std::max(bestScore,(850 - doubleJumper.getCoordinateY())/5);
     firstScreen->deletePlatformsLowerThan(getShift());
 }
 std::deque<AbstractPlatform*>* Game::getPlatforms() {

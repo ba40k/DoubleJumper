@@ -21,7 +21,7 @@ set(FORMS
 )
 add_executable(DoubleJumper main.cpp mainwindow.cpp MainMenuWidget.cpp PhysicsModel.cpp DoubleJumper.cpp platforms/AbstractPlatform.cpp
         platforms/GreenPlatform.cpp gameVisualisation/gameWidget.cpp game/Game.cpp game/Screen.cpp platforms/BrownPLatform.cpp
-        platforms/BluePlatform.cpp gameVisualisation/ScoreBar.cpp)
+        platforms/BluePlatform.cpp gameVisualisation/ScoreBar.cpp items/AbstractItem.cpp items/Spring.cpp)
 target_link_libraries(DoubleJumper
 
         Qt::Core
