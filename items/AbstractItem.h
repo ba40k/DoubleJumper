@@ -24,8 +24,8 @@ class AbstractItem {
     AbstractItem(int coordinateX ,int width, int height, AbstractPlatform* platform);
     virtual void activate(DoubleJumper &activator) = 0;
     virtual  QLabel* getQLabel(QWidget *parent = nullptr)  = 0;
-    int getCoordinateX();
-    int getCoordinateY();
+    virtual int getCoordinateX();
+    virtual int getCoordinateY();
     int getHeight();
     int getWidth();
     AbstractPlatform* getPlatform();

@@ -13,6 +13,8 @@
 #include <QVector>
 #include <QSoundEffect>
 #include "Screen.h"
+#include "../items/helicopterHat.h"
+
 class Game {
     double difficulcyCoef = 1.0;
     const int doubleJumperSpawnX = 260;
@@ -38,6 +40,9 @@ class Game {
     void moveBluePlatforms(int deltaTime);
     int bestScore = 0;
     void processItemPickup();
+    int hatBuffTicks = 0;
+    double hatSpeedBuff;
+    AbstractItem* currentHat = nullptr;
     public:
     Game();
     int getScore() const;
@@ -50,6 +55,7 @@ class Game {
     std::deque<AbstractPlatform*>* getPlatforms();
     std::deque<AbstractItem*>* getItems();
     int getShift() const;
+    AbstractItem* getHatPointer();
 };
 
 

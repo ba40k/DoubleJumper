@@ -6,6 +6,7 @@
 
 #include <iostream>
 
+#include "../items/helicopterHat.h"
 #include "../items/Spring.h"
 #include "../platforms/BluePlatform.h"
 
@@ -28,8 +29,19 @@ void Game::gameInitialize() {
 void Game::gameStateUpdate(int deltaTime, bool leftArrowPressed, bool rightArrowPressed) {
     moveBluePlatforms(deltaTime);
     processItemPickup();
+
+    if (hatBuffTicks > 0) {
+        hatBuffTicks--;
+        doubleJumper.setSpeed(hatSpeedBuff);
+        if (hatBuffTicks == 0) {
+            delete currentHat;
+            currentHat = nullptr;
+        }
+    }
     long double deltaY = physicsModel.calculateDistace(deltaTime, doubleJumper.getSpeed());
-    doubleJumper.setSpeed(physicsModel.calculateSpeed(deltaTime, doubleJumper.getSpeed(), doubleJumper.getDirection()));
+    if (hatBuffTicks == 0) {
+        doubleJumper.setSpeed(physicsModel.calculateSpeed(deltaTime, doubleJumper.getSpeed(), doubleJumper.getDirection()));
+    }
     doubleJumper.setCoordinateY(doubleJumper.getCoordinateY() + doubleJumper.getDirection() * deltaY);
 
     if (leftArrowPressed) {
@@ -88,11 +100,11 @@ bool Game::isIntersectAnyPLatfrom() {
             isIntersectHorizontally = false;
         }
         if (isIntersectVertically && isIntersectHorizontally && dynamic_cast<BrownPlatform*>(platformPointer) &&
-            doubleJumper.getSpeed()<=0) {
+            doubleJumper.getSpeed()<=0 && hatBuffTicks ==0) {
             dynamic_cast<BrownPlatform*>(platformPointer)->setBroken();
             return false;
         }
-        if (isIntersectVertically && isIntersectHorizontally && !dynamic_cast<BrownPlatform*>(platformPointer)) {
+        if (isIntersectVertically && isIntersectHorizontally && !dynamic_cast<BrownPlatform*>(platformPointer)  && hatBuffTicks ==0) {
             return true;
         }
     }
@@ -120,6 +132,7 @@ void Game::moveBluePlatforms(int deltaTime) {
     }
 }
 void Game::processItemPickup() {
+    int index = 0;
     for (auto &itemPointer : *firstScreen->getItems()) {
         bool isIntersectVertically = false;
         bool isIntersectHorizontally = false;
@@ -143,6 +156,16 @@ void Game::processItemPickup() {
             itemPointer->activate(doubleJumper);
             break;
         }
+        if (isIntersectVertically && isIntersectHorizontally  && dynamic_cast<HelicopterHat*>(itemPointer) && hatBuffTicks<=0) {
+            // активируем шляпу в любом случае касания - когда падали или когда взлетали
+            itemPointer->activate(doubleJumper);
+            hatBuffTicks = dynamic_cast<HelicopterHat*>(itemPointer)->getActivatedTicks();
+            hatSpeedBuff = dynamic_cast<HelicopterHat*>(itemPointer)->getSpeedBuff();
+            currentHat = itemPointer;
+            firstScreen->getItems()->erase(firstScreen->getItems()->begin() + index);
+            break;
+        }
+        index++;
     }
 }
 
@@ -152,4 +175,7 @@ int Game::getScore() const {
 
 std::deque<AbstractItem *> *Game::getItems() {
     return firstScreen->getItems();
+}
+AbstractItem *Game::getHatPointer() {
+    return currentHat;
 }

@@ -84,13 +84,14 @@ void GameWidget::update() {
         }
 
     }
-    visualizeItems();
+
     doubleJumperLabel->setPixmap(game.getDoubleJumper()->getLabel(this)->pixmap());
     doubleJumperLabel->move(game.getDoubleJumperX(), game.getDoubleJumperY() + shift);
     doubleJumperLabel->raise();
     if (currentScoreTick%scoreUpdateTick==0) {
         scoreBar->displayScore(game.getScore());
     }
+    visualizeItems();
     scoreBar->raise();
     ++currentScoreTick;
 }
@@ -157,4 +158,5 @@ void GameWidget::visualizeItems() {
             items[i]->show();
         }
     }
+
 }

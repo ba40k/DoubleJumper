@@ -28,6 +28,7 @@ class GameWidget : public QWidget{
     ScoreBar* scoreBar;
     const int scoreUpdateTick = 10;
     int currentScoreTick = 0;
+    QLabel* currentHatLabel=nullptr;
     void visualizeItems();
     public:
     void keyPressEvent(QKeyEvent *event);

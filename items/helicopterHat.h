@@ -17,13 +17,17 @@ class HelicopterHat : public AbstractItem {
     static QMediaPlayer *player;
     static QAudioOutput *audioOutput;
     static bool isPlayerInitialized;
-    int activatedTicks = 100;
+    int activatedTicks = 500;
+    DoubleJumper* jumper;
 public:
     HelicopterHat(int coordinateX, AbstractPlatform* platform);
     QLabel* getQLabel(QWidget *parent = nullptr) override;
     void activate(DoubleJumper &activator) override;
     void setActivated();
     int getActivatedTicks();
+    int getCoordinateX() override;
+    int getCoordinateY() override;
+    double getSpeedBuff();
 };
 
 

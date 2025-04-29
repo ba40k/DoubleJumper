@@ -19,7 +19,7 @@ class Screen {
     const int brownPlatformSpawnProbability = 15;
     double bluePlatformSpawnProbability = 1.0;
     const int springSpawnProbability = 10;
-    const int helicopterHatSpawnProbability = 5;
+    const int helicopterHatSpawnProbability = 3;
 
 
     int lowerBound;
@@ -32,7 +32,6 @@ class Screen {
 
     bool intersectPrevious(int x,int y, bool isBlue);
 
-public:
     public:
     Screen(int lowerBound, int upperBound, std::deque<AbstractPlatform*> &platforms, double difficultyLevel);
     std::deque<AbstractPlatform*>* getPlatforms();
