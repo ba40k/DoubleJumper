@@ -13,8 +13,9 @@ class BrownPlatform : public AbstractPlatform{
     bool broken = false;
     bool animationEnded = false;
     int animationCounter = 1;
-    QMediaPlayer *player;
-    QAudioOutput *audioOutput;
+    static QMediaPlayer *player;
+    static QAudioOutput *audioOutput;
+    static bool isPlayerInitialized;
     QString soundPrefixPath = "requirments/Doodle Jump SFX/";
     QString breakingSoundPath = "egg-crack.mp3";
     public:
@@ -25,6 +26,7 @@ class BrownPlatform : public AbstractPlatform{
     bool isAnimationEnded();
     int getAnimationCounter();
     void setAnimationCounter(int counter);
+
 };
 
 

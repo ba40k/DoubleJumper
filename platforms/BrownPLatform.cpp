@@ -4,13 +4,18 @@
 
 #include "BrownPLatform.h"
 #include <iostream>
+QMediaPlayer* BrownPlatform::player = nullptr;
+QAudioOutput* BrownPlatform::audioOutput = nullptr;
+bool BrownPlatform::isPlayerInitialized = false;
 BrownPlatform::BrownPlatform(int coordinateX, int coordinateY, QString &imagePath) : AbstractPlatform(coordinateX, coordinateY,125) {
     this->imagePath = imagePath;
-    player = new QMediaPlayer();
-    player->setSource(QUrl::fromLocalFile(soundPrefixPath + breakingSoundPath));
-    audioOutput = new QAudioOutput();
-    // Настройте аудиовыход
-    player->setAudioOutput(audioOutput);
+    if (!isPlayerInitialized) {
+        player = new QMediaPlayer();
+        audioOutput = new QAudioOutput();
+        player->setAudioOutput(audioOutput);
+        player->setSource(QUrl::fromLocalFile(soundPrefixPath + breakingSoundPath));
+        isPlayerInitialized = true;
+    }
 
 }
 QLabel* BrownPlatform::getQLabel(QWidget *parent)  {
@@ -58,4 +63,5 @@ void BrownPlatform::setAnimationCounter(int counter) {
 int BrownPlatform::getAnimationCounter() {
     return animationCounter;
 }
+
 
