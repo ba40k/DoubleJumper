@@ -18,7 +18,7 @@ class Screen {
     const int accesableDistanceY  = 225;
     const int brownPlatformSpawnProbability = 15;
     double bluePlatformSpawnProbability = 1.0;
-    const int springSpawnProbability = 10;
+    const int springSpawnProbability = 100;
 
 
     int lowerBound;

@@ -24,6 +24,7 @@ class Spring : public AbstractItem{
     void activate(DoubleJumper &activator) override;
     void setActivated();
 
+
 };
 
 

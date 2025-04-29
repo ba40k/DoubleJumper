@@ -139,6 +139,7 @@ void Game::processItemPickup() {
 
         if (isIntersectVertically && isIntersectHorizontally && doubleJumper.getSpeed() <=0 && dynamic_cast<Spring*>(itemPointer)) {
             // активируем пружинку только если упали на неё
+            std::cout<<"deleted: "<<itemPointer->getPlatform()<<'\n';
             itemPointer->activate(doubleJumper);
             break;
         }

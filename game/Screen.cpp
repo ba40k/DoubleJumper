@@ -50,17 +50,18 @@ void Screen::generatePlatforms() {
                 platform = new GreenPlatform(newX, newY,imagePath);
             }
 
+
+
+            if ( intersectPrevious(newX,newY, dynamic_cast<BluePlatform*>(platform))) {
+                delete platform;
+                continue; // перегенерируем
+            }
             if (rand()%100 < springSpawnProbability && !dynamic_cast<BrownPlatform*>(platform)) {
                 Spring temp(0,0);
                 int springWidth = temp.getWidth();
                 int onPlatformX =rand()%(platform->getWidth() - springWidth);
                 AbstractItem *spring = new Spring(onPlatformX,platform);
                 items.push_back(spring);
-            }
-
-            if ( intersectPrevious(newX,newY, dynamic_cast<BluePlatform*>(platform))) {
-                delete platform;
-                continue; // перегенерируем
             }
             platforms.push_back(platform);
         }
@@ -108,15 +109,19 @@ void Screen::setDifficulty(double dif) {
 }
 void Screen::deletePlatformsLowerThan(int shift) {
     int index = 0;
-    while (platforms[index]->getY() + shift > 850) {
+    while (platforms[index]->getY() + shift > 900) { //  удаляем платформы не сразу как только они вышли за экран, чтобы не было так, что платформа удалилась, но осталась пружинка привязанная к ней
+        std::cout<<platforms[index]<<'\n';
         delete platforms[index];
+        platforms[index] = nullptr;
         platforms.pop_front();
     }
+
 }
 void Screen::deleteItemsLowerThan(int shift) {
     int index = 0;
-    while (index<items.size() && items[index]->getCoordinateY() + shift > 850) {
+    while (index<items.size() && (items[index]->getCoordinateY() + shift > 850 || items[index]->getPlatform()==nullptr)) {
         delete items[index];
+        items[index] = nullptr;
         items.pop_front();
     }
 }

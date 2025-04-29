@@ -25,3 +25,6 @@ int AbstractItem::getHeight() {
 }
 
 
+AbstractPlatform* AbstractItem::getPlatform() {
+    return platform;
+}

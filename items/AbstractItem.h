@@ -27,6 +27,7 @@ class AbstractItem {
     int getCoordinateY();
     int getHeight();
     int getWidth();
+    AbstractPlatform* getPlatform();
     virtual ~AbstractItem() = default;
 
 };
