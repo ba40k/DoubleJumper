@@ -9,7 +9,7 @@
 #include "../PhysicsModel.h"
 #include "../items/Spring.h"
 #include "../platforms/BluePlatform.h"
-
+#include "../items/helicopterHat.h"
 Screen::Screen(int lowerBound, int upperBound, std::deque<AbstractPlatform*> &platforms, double difficultyLevel) {
     srand(time(NULL));
     this->lowerBound = lowerBound;
@@ -32,7 +32,7 @@ void Screen::generatePlatforms() {
         AbstractPlatform *parentPlatform = platforms[parentPlatformIndex];
         for (int i = 0; i < numberOfAdditionalPlatforms; i++) {
             int shiftX = rand() % accesableDistanceX +50;
-            int shiftY = rand() % accesableDistanceY + 50;
+            int shiftY = rand() % accesableDistanceY + 75;
             shiftY = std::min(accesableDistanceY, static_cast<int>(shiftY + (1.0 - difficultyLevel)*50)); // чем выше сложность тем большее число будет тут добавляться
             int shiftSign = 1;
             rand()%2==0?shiftSign=-1:1;
@@ -60,8 +60,20 @@ void Screen::generatePlatforms() {
                 Spring temp(0,0);
                 int springWidth = temp.getWidth();
                 int onPlatformX =rand()%(platform->getWidth() - springWidth);
+                onPlatformX = std::max(8,onPlatformX);
+                onPlatformX = std::min(platform->getWidth() - springWidth - 8,onPlatformX);
                 AbstractItem *spring = new Spring(onPlatformX,platform);
                 items.push_back(spring);
+            } else if (rand()%100 < helicopterHatSpawnProbability && !dynamic_cast<BrownPlatform*>(platform)) {
+
+                HelicopterHat temp(0,0);
+                int hatWidth = temp.getWidth();
+                int onPlatformX =rand()%(platform->getWidth() - hatWidth);
+                onPlatformX = std::max(8,onPlatformX);
+                onPlatformX = std::min(platform->getWidth() - hatWidth - 8,onPlatformX);
+                AbstractItem *hat = new HelicopterHat(onPlatformX,platform);
+                items.push_back(hat);
+
             }
             platforms.push_back(platform);
         }
@@ -110,7 +122,7 @@ void Screen::setDifficulty(double dif) {
 void Screen::deletePlatformsLowerThan(int shift) {
     int index = 0;
     while (platforms[index]->getY() + shift > 900) { //  удаляем платформы не сразу как только они вышли за экран, чтобы не было так, что платформа удалилась, но осталась пружинка привязанная к ней
-        std::cout<<platforms[index]<<'\n';
+       // std::cout<<platforms[index]<<'\n';
         delete platforms[index];
         platforms[index] = nullptr;
         platforms.pop_front();
@@ -120,6 +132,7 @@ void Screen::deletePlatformsLowerThan(int shift) {
 void Screen::deleteItemsLowerThan(int shift) {
     int index = 0;
     while (index<items.size() && (items[index]->getCoordinateY() + shift > 850 || items[index]->getPlatform()==nullptr)) {
+       // std::cout<<"deleted "<<dynamic_cast<HelicopterHat*>(items[index]);
         delete items[index];
         items[index] = nullptr;
         items.pop_front();

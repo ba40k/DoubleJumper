@@ -8,6 +8,7 @@
 #include<iostream>
 #include <QKeyEvent>
 
+#include "../items/helicopterHat.h"
 #include "../items/Spring.h"
 #include "../platforms/BluePlatform.h"
 
@@ -41,6 +42,7 @@ GameWidget::GameWidget(QWidget *parent) {
             platforms[i] = GreenPlatform((*gamePlatforms)[i]->getX(), (  (*gamePlatforms)[i]->getY()) ,imagePath).getQLabel(this);
         }
     }
+    visualizeItems();
     timer = new QTimer(this);
     timer->setInterval(deltaTime);
     timer->setSingleShot(false);
@@ -145,8 +147,14 @@ void GameWidget::visualizeItems() {
     items.clear();
     items.resize(gameItems->size());
     for (int i = 0; i < gameItems->size(); i++) {
-        items[i] = dynamic_cast<Spring*>((*gameItems)[i])->getQLabel(this);
-        items[i]->move(items[i]->x(), items[i]->y() + game.getShift());
-        items[i]->show();
+        if ( dynamic_cast<Spring*>((*gameItems)[i])) {
+            items[i] = dynamic_cast<Spring*>((*gameItems)[i])->getQLabel(this);
+            items[i]->move(items[i]->x(), items[i]->y() + game.getShift());
+            items[i]->show();
+        } else if ( dynamic_cast<HelicopterHat*>((*gameItems)[i])) {
+            items[i] = dynamic_cast<HelicopterHat*>((*gameItems)[i])->getQLabel(this);
+            items[i]->move(items[i]->x(), items[i]->y() + game.getShift());
+            items[i]->show();
+        }
     }
 }

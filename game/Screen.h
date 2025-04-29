@@ -15,10 +15,11 @@ class Screen {
     const int HEIGHT = 850;
     const int WIDTH = 640-120;
     const int accesableDistanceX  = 200;
-    const int accesableDistanceY  = 225;
+    const int accesableDistanceY  = 250;
     const int brownPlatformSpawnProbability = 15;
     double bluePlatformSpawnProbability = 1.0;
-    const int springSpawnProbability = 100;
+    const int springSpawnProbability = 10;
+    const int helicopterHatSpawnProbability = 5;
 
 
     int lowerBound;

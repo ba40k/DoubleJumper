@@ -19,6 +19,7 @@ class AbstractItem {
     int onTileCoordinateY;
     QString prefixPath = "requirments/Sprites/Doodle Jump/";
     QString imagePath = "game-tiles@2x.png";
+    QString prefixSoundPath = "requirments/Doodle Jump SFX/";
     public:
     AbstractItem(int coordinateX ,int width, int height, AbstractPlatform* platform);
     virtual void activate(DoubleJumper &activator) = 0;

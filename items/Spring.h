@@ -6,7 +6,7 @@
 #define SPRING_H
 
 #include "AbstractItem.h"
-
+#include <QMediaPlayer>
 class Spring : public AbstractItem{
     bool activated = false;
     const int nonActivatedOnTileCoordinateX = 806;
@@ -18,6 +18,10 @@ class Spring : public AbstractItem{
     const int ActivatedWidth = 35;
     const int ActivatedHeight = 53;
     double speedBuff = 2.0;
+    QString activatedSoundPath = "spring-arcade.mp3";
+    static QMediaPlayer *player;
+    static QAudioOutput *audioOutput;
+    static bool isPlayerInitialized;
     public:
     Spring(int coordinateX, AbstractPlatform* platform);
     QLabel* getQLabel(QWidget *parent = nullptr) override;
