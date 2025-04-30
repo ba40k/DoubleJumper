@@ -84,14 +84,27 @@ void GameWidget::update() {
         }
 
     }
-
+    visualizeItems();
     doubleJumperLabel->setPixmap(game.getDoubleJumper()->getLabel(this)->pixmap());
     doubleJumperLabel->move(game.getDoubleJumperX(), game.getDoubleJumperY() + shift);
     doubleJumperLabel->raise();
     if (currentScoreTick%scoreUpdateTick==0) {
         scoreBar->displayScore(game.getScore());
     }
-    visualizeItems();
+
+    if (game.getHatPointer()!=nullptr) {
+        if (currentHatLabel!=nullptr) {
+            delete currentHatLabel;
+        }
+        currentHatLabel = game.getHatPointer()->getQLabel(this);
+        currentHatLabel->move(currentHatLabel->x(), currentHatLabel->y() + game.getShift());
+        currentHatLabel->show();
+    } else {
+        if (currentHatLabel!=nullptr) {
+            delete currentHatLabel;
+            currentHatLabel = nullptr;
+        }
+    }
     scoreBar->raise();
     ++currentScoreTick;
 }

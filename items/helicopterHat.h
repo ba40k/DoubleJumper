@@ -17,7 +17,7 @@ class HelicopterHat : public AbstractItem {
     static QMediaPlayer *player;
     static QAudioOutput *audioOutput;
     static bool isPlayerInitialized;
-    int activatedTicks = 500;
+    int activatedTicks = 150;
     DoubleJumper* jumper;
 public:
     HelicopterHat(int coordinateX, AbstractPlatform* platform);
