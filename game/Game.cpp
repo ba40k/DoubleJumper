@@ -88,7 +88,8 @@ bool Game::isIntersectAnyPLatfrom() {
 
     for (auto &platformPointer : *firstScreen->getPlatforms()) {
         if (platformPointer->getY() <= doubleJumper.getCoordinateY() + doubleJumper.getHeight()&&
-            platformPointer->getY()  + platformPointer->getHeight() >= doubleJumper.getCoordinateY() + doubleJumper.getHeight()) {
+            platformPointer->getY()  + platformPointer->getHeight() >= doubleJumper.getCoordinateY() + doubleJumper.getHeight()
+            && platformPointer->getY() + getShift()<=850) {
             isIntersectVertically = true;
         }
         if (platformPointer->getX() <=doubleJumper.getRightestHitboxPoint() &&

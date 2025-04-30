@@ -54,12 +54,14 @@ GameWidget::GameWidget(QWidget *parent) {
 }
 void GameWidget::update() {
     int shift = game.getShift();
+    visualizeItems();
     game.gameStateUpdate(deltaTime,leftArrowPressed,rightArrowPressed);
     auto gamePlatforms = game.getPlatforms();
   //  std::cout<<platforms.size()<<'\n';
     for (int i =0 ;i<platforms.size(); i++) {
         delete platforms[i];
     }
+
     platforms.clear();
     platforms.resize(gamePlatforms->size());
     for (int i = 0; i < gamePlatforms->size(); i++) {
@@ -84,7 +86,7 @@ void GameWidget::update() {
         }
 
     }
-    visualizeItems();
+
     doubleJumperLabel->setPixmap(game.getDoubleJumper()->getLabel(this)->pixmap());
     doubleJumperLabel->move(game.getDoubleJumperX(), game.getDoubleJumperY() + shift);
     doubleJumperLabel->raise();
