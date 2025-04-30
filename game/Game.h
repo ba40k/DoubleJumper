@@ -26,7 +26,7 @@ class Game {
 
     const int PLATFORM_HEIGHT = 32;
 
-    int defaultPlatformSpawnCount = 5;
+    int defaultPlatformSpawnCount = 7;
     PhysicsModel physicsModel;
     DoubleJumper doubleJumper;
     Screen* firstScreen;
@@ -35,7 +35,7 @@ class Game {
     QString soundPrefixPath;
     QString jumpSoundPath ;
     QSoundEffect jumpSound;
-    float horizontalSpeed = 0.8;
+    float horizontalSpeed = 0.7;
     bool isIntersectAnyPLatfrom();
     void moveBluePlatforms(int deltaTime);
     int bestScore = 0;

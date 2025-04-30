@@ -61,7 +61,7 @@ void Game::gameStateUpdate(int deltaTime, bool leftArrowPressed, bool rightArrow
         doubleJumper.setSpeed(defaultSpeed);
     }
     if (abs(minDoubleJumperCoordinate - firstScreen->getHighestPlatformCoordinate()) < 500) {
-        difficulcyCoef*=0.9;
+        difficulcyCoef*=0.95;
         firstScreen->setDifficulty(difficulcyCoef);
         firstScreen->generatePlatforms();
     }
