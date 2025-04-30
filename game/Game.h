@@ -43,6 +43,7 @@ class Game {
     int hatBuffTicks = 0;
     double hatSpeedBuff;
     AbstractItem* currentHat = nullptr;
+    void processHopped();
     public:
     Game();
     int getScore() const;

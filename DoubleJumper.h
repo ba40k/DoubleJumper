@@ -16,6 +16,9 @@ class DoubleJumper {
     QString prefixPath ;
     QString leftOrientedSpritePath ;
     QString rightOrientedSpritePath;
+    bool hopped = false;
+    QString leftHoppedSpritePath;
+    QString rightHoppedSpritePath;
     int coordinateX;
     int coordinateY;
     long double speed;
@@ -27,6 +30,7 @@ class DoubleJumper {
     void changeDirection();
     void setCoordinateX(int coordinateX);
     void setCoordinateY(int coordinateY);
+    void setHopped(bool hopped);
     QLabel* getLabel(QWidget *parent);
     long double getSpeed() const;
     long double getDirection() const;

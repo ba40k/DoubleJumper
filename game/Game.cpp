@@ -29,6 +29,7 @@ void Game::gameInitialize() {
 void Game::gameStateUpdate(int deltaTime, bool leftArrowPressed, bool rightArrowPressed) {
     moveBluePlatforms(deltaTime);
     processItemPickup();
+    processHopped();
 
     if (hatBuffTicks > 0) {
         hatBuffTicks--;
@@ -188,4 +189,11 @@ std::deque<AbstractItem *> *Game::getItems() {
 }
 AbstractItem *Game::getHatPointer() {
     return currentHat;
+}
+void Game::processHopped() {
+    if ((doubleJumper.getSpeed()<=defaultSpeed && doubleJumper.getSpeed()>=defaultSpeed - 0.2 ) || hatBuffTicks>0) {
+        doubleJumper.setHopped(true);
+    } else {
+        doubleJumper.setHopped(false);
+    }
 }
