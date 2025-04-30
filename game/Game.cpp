@@ -138,7 +138,15 @@ void Game::processItemPickup() {
         bool isIntersectHorizontally = false;
 
         if (itemPointer->getCoordinateY() <= doubleJumper.getCoordinateY() + doubleJumper.getHeight()&&
-           itemPointer->getCoordinateY()  + itemPointer->getHeight() >= doubleJumper.getCoordinateY() + doubleJumper.getHeight()) {
+           itemPointer->getCoordinateY()  + itemPointer->getHeight() >= doubleJumper.getCoordinateY() + doubleJumper.getHeight()
+           && dynamic_cast<Spring*>(itemPointer)
+           ) {
+            isIntersectVertically = true;
+           }
+        if (itemPointer->getCoordinateY() <= doubleJumper.getCoordinateY() + doubleJumper.getHeight()&&
+           itemPointer->getCoordinateY()  + itemPointer->getHeight() >= doubleJumper.getCoordinateY()
+           && dynamic_cast<HelicopterHat*>(itemPointer)
+           ) {
             isIntersectVertically = true;
            }
         if (itemPointer->getCoordinateX() <=doubleJumper.getRightestHitboxPoint() &&
@@ -156,6 +164,7 @@ void Game::processItemPickup() {
             itemPointer->activate(doubleJumper);
             break;
         }
+
         if (isIntersectVertically && isIntersectHorizontally  && dynamic_cast<HelicopterHat*>(itemPointer) && hatBuffTicks<=0) {
             // активируем шляпу в любом случае касания - когда падали или когда взлетали
             itemPointer->activate(doubleJumper);
