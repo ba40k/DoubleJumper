@@ -19,7 +19,7 @@ class Screen {
     const int brownPlatformSpawnProbability = 15;
     double bluePlatformSpawnProbability = 1.0;
     const int springSpawnProbability = 10;
-    const int helicopterHatSpawnProbability = 3;
+    const int helicopterHatSpawnProbability = 100;
 
 
     int lowerBound;

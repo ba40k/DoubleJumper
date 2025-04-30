@@ -14,6 +14,9 @@ HelicopterHat::HelicopterHat(int coordinateX, AbstractPlatform* platform) : Abst
     width = 65;
     height = 39;
     shiftY = 3;
+    boundingRectsForAnimation.push_back({64,7});
+    boundingRectsForAnimation.push_back({0,71});
+    boundingRectsForAnimation.push_back({64,71});
     if (!isPlayerInitialized) {
         player = new QMediaPlayer();
         audioOutput = new QAudioOutput();
@@ -23,11 +26,23 @@ HelicopterHat::HelicopterHat(int coordinateX, AbstractPlatform* platform) : Abst
     }
 }
 QLabel *HelicopterHat::getQLabel(QWidget *parent) {
-    QLabel *label = new QLabel(parent);
-    label->setScaledContents(true);
-    label->setGeometry(getCoordinateX(),getCoordinateY(),width, height);
-    label->setPixmap(QPixmap(prefixPath + imagePath).copy(onTileCoordinateX,onTileCoordinateY,width,height));
-    return label;
+    if (!activated) {
+        QLabel *label = new QLabel(parent);
+        label->setScaledContents(true);
+        label->setGeometry(getCoordinateX(),getCoordinateY(),width, height);
+        label->setPixmap(QPixmap(prefixPath + imagePath).copy(onTileCoordinateX,onTileCoordinateY,width,height));
+
+        return label;
+    } else {
+
+        currentAnimationTick++;
+        int index = (currentAnimationTick/10)%3;
+        QLabel *label = new QLabel(parent);
+        label->setScaledContents(true);
+        label->setGeometry(getCoordinateX(),getCoordinateY(),width,height);
+        label->setPixmap(QPixmap(prefixPath + activatedImagesPath).copy(boundingRectsForAnimation[index].x(),boundingRectsForAnimation[index].y(),width,height));
+        return label;
+    }
 }
 void HelicopterHat::setActivated() {
     activated = true;
@@ -38,6 +53,9 @@ void HelicopterHat::activate(DoubleJumper &activator) {
     setActivated();
     height-=5;
     player->play();
+    width = activatedWidth;
+    height = activatedHeight;
+
 }
 int HelicopterHat::getActivatedTicks() {
     return activatedTicks;
@@ -55,7 +73,7 @@ int HelicopterHat::getCoordinateY() {
     if (!activated) {
         return platform->getY()  - height + shiftY;
     } else {
-        return jumper->getCoordinateY()  -shiftY - 8;
+        return jumper->getCoordinateY()  -25;
     }
 }
 double HelicopterHat::getSpeedBuff() {

@@ -11,9 +11,15 @@
 
 class HelicopterHat : public AbstractItem {
     bool activated = false;
-
     double speedBuff = 1.5;
+    int activatedHeight = 57;
+    int activatedWidth = 62;
+
     QString activatedSoundPath = "propeller1.mp3";
+    QString activatedImagesPath = "propeller@2x.png";
+    QVector<QPoint> boundingRectsForAnimation;
+    int oneImageTick = 10;
+    int currentAnimationTick=0;
     static QMediaPlayer *player;
     static QAudioOutput *audioOutput;
     static bool isPlayerInitialized;
