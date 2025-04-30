@@ -36,6 +36,7 @@ void HelicopterHat::activate(DoubleJumper &activator) {
     // std::cout<<1;
     jumper = &activator;
     setActivated();
+    height-=5;
     player->play();
 }
 int HelicopterHat::getActivatedTicks() {
@@ -45,14 +46,16 @@ int HelicopterHat::getCoordinateX() {
     if (!activated) {
         return platform->getX() + coordinateX + 5;
     } else {
-        return jumper->getCoordinateX() + coordinateX;
+
+            return jumper->getCoordinateX() + 30;
+
     }
 }
 int HelicopterHat::getCoordinateY() {
     if (!activated) {
         return platform->getY()  - height + shiftY;
     } else {
-        return jumper->getCoordinateY()  + shiftY;
+        return jumper->getCoordinateY()  -shiftY - 8;
     }
 }
 double HelicopterHat::getSpeedBuff() {

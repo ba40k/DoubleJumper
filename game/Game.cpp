@@ -11,7 +11,7 @@
 #include "../platforms/BluePlatform.h"
 
 
-Game::Game() : physicsModel(0.0025), doubleJumper(doubleJumperSpawnX,doubleJumperSpawnY,defaultSpeed,startDirection){
+Game::Game() : physicsModel(0.003), doubleJumper(doubleJumperSpawnX,doubleJumperSpawnY,defaultSpeed,startDirection){
     srand(time(NULL));
 }
 void Game::gameInitialize() {
