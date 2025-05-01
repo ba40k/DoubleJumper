@@ -36,7 +36,7 @@ QLabel *HelicopterHat::getQLabel(QWidget *parent) {
     } else {
 
         currentAnimationTick++;
-        int index = (currentAnimationTick/10)%3;
+        int index = (currentAnimationTick/oneImageTick)%3;
         QLabel *label = new QLabel(parent);
         label->setScaledContents(true);
         label->setGeometry(getCoordinateX(),getCoordinateY(),width,height);
@@ -73,7 +73,7 @@ int HelicopterHat::getCoordinateY() {
     if (!activated) {
         return platform->getY()  - height + shiftY;
     } else {
-        return jumper->getCoordinateY()  -25;
+        return jumper->getCoordinateY()  -10;
     }
 }
 double HelicopterHat::getSpeedBuff() {

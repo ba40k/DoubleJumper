@@ -22,17 +22,20 @@ std::deque<AbstractPlatform*>* Screen::getPlatforms() {
 }
 void Screen::generatePlatforms() {
     bluePlatformSpawnProbability += (1 - difficultyLevel) * 0.25;
+
    int count = 7;
     while (count--) {
-        int numberOfAdditionalPlatforms = std::max(1.0,rand()%10 * difficultyLevel); // так как по логике(весьма странной) чем выше число сожности тем НИЖЕ сложность, то и количество спавнящихся платформ тоже уменшьается
+        int numberOfAdditionalPlatforms = std::max(1.0,rand()%5 * difficultyLevel); // так как по логике(весьма странной) чем выше число сожности тем НИЖЕ сложность, то и количество спавнящихся платформ тоже уменшьается
         int parentPlatformIndex = platforms.size() - 1;
         while (dynamic_cast<BrownPlatform*>(platforms[parentPlatformIndex])) {
             parentPlatformIndex--;
         }
         AbstractPlatform *parentPlatform = platforms[parentPlatformIndex];
+        int lastShiftY=0;
         for (int i = 0; i < numberOfAdditionalPlatforms; i++) {
+            lastShiftY+=75;
             int shiftX = rand() % accesableDistanceX +100;
-            int shiftY = rand() % accesableDistanceY + 75;
+            int shiftY = rand() % accesableDistanceY + lastShiftY;
             shiftY = std::min(accesableDistanceY, static_cast<int>(shiftY + (1.0 - difficultyLevel)*50)); // чем выше сложность тем большее число будет тут добавляться
             int shiftSign = 1;
             rand()%2==0?shiftSign=-1:1;
@@ -76,6 +79,7 @@ void Screen::generatePlatforms() {
 
             }
             platforms.push_back(platform);
+            lastShiftY = shiftY;
         }
     }
 }

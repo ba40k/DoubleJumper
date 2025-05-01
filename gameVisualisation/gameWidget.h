@@ -19,7 +19,7 @@ class GameWidget : public QWidget{
     QLabel* doubleJumperLabel;
     QVector<QLabel*> platforms;
     QVector<QLabel*> items;
-    const int deltaTime = 15;
+    const int deltaTime = 8;
     QTimer* timer;
     bool stopped = false;
     void update();

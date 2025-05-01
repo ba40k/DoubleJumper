@@ -18,12 +18,12 @@ class HelicopterHat : public AbstractItem {
     QString activatedSoundPath = "propeller1.mp3";
     QString activatedImagesPath = "propeller@2x.png";
     QVector<QPoint> boundingRectsForAnimation;
-    int oneImageTick = 10;
+    int oneImageTick = 5;
     int currentAnimationTick=0;
     static QMediaPlayer *player;
     static QAudioOutput *audioOutput;
     static bool isPlayerInitialized;
-    int activatedTicks = 150;
+    int activatedTicks = 300;
     DoubleJumper* jumper;
 public:
     HelicopterHat(int coordinateX, AbstractPlatform* platform);
