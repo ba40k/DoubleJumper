@@ -10,6 +10,7 @@
 #include "../items/Spring.h"
 #include "../platforms/BluePlatform.h"
 #include "../items/helicopterHat.h"
+#include "../items/Jetpack.h"
 Screen::Screen(int lowerBound, int upperBound, std::deque<AbstractPlatform*> &platforms, double difficultyLevel) {
     srand(time(NULL));
     this->lowerBound = lowerBound;
@@ -77,6 +78,14 @@ void Screen::generatePlatforms() {
                 AbstractItem *hat = new HelicopterHat(onPlatformX,platform);
                 items.push_back(hat);
 
+            } else if (rand()%100 < jetpackSpawnProbability && !dynamic_cast<BrownPlatform*>(platform)) {
+                Jetpack temp(0,0);
+                int jetpackWidth = temp.getWidth();
+                int onPlatformX =rand()%(platform->getWidth() - jetpackWidth);
+                onPlatformX = std::max(8,onPlatformX);
+                onPlatformX = std::min(platform->getWidth() - jetpackWidth - 8,onPlatformX);
+                AbstractItem *jetpack = new Jetpack(onPlatformX,platform);
+                items.push_back(jetpack);
             }
             platforms.push_back(platform);
             lastShiftY = shiftY;

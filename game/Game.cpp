@@ -7,6 +7,7 @@
 #include <iostream>
 
 #include "../items/helicopterHat.h"
+#include "../items/Jetpack.h"
 #include "../items/Spring.h"
 #include "../platforms/BluePlatform.h"
 
@@ -39,8 +40,16 @@ void Game::gameStateUpdate(int deltaTime, bool leftArrowPressed, bool rightArrow
             currentHat = nullptr;
         }
     }
+    if (jetPackBuffTicks > 0) {
+        jetPackBuffTicks--;
+        doubleJumper.setSpeed(jetpackSpeedBuff);
+        if (jetPackBuffTicks == 0) {
+            delete currentJetpack;
+            currentJetpack = nullptr;
+        }
+    }
     long double deltaY = physicsModel.calculateDistace(deltaTime, doubleJumper.getSpeed());
-    if (hatBuffTicks == 0) {
+    if (hatBuffTicks == 0 && jetPackBuffTicks == 0) {
         doubleJumper.setSpeed(physicsModel.calculateSpeed(deltaTime, doubleJumper.getSpeed(), doubleJumper.getDirection()));
     }
     doubleJumper.setCoordinateY(doubleJumper.getCoordinateY() + doubleJumper.getDirection() * deltaY);
@@ -102,11 +111,12 @@ bool Game::isIntersectAnyPLatfrom() {
             isIntersectHorizontally = false;
         }
         if (isIntersectVertically && isIntersectHorizontally && dynamic_cast<BrownPlatform*>(platformPointer) &&
-            doubleJumper.getSpeed()<=0 && hatBuffTicks ==0) {
+            doubleJumper.getSpeed()<=0 && hatBuffTicks ==0 && jetPackBuffTicks == 0) {
             dynamic_cast<BrownPlatform*>(platformPointer)->setBroken();
             return false;
         }
-        if (isIntersectVertically && isIntersectHorizontally && !dynamic_cast<BrownPlatform*>(platformPointer)  && hatBuffTicks ==0) {
+        if (isIntersectVertically && isIntersectHorizontally && !dynamic_cast<BrownPlatform*>(platformPointer)  && hatBuffTicks ==0
+            && jetPackBuffTicks == 0) {
             return true;
         }
     }
@@ -151,6 +161,13 @@ void Game::processItemPickup() {
            ) {
             isIntersectVertically = true;
            }
+
+        if (itemPointer->getCoordinateY() <= doubleJumper.getCoordinateY() + doubleJumper.getHeight()&&
+          itemPointer->getCoordinateY()  + itemPointer->getHeight() >= doubleJumper.getCoordinateY()
+          && dynamic_cast<Jetpack*>(itemPointer)
+          ) {
+            isIntersectVertically = true;
+          }
         if (itemPointer->getCoordinateX() <=doubleJumper.getRightestHitboxPoint() &&
             itemPointer->getCoordinateX() + itemPointer->getWidth() >= doubleJumper.getLeftestHitboxPoint()) {
             isIntersectHorizontally = true;
@@ -167,12 +184,21 @@ void Game::processItemPickup() {
             break;
         }
 
-        if (isIntersectVertically && isIntersectHorizontally  && dynamic_cast<HelicopterHat*>(itemPointer) && hatBuffTicks<=0) {
+        if (isIntersectVertically && isIntersectHorizontally  && dynamic_cast<HelicopterHat*>(itemPointer) && hatBuffTicks<=0 && jetPackBuffTicks<=0) {
             // активируем шляпу в любом случае касания - когда падали или когда взлетали
             itemPointer->activate(doubleJumper);
             hatBuffTicks = dynamic_cast<HelicopterHat*>(itemPointer)->getActivatedTicks();
             hatSpeedBuff = dynamic_cast<HelicopterHat*>(itemPointer)->getSpeedBuff();
             currentHat = itemPointer;
+            firstScreen->getItems()->erase(firstScreen->getItems()->begin() + index);
+            break;
+        }
+        if (isIntersectVertically && isIntersectHorizontally  && dynamic_cast<Jetpack*>(itemPointer) && hatBuffTicks<=0 && jetPackBuffTicks<=0) {
+            // активируем джетпак в любом случае касания - когда падали или когда взлетали
+            itemPointer->activate(doubleJumper);
+            jetPackBuffTicks = dynamic_cast<Jetpack*>(itemPointer)->getActivatedTicks();
+            jetpackSpeedBuff = dynamic_cast<Jetpack*>(itemPointer)->getSpeedBuff();
+            currentJetpack = itemPointer;
             firstScreen->getItems()->erase(firstScreen->getItems()->begin() + index);
             break;
         }
@@ -190,8 +216,12 @@ std::deque<AbstractItem *> *Game::getItems() {
 AbstractItem *Game::getHatPointer() {
     return currentHat;
 }
+AbstractItem *Game::getJetpackPointer() {
+    return currentJetpack;
+}
+
 void Game::processHopped() {
-    if ((doubleJumper.getSpeed()<=defaultSpeed && doubleJumper.getSpeed()>=defaultSpeed - 0.2 ) || hatBuffTicks>0) {
+    if ((doubleJumper.getSpeed()<=defaultSpeed && doubleJumper.getSpeed()>=defaultSpeed - 0.2 )) {
         doubleJumper.setHopped(true);
     } else {
         doubleJumper.setHopped(false);

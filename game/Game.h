@@ -42,6 +42,9 @@ class Game {
     void processItemPickup();
     int hatBuffTicks = 0;
     double hatSpeedBuff;
+    double jetpackSpeedBuff;
+    int jetPackBuffTicks = 0;
+    AbstractItem* currentJetpack = nullptr;
     AbstractItem* currentHat = nullptr;
     void processHopped();
     public:
@@ -57,6 +60,7 @@ class Game {
     std::deque<AbstractItem*>* getItems();
     int getShift() const;
     AbstractItem* getHatPointer();
+    AbstractItem* getJetpackPointer();
 };
 
 

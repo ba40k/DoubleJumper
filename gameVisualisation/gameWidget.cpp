@@ -9,6 +9,7 @@
 #include <QKeyEvent>
 
 #include "../items/helicopterHat.h"
+#include "../items/Jetpack.h"
 #include "../items/Spring.h"
 #include "../platforms/BluePlatform.h"
 
@@ -107,6 +108,19 @@ void GameWidget::update() {
             currentHatLabel = nullptr;
         }
     }
+    if (game.getJetpackPointer()!=nullptr) {
+        if (currentJetpackLabel!=nullptr) {
+            delete currentJetpackLabel;
+        }
+        currentJetpackLabel = game.getJetpackPointer()->getQLabel(this);
+        currentJetpackLabel->move(currentJetpackLabel->x(), currentJetpackLabel->y() + game.getShift());
+        currentJetpackLabel->show();
+    } else {
+        if (currentJetpackLabel!=nullptr) {
+            delete currentJetpackLabel;
+            currentJetpackLabel = nullptr;
+        }
+    }
     scoreBar->raise();
     ++currentScoreTick;
 }
@@ -169,6 +183,10 @@ void GameWidget::visualizeItems() {
             items[i]->show();
         } else if ( dynamic_cast<HelicopterHat*>((*gameItems)[i])) {
             items[i] = dynamic_cast<HelicopterHat*>((*gameItems)[i])->getQLabel(this);
+            items[i]->move(items[i]->x(), items[i]->y() + game.getShift());
+            items[i]->show();
+        } else if (dynamic_cast<Jetpack*>((*gameItems)[i])) {
+            items[i] = dynamic_cast<Jetpack*>((*gameItems)[i])->getQLabel(this);
             items[i]->move(items[i]->x(), items[i]->y() + game.getShift());
             items[i]->show();
         }
