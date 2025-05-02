@@ -10,8 +10,8 @@
 class AbstractPlatform {
     protected:
     QString soundPrefixPath = "requirments/Doodle Jump SFX/";
-    const int WIDTH = 120;
-    const int HEIGHT = 32;
+    int WIDTH = 120;
+    int HEIGHT = 32;
     int coordinateX;
     int coordinateY;
     QString prefixPath;

@@ -8,8 +8,6 @@
 
 BluePlatform::BluePlatform(int coordinateX, int coordinateY, QString &imagePath) : AbstractPlatform(coordinateX, coordinateY) {
     this->imagePath = imagePath;
-    QMediaPlayer *player = new QMediaPlayer();
-
 }
 void BluePlatform::changeSpeedDirection() {
     speed*=-1;

@@ -9,6 +9,7 @@
 #include "../items/helicopterHat.h"
 #include "../items/Jetpack.h"
 #include "../items/Spring.h"
+#include "../platforms/BlackHole.h"
 #include "../platforms/BluePlatform.h"
 
 
@@ -115,10 +116,16 @@ bool Game::isIntersectAnyPLatfrom() {
             dynamic_cast<BrownPlatform*>(platformPointer)->setBroken();
             return false;
         }
+        if (isIntersectVertically && isIntersectHorizontally && dynamic_cast<BlackHole*>(platformPointer)) {
+            gameEnded = true;
+           return false;
+           }
         if (isIntersectVertically && isIntersectHorizontally && !dynamic_cast<BrownPlatform*>(platformPointer)  && hatBuffTicks ==0
-            && jetPackBuffTicks == 0) {
+            && jetPackBuffTicks == 0 && !dynamic_cast<BlackHole*>(platformPointer)) {
             return true;
         }
+        isIntersectHorizontally = false;
+        isIntersectVertically = false;
     }
     return (isIntersectVertically & isIntersectHorizontally);
 }
@@ -226,4 +233,8 @@ void Game::processHopped() {
     } else {
         doubleJumper.setHopped(false);
     }
+}
+
+bool Game::isGameEnded() {
+    return gameEnded;
 }

@@ -11,6 +11,7 @@
 #include "../items/helicopterHat.h"
 #include "../items/Jetpack.h"
 #include "../items/Spring.h"
+#include "../platforms/BlackHole.h"
 #include "../platforms/BluePlatform.h"
 
 GameWidget::GameWidget(QWidget *parent) {
@@ -54,6 +55,10 @@ GameWidget::GameWidget(QWidget *parent) {
     stop();
 }
 void GameWidget::update() {
+    if (game.isGameEnded()) {
+        timer->stop();
+        return ;
+    }
     int shift = game.getShift();
     visualizeItems();
     game.gameStateUpdate(deltaTime,leftArrowPressed,rightArrowPressed);
@@ -77,13 +82,13 @@ void GameWidget::update() {
 
         } else if (dynamic_cast<GreenPlatform*>((*gamePlatforms)[i])) {
             platforms[i] = GreenPlatform((*gamePlatforms)[i]->getX(),   (*gamePlatforms)[i]->getY() + shift,imagePath).getQLabel(this);
-        } else {
+        } else if (dynamic_cast<BlackHole*>((*gamePlatforms)[i])) {
+            platforms[i] = BlackHole((*gamePlatforms)[i]->getX(),   (*gamePlatforms)[i]->getY() + shift,imagePath).getQLabel(this);
+        }
+        else {
             platforms[i] = BluePlatform((*gamePlatforms)[i]->getX(),   (*gamePlatforms)[i]->getY() + shift,imagePath).getQLabel(this);
         }
-        if ((dynamic_cast<BrownPlatform*>((*gamePlatforms)[i]))
-            || dynamic_cast<GreenPlatform*>((*gamePlatforms)[i]) || dynamic_cast<BluePlatform*>((*gamePlatforms)[i])) {
-            platforms[i]->show();
-        }
+        platforms[i]->show();
 
     }
 

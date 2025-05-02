@@ -17,7 +17,7 @@ class BrownPlatform : public AbstractPlatform{
     static QAudioOutput *audioOutput;
     static bool isPlayerInitialized;
     QString soundPrefixPath = "requirments/Doodle Jump SFX/";
-    QString breakingSoundPath = "egg-crack.mp3";
+    QString breakingSoundPath = "lomise.mp3";
     QVector<QRect> spritesBoundingsRects;
     public:
     BrownPlatform(int coordinateX, int coordinateY, QString &imagePath);

@@ -11,6 +11,8 @@
 #include "../platforms/BluePlatform.h"
 #include "../items/helicopterHat.h"
 #include "../items/Jetpack.h"
+#include "../platforms/BlackHole.h"
+
 Screen::Screen(int lowerBound, int upperBound, std::deque<AbstractPlatform*> &platforms, double difficultyLevel) {
     srand(time(NULL));
     this->lowerBound = lowerBound;
@@ -50,7 +52,11 @@ void Screen::generatePlatforms() {
             } else if (rand()%100 < brownPlatformSpawnProbability) {
                 platform = new BrownPlatform(newX, newY,imagePath);
                 i--; // коричневые плафтормы не учитываем при генерации
-            } else {
+            } else if (rand()%100 < blackHoleSpawnProbability) {
+                platform = new BlackHole(newX, newY, imagePath);
+                i--; // черные дыры, ясное дело, не учитываем
+            }
+            else {
                 platform = new GreenPlatform(newX, newY,imagePath);
             }
 
@@ -60,7 +66,8 @@ void Screen::generatePlatforms() {
                 delete platform;
                 continue; // перегенерируем
             }
-            if (rand()%100 < springSpawnProbability && !dynamic_cast<BrownPlatform*>(platform)) {
+            if (rand()%100 < springSpawnProbability && !dynamic_cast<BrownPlatform*>(platform)
+                && !dynamic_cast<BlackHole*>(platform)) {
                 Spring temp(0,0);
                 int springWidth = temp.getWidth();
                 int onPlatformX =rand()%(platform->getWidth() - springWidth);
@@ -68,7 +75,8 @@ void Screen::generatePlatforms() {
                 onPlatformX = std::min(platform->getWidth() - springWidth - 8,onPlatformX);
                 AbstractItem *spring = new Spring(onPlatformX,platform);
                 items.push_back(spring);
-            } else if (rand()%100 < helicopterHatSpawnProbability && !dynamic_cast<BrownPlatform*>(platform)) {
+            } else if (rand()%100 < helicopterHatSpawnProbability && !dynamic_cast<BrownPlatform*>(platform)
+                && !dynamic_cast<BlackHole*>(platform)) {
 
                 HelicopterHat temp(0,0);
                 int hatWidth = temp.getWidth();
@@ -78,7 +86,8 @@ void Screen::generatePlatforms() {
                 AbstractItem *hat = new HelicopterHat(onPlatformX,platform);
                 items.push_back(hat);
 
-            } else if (rand()%100 < jetpackSpawnProbability && !dynamic_cast<BrownPlatform*>(platform)) {
+            } else if (rand()%100 < jetpackSpawnProbability && !dynamic_cast<BrownPlatform*>(platform)
+                && !dynamic_cast<BlackHole*>(platform)) {
                 Jetpack temp(0,0);
                 int jetpackWidth = temp.getWidth();
                 int onPlatformX =rand()%(platform->getWidth() - jetpackWidth);
@@ -113,7 +122,7 @@ bool Screen::intersectPrevious(int x,int y, bool isBlue) {
         int w = platform->getWidth();
         int x2 = platform->getX();
         int y1 = y;
-        int h = platform->getHeight();
+        int h = platform->getHeight() + 50;
         int y2 = platform->getY();
         if (dynamic_cast<BluePlatform*>(platform) ||isBlue) {
             w = WIDTH;

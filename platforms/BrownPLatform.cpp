@@ -17,9 +17,9 @@ BrownPlatform::BrownPlatform(int coordinateX, int coordinateY, QString &imagePat
         isPlayerInitialized = true;
     }
     spritesBoundingsRects = {{0,144,127,34},{0,183,131,40},{0,233,121,60},{0,295,130,68}};
-
 }
 QLabel* BrownPlatform::getQLabel(QWidget *parent)  {
+  //  std::cout<<animationCounter<<'\n';
     QLabel* label = new QLabel(parent);
 
     label->setScaledContents(true);
@@ -29,22 +29,21 @@ QLabel* BrownPlatform::getQLabel(QWidget *parent)  {
         label->setPixmap(QPixmap(prefixPath + imagePath).copy(spritesBoundingsRects[0]));
     }
    else {
-     //  std::cout<<animationCounter<<'\n';
-       if (animationCounter<50) {
+       if (animationCounter<7) {
            label->setGeometry(coordinateX,coordinateY,spritesBoundingsRects[1].width(), spritesBoundingsRects[1].height());
            label->setPixmap(QPixmap(prefixPath + imagePath).copy(spritesBoundingsRects[1]));
        }
-       else if (animationCounter>50 && animationCounter<100) {
+       else if (animationCounter>7& animationCounter<9) {
            label->setGeometry(coordinateX,coordinateY,spritesBoundingsRects[2].width(), spritesBoundingsRects[2].height());
            label->setPixmap(QPixmap(prefixPath + imagePath).copy(spritesBoundingsRects[2]));
        }
-       else if (animationCounter>100) {
+       else if (animationCounter>9) {
            label->setGeometry(coordinateX,coordinateY,spritesBoundingsRects[3].width(), spritesBoundingsRects[3].height());
            label->setPixmap(QPixmap(prefixPath + imagePath).copy(spritesBoundingsRects[3]));
        }
 
    }
-    animationCounter++;
+
     return label;
 }
 void BrownPlatform::setBroken() {
@@ -58,7 +57,14 @@ bool BrownPlatform::isAnimationEnded() {
 }
 void BrownPlatform::setAnimationCounter(int counter) {
     animationCounter = counter;
-    if (animationCounter> 100 && broken) {
+    if (!broken) {
+        animationCounter = 0;
+        return ;
+    }
+    if (broken && animationCounter == 1) {
+        player->play();
+    }
+    if (animationCounter> 9 && broken) {
         coordinateY+=3;
     }
 }

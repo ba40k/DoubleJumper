@@ -47,6 +47,7 @@ class Game {
     AbstractItem* currentJetpack = nullptr;
     AbstractItem* currentHat = nullptr;
     void processHopped();
+    bool gameEnded = false;
     public:
     Game();
     int getScore() const;
@@ -61,6 +62,7 @@ class Game {
     int getShift() const;
     AbstractItem* getHatPointer();
     AbstractItem* getJetpackPointer();
+    bool isGameEnded();
 };
 
 
