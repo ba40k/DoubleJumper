@@ -55,15 +55,17 @@ GameWidget::GameWidget(QWidget *parent) {
     stop();
 }
 void GameWidget::update() {
-
-    if (game.isGameEnded() && blackHoleAnimationTicks>0) {
+    if (game.isGameEnded() && blackHoleAnimationTicks>0 && game.getFinalBlackHole()!=nullptr) {
         //timer->stop();
         playBlackHoleAnimation();
         --blackHoleAnimationTicks;
         return ;
     }
-    if (game.isGameEnded() && blackHoleAnimationTicks==0) {
+    if (game.isGameEnded() && (blackHoleAnimationTicks==0 || game.getFinalBlackHole()==nullptr)) {
         timer->stop();
+        loseDialog = new LoseDialog(this,game.getScore());
+        loseDialog->setModal(true);
+        loseDialog->show();
         return ;
     }
     int shift = game.getShift();

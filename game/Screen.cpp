@@ -30,6 +30,7 @@ void Screen::generatePlatforms() {
     while (count--) {
         int numberOfAdditionalPlatforms = std::max(1.0,rand()%7 * difficultyLevel); // так как по логике(весьма странной) чем выше число сожности тем НИЖЕ сложность, то и количество спавнящихся платформ тоже уменшьается
         int parentPlatformIndex = platforms.size() - 1;
+        bool blackHoleGenerated = false;
         while (dynamic_cast<BrownPlatform*>(platforms[parentPlatformIndex])) {
             parentPlatformIndex--;
         }
@@ -52,9 +53,10 @@ void Screen::generatePlatforms() {
             } else if (rand()%100 < brownPlatformSpawnProbability) {
                 platform = new BrownPlatform(newX, newY,imagePath);
                 i--; // коричневые плафтормы не учитываем при генерации
-            } else if (rand()%100 < blackHoleSpawnProbability) {
+            } else if (rand()%100 < blackHoleSpawnProbability && !blackHoleGenerated) {
                 platform = new BlackHole(newX, newY, imagePath);
-                i--; // черные дыры, ясное дело, не учитываем
+                blackHoleGenerated = true;
+                i-=3; // черные дыры, ясное дело, не учитываем
             }
             else {
                 platform = new GreenPlatform(newX, newY,imagePath);

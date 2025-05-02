@@ -29,6 +29,7 @@ void Game::gameInitialize() {
     platforms.push_back(startPlatform);
 }
 void Game::gameStateUpdate(int deltaTime, bool leftArrowPressed, bool rightArrowPressed) {
+
     moveBluePlatforms(deltaTime);
     processItemPickup();
     processHopped();
@@ -80,6 +81,10 @@ void Game::gameStateUpdate(int deltaTime, bool leftArrowPressed, bool rightArrow
     bestScore = std::max(bestScore,(850 - doubleJumper.getCoordinateY())/3);
     firstScreen->deletePlatformsLowerThan(getShift());
     firstScreen->deleteItemsLowerThan(getShift());
+
+    if (doubleJumper.getCoordinateY() + getShift() >= 900) {
+        gameEnded = true;
+    }
 }
 std::deque<AbstractPlatform*>* Game::getPlatforms() {
     return firstScreen->getPlatforms();

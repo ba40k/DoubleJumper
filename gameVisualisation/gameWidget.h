@@ -10,7 +10,9 @@
 #include "../game/Game.h"
 #include <QTimer>
 #include "ScoreBar.h"
+#include "LoseDialog.h"
 class GameWidget : public QWidget{
+    LoseDialog *loseDialog;
     QString prefixPath;
     QString backgoundImagePath;
     QLabel *backgoundLabel;
