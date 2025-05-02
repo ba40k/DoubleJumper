@@ -67,21 +67,20 @@ void GameWidget::update() {
     platforms.resize(gamePlatforms->size());
     for (int i = 0; i < gamePlatforms->size(); i++) {
         if (dynamic_cast<BrownPlatform*>((*gamePlatforms)[i])) {
+            dynamic_cast<BrownPlatform*>((*gamePlatforms)[i])->setAnimationCounter(dynamic_cast<BrownPlatform*>((*gamePlatforms)[i])->getAnimationCounter()+1);
             auto temp =  BrownPlatform((*gamePlatforms)[i]->getX(),   (*gamePlatforms)[i]->getY() + shift,imagePath);
             if (dynamic_cast<BrownPlatform*>((*gamePlatforms)[i])->isBroken()) {
                 temp.setBroken();
             }
             temp.setAnimationCounter(dynamic_cast<BrownPlatform*>((*gamePlatforms)[i])->getAnimationCounter());
             platforms[i] = temp.getQLabel(this);
-            if (temp.isBroken()) {
-                dynamic_cast<BrownPlatform*>((*gamePlatforms)[i])->setAnimationCounter(dynamic_cast<BrownPlatform*>((*gamePlatforms)[i])->getAnimationCounter()+1);
-            }
+
         } else if (dynamic_cast<GreenPlatform*>((*gamePlatforms)[i])) {
             platforms[i] = GreenPlatform((*gamePlatforms)[i]->getX(),   (*gamePlatforms)[i]->getY() + shift,imagePath).getQLabel(this);
         } else {
             platforms[i] = BluePlatform((*gamePlatforms)[i]->getX(),   (*gamePlatforms)[i]->getY() + shift,imagePath).getQLabel(this);
         }
-        if ((dynamic_cast<BrownPlatform*>((*gamePlatforms)[i]) && !dynamic_cast<BrownPlatform*>((*gamePlatforms)[i])->isAnimationEnded())
+        if ((dynamic_cast<BrownPlatform*>((*gamePlatforms)[i]))
             || dynamic_cast<GreenPlatform*>((*gamePlatforms)[i]) || dynamic_cast<BluePlatform*>((*gamePlatforms)[i])) {
             platforms[i]->show();
         }

@@ -88,7 +88,7 @@ int Jetpack::getCoordinateY() {
     if (!activated) {
         return platform->getY()  - height + shiftY;
     } else {
-        return jumper->getCoordinateY() + 15;
+        return jumper->getCoordinateY() + 20;
     }
 }
 double Jetpack::getSpeedBuff() {

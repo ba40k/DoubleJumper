@@ -76,7 +76,7 @@ void Game::gameStateUpdate(int deltaTime, bool leftArrowPressed, bool rightArrow
     }
 
     minDoubleJumperCoordinate = std::min(minDoubleJumperCoordinate, doubleJumper.getCoordinateY());
-    bestScore = std::max(bestScore,(850 - doubleJumper.getCoordinateY())/5);
+    bestScore = std::max(bestScore,(850 - doubleJumper.getCoordinateY())/3);
     firstScreen->deletePlatformsLowerThan(getShift());
     firstScreen->deleteItemsLowerThan(getShift());
 }
@@ -221,7 +221,7 @@ AbstractItem *Game::getJetpackPointer() {
 }
 
 void Game::processHopped() {
-    if ((doubleJumper.getSpeed()<=defaultSpeed && doubleJumper.getSpeed()>=defaultSpeed - 0.2 )) {
+    if ( doubleJumper.getSpeed()>=defaultSpeed - 0.2 ) {
         doubleJumper.setHopped(true);
     } else {
         doubleJumper.setHopped(false);

@@ -26,17 +26,17 @@ void Screen::generatePlatforms() {
 
    int count = 7;
     while (count--) {
-        int numberOfAdditionalPlatforms = std::max(1.0,rand()%5 * difficultyLevel); // так как по логике(весьма странной) чем выше число сожности тем НИЖЕ сложность, то и количество спавнящихся платформ тоже уменшьается
+        int numberOfAdditionalPlatforms = std::max(1.0,rand()%7 * difficultyLevel); // так как по логике(весьма странной) чем выше число сожности тем НИЖЕ сложность, то и количество спавнящихся платформ тоже уменшьается
         int parentPlatformIndex = platforms.size() - 1;
         while (dynamic_cast<BrownPlatform*>(platforms[parentPlatformIndex])) {
             parentPlatformIndex--;
         }
         AbstractPlatform *parentPlatform = platforms[parentPlatformIndex];
-        int lastShiftY=0;
+
         for (int i = 0; i < numberOfAdditionalPlatforms; i++) {
-            lastShiftY+=75;
+
             int shiftX = rand() % accesableDistanceX +100;
-            int shiftY = rand() % accesableDistanceY + lastShiftY;
+            int shiftY = rand() % accesableDistanceY + 40;
             shiftY = std::min(accesableDistanceY, static_cast<int>(shiftY + (1.0 - difficultyLevel)*50)); // чем выше сложность тем большее число будет тут добавляться
             int shiftSign = 1;
             rand()%2==0?shiftSign=-1:1;
@@ -88,7 +88,7 @@ void Screen::generatePlatforms() {
                 items.push_back(jetpack);
             }
             platforms.push_back(platform);
-            lastShiftY = shiftY;
+
         }
     }
 }
@@ -134,7 +134,7 @@ void Screen::setDifficulty(double dif) {
 }
 void Screen::deletePlatformsLowerThan(int shift) {
     int index = 0;
-    while (platforms[index]->getY() + shift > 900) { //  удаляем платформы не сразу как только они вышли за экран, чтобы не было так, что платформа удалилась, но осталась пружинка привязанная к ней
+    while (platforms[index]->getY() + shift > 1000) { //  удаляем платформы не сразу как только они вышли за экран, чтобы не было так, что платформа удалилась, но осталась пружинка привязанная к ней
        // std::cout<<platforms[index]<<'\n';
         delete platforms[index];
         platforms[index] = nullptr;

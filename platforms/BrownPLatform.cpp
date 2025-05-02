@@ -16,33 +16,35 @@ BrownPlatform::BrownPlatform(int coordinateX, int coordinateY, QString &imagePat
         player->setSource(QUrl::fromLocalFile(soundPrefixPath + breakingSoundPath));
         isPlayerInitialized = true;
     }
+    spritesBoundingsRects = {{0,144,127,34},{0,183,131,40},{0,233,121,60},{0,295,130,68}};
 
 }
 QLabel* BrownPlatform::getQLabel(QWidget *parent)  {
     QLabel* label = new QLabel(parent);
-    label->setGeometry(coordinateX,coordinateY,WIDTH, HEIGHT);
+
     label->setScaledContents(true);
 
     if (!broken) {
-        label->setPixmap(QPixmap(prefixPath + imagePath).copy(0,145,WIDTH ,HEIGHT));
+        label->setGeometry(coordinateX,coordinateY,spritesBoundingsRects[0].width(), spritesBoundingsRects[0].height());
+        label->setPixmap(QPixmap(prefixPath + imagePath).copy(spritesBoundingsRects[0]));
     }
-    if (animationCounter<=1 && broken) {
-        player->play();
-         label->setPixmap(QPixmap(prefixPath + imagePath).copy(0,182,WIDTH ,38));
-        animationCounter++;
-    }
-    if (animationCounter>=2 && animationCounter<=12 && broken) {
-         label->setPixmap(QPixmap(prefixPath + imagePath).copy(0,232,WIDTH ,70));
-        animationCounter++;
-    }
-    if (animationCounter>=4 && animationCounter<=24 && broken) {
-        label->setPixmap(QPixmap(prefixPath + imagePath).copy(0,297,WIDTH ,70));
-        animationCounter++;
-    }
+   else {
+     //  std::cout<<animationCounter<<'\n';
+       if (animationCounter<50) {
+           label->setGeometry(coordinateX,coordinateY,spritesBoundingsRects[1].width(), spritesBoundingsRects[1].height());
+           label->setPixmap(QPixmap(prefixPath + imagePath).copy(spritesBoundingsRects[1]));
+       }
+       else if (animationCounter>50 && animationCounter<100) {
+           label->setGeometry(coordinateX,coordinateY,spritesBoundingsRects[2].width(), spritesBoundingsRects[2].height());
+           label->setPixmap(QPixmap(prefixPath + imagePath).copy(spritesBoundingsRects[2]));
+       }
+       else if (animationCounter>100) {
+           label->setGeometry(coordinateX,coordinateY,spritesBoundingsRects[3].width(), spritesBoundingsRects[3].height());
+           label->setPixmap(QPixmap(prefixPath + imagePath).copy(spritesBoundingsRects[3]));
+       }
 
-    if (animationCounter == 24) {
-        animationEnded = true;
-    }
+   }
+    animationCounter++;
     return label;
 }
 void BrownPlatform::setBroken() {
@@ -56,8 +58,8 @@ bool BrownPlatform::isAnimationEnded() {
 }
 void BrownPlatform::setAnimationCounter(int counter) {
     animationCounter = counter;
-    if (animationCounter == 24) {
-        animationEnded = true;
+    if (animationCounter> 100 && broken) {
+        coordinateY+=3;
     }
 }
 int BrownPlatform::getAnimationCounter() {

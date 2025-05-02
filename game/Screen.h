@@ -20,7 +20,7 @@ class Screen {
     double bluePlatformSpawnProbability = 1.0;
     const int springSpawnProbability = 10;
     const int helicopterHatSpawnProbability = 3;
-    const int jetpackSpawnProbability = 100;
+    const int jetpackSpawnProbability = 1;
 
     int lowerBound;
     double difficultyLevel;
