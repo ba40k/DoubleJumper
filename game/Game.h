@@ -44,6 +44,7 @@ class Game {
     double hatSpeedBuff;
     double jetpackSpeedBuff;
     int jetPackBuffTicks = 0;
+    bool processBlackHoleInterSection(AbstractPlatform* platform);
     AbstractItem* currentJetpack = nullptr;
     AbstractItem* currentHat = nullptr;
     void processHopped();

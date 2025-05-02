@@ -25,7 +25,7 @@ std::deque<AbstractPlatform*>* Screen::getPlatforms() {
 }
 void Screen::generatePlatforms() {
     bluePlatformSpawnProbability += (1 - difficultyLevel) * 0.25;
-
+    blackHoleSpawnProbability+= (1 - difficultyLevel) * 0.25;
    int count = 7;
     while (count--) {
         int numberOfAdditionalPlatforms = std::max(1.0,rand()%7 * difficultyLevel); // так как по логике(весьма странной) чем выше число сожности тем НИЖЕ сложность, то и количество спавнящихся платформ тоже уменшьается

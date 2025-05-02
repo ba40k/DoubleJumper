@@ -116,10 +116,9 @@ bool Game::isIntersectAnyPLatfrom() {
             dynamic_cast<BrownPlatform*>(platformPointer)->setBroken();
             return false;
         }
-        if (isIntersectVertically && isIntersectHorizontally && dynamic_cast<BlackHole*>(platformPointer)) {
-            gameEnded = true;
-           return false;
-           }
+        if (dynamic_cast<BlackHole*>(platformPointer) && processBlackHoleInterSection(platformPointer)) {
+            return false;
+        }
         if (isIntersectVertically && isIntersectHorizontally && !dynamic_cast<BrownPlatform*>(platformPointer)  && hatBuffTicks ==0
             && jetPackBuffTicks == 0 && !dynamic_cast<BlackHole*>(platformPointer)) {
             return true;
@@ -237,4 +236,28 @@ void Game::processHopped() {
 
 bool Game::isGameEnded() {
     return gameEnded;
+}
+bool Game::processBlackHoleInterSection(AbstractPlatform *platform) {
+    int x1 = doubleJumper.getCoordinateX();
+    int y1 = doubleJumper.getCoordinateY();
+    int width1 = doubleJumper.getWidth();
+    int height1 = doubleJumper.getHeight();
+    int x2 = platform->getX();
+    int y2 = platform->getY();
+    int width2 = platform->getWidth();
+    int height2 = platform->getHeight();
+    int left1 = x1;
+    int right1 = x1 + width1;
+    int left2 = x2;
+    int right2 = x2 + width2;
+    bool overlapX = (left1 < right2) && (right1 > left2);
+    int top1 = y1;
+    int bottom1 = y1 + height1;
+    int top2 = y2;
+    int bottom2 = y2 + height2;
+    bool overlapY = (top1 < bottom2) && (bottom1 > top2);
+    if (overlapX && overlapY) {
+        gameEnded = true;
+    }
+    return overlapX && overlapY;
 }
