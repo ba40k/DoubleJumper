@@ -21,5 +21,6 @@ public:
     BlackHole(int coordinateX, int coordinateY, QString &imagePath);
     QLabel* getQLabel(QWidget *parent = nullptr)  override;
     void activate(DoubleJumper *activator);
+    void playSound();
 };
 #endif //BLACKHOLE_H

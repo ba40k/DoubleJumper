@@ -20,7 +20,7 @@ class GameWidget : public QWidget{
     QVector<QLabel*> platforms;
     QVector<QLabel*> items;
     const int deltaTime = 8;
-    int blackHoleAnimationTicks = 20;
+    int blackHoleAnimationTicks = 50;
     QTimer* timer;
     bool stopped = false;
     void update();

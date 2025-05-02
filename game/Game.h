@@ -47,6 +47,7 @@ class Game {
     bool processBlackHoleInterSection(AbstractPlatform* platform);
     AbstractItem* currentJetpack = nullptr;
     AbstractItem* currentHat = nullptr;
+    AbstractPlatform* finalBlackHole = nullptr;
     void processHopped();
     bool gameEnded = false;
     public:
@@ -63,6 +64,7 @@ class Game {
     int getShift() const;
     AbstractItem* getHatPointer();
     AbstractItem* getJetpackPointer();
+    AbstractPlatform* getFinalBlackHole();
     bool isGameEnded();
 };
 

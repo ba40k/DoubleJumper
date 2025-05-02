@@ -55,7 +55,14 @@ GameWidget::GameWidget(QWidget *parent) {
     stop();
 }
 void GameWidget::update() {
-    if (game.isGameEnded()) {
+
+    if (game.isGameEnded() && blackHoleAnimationTicks>0) {
+        //timer->stop();
+        playBlackHoleAnimation();
+        --blackHoleAnimationTicks;
+        return ;
+    }
+    if (game.isGameEnded() && blackHoleAnimationTicks==0) {
         timer->stop();
         return ;
     }
@@ -196,4 +203,36 @@ void GameWidget::visualizeItems() {
         }
     }
 
+}
+void GameWidget::playBlackHoleAnimation() {
+    dynamic_cast<BlackHole*>(game.getFinalBlackHole())->playSound();
+    int blackHoleX = game.getFinalBlackHole()->getX();
+    int blackHoleY=  game.getFinalBlackHole()->getY();
+    int blackHoleWidth = game.getFinalBlackHole()->getWidth();
+    int blackHoleHeight = game.getFinalBlackHole()->getHeight();
+    int blackHoleCenterX = blackHoleX + blackHoleWidth ;
+    int blackHoleCenterY = blackHoleY + blackHoleHeight / 2;
+
+    int doubleJumperX = game.getDoubleJumperX();
+    int doubleJumperY = game.getDoubleJumperY();
+    int doubleJumperWidth = game.getDoubleJumper()->getWidth();
+    int doubleJumperHeight = game.getDoubleJumper()->getHeight();
+    int doubleJumperCenterX = doubleJumperX + doubleJumperWidth / 2;
+    int doubleJumperCenterY = doubleJumperY + doubleJumperHeight / 2;
+
+    int distanseX = blackHoleCenterX - doubleJumperCenterX;
+    int distanseY = blackHoleCenterY - doubleJumperCenterY;
+
+    int deltaX = distanseX / blackHoleAnimationTicks;
+    int deltaY = distanseY / blackHoleAnimationTicks;
+ //   std::cout<<blackHoleCenterX<<' '<<blackHoleCenterY<<' '<<doubleJumperCenterX<<' '<<doubleJumperCenterY<<' '<<deltaX<<' '<<deltaY<<' '<<blackHoleAnimationTicks<<std::endl;
+    game.getDoubleJumper()->setCoordinateX(game.getDoubleJumper()->getCoordinateX() + deltaX);
+    game.getDoubleJumper()->setCoordinateY(game.getDoubleJumper()->getCoordinateY() + deltaY);
+    doubleJumperLabel->setGeometry(doubleJumperLabel->x() + deltaX, doubleJumperLabel->y() + deltaY,doubleJumperLabel->width() - 3, doubleJumperLabel->height() - 3);
+    if (currentHatLabel!=nullptr) {
+        currentHatLabel->setGeometry(currentHatLabel->x() + deltaX, currentHatLabel->y() + deltaY, currentHatLabel->width() - 3, currentHatLabel->height() - 3);
+    }
+    if (currentJetpackLabel!=nullptr) {
+        currentJetpackLabel->setGeometry(currentJetpackLabel->x() + deltaX, currentJetpackLabel->y() + deltaY, currentJetpackLabel->width() - 3, currentJetpackLabel->height() - 3);
+    }
 }

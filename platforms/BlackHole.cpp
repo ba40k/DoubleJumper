@@ -26,10 +26,7 @@ QLabel* BlackHole::getQLabel(QWidget *parent)  {
     label->setPixmap(QPixmap(prefixPath + imagePath).copy(spritesBoundingsRects[0]));
     return label;
 }
-void BlackHole::activate(DoubleJumper *activator) {
-
+void BlackHole::playSound() {
+    player->play();
 }
-
-
-
 

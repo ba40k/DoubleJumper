@@ -257,7 +257,12 @@ bool Game::processBlackHoleInterSection(AbstractPlatform *platform) {
     int bottom2 = y2 + height2;
     bool overlapY = (top1 < bottom2) && (bottom1 > top2);
     if (overlapX && overlapY) {
+        finalBlackHole = platform;
         gameEnded = true;
     }
     return overlapX && overlapY;
 }
+AbstractPlatform *Game::getFinalBlackHole() {
+    return finalBlackHole;
+}
+
