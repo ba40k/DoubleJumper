@@ -5,10 +5,15 @@
 #ifndef RECORDDATABASE_H
 #define RECORDDATABASE_H
 
-
-
+#include <set>
+#include "Record.h"
 class RecordDatabase {
-
+private:
+    std::set<Record> records;
+    void loadFromFile();
+public:
+    RecordDatabase();
+    void insertRecord(Record &record);
 };
 
 

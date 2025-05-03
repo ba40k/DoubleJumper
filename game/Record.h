@@ -13,10 +13,16 @@ class Record {
     QString recordDate;
     int score;
     public:
+    void save();
     Record(QString playerName, QString recordDate, int score);
+    Record() = default;
     int getScore() const;
     QString getPlayerName() const;
     QString getRecordDate() const;
+    void setScore(int score);
+    void setPlayerName(QString &playerName);
+    void setRecordDate(QString &recordDate);
+    bool operator<(const Record &other) const;
 };
 
 
