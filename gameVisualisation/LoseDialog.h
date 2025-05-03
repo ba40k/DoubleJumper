@@ -34,6 +34,7 @@ private:
 
     void saveButtonClicked();
     void cancelButtonClicked();
+    void returnToMenu();
 
 public:
     LoseDialog(QWidget *parent, int score);

@@ -9,6 +9,7 @@
 #include <QPushButton>
 
 #include "gameWidget.h"
+#include "../mainwindow.h"
 
 LoseDialog::LoseDialog(QWidget *parent, int score) {
     setParent(parent);
@@ -73,9 +74,15 @@ LoseDialog::~LoseDialog() {
     delete font;
 }
 void LoseDialog::cancelButtonClicked() {
-    // возврат в меню
+    returnToMenu();
 }
 void LoseDialog::saveButtonClicked() {
     Record record(yourNameLineEdit->text(), QDateTime::currentDateTime().toString("MM.dd.yyyy HH:mm") , score);
     dynamic_cast<GameWidget*>(parent())->getRecordDatabase()->insertRecord(record);
+    returnToMenu();
+}
+void LoseDialog::returnToMenu() {
+    auto mainMenuPointer = dynamic_cast<MainWindow*>(parent()->parent());
+    close();
+    mainMenuPointer->backToMenu();
 }

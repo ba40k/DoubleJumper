@@ -19,8 +19,9 @@ QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
 {
-private:
-
+    int playClicked = 0;
+public:
+    void backToMenu();
     const int HEIGHT = 850;
     const int WIDTH = 640;
     QWidget *centralWidget;
@@ -31,7 +32,7 @@ private:
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
     bool gameRunning;
-public:
+
     MainWindow(QWidget *parent = nullptr);
 };
 

@@ -15,6 +15,7 @@
 #include "../platforms/BluePlatform.h"
 
 GameWidget::GameWidget(QWidget *parent) {
+    setParent(parent);
     setFocusPolicy(Qt::StrongFocus); // Разрешаем фокус клавиатуры
     setFocus(); // Захватываем фокус
     game.gameInitialize();

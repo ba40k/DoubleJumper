@@ -90,7 +90,7 @@ void MainMenuWidget::stop() {
 
 void MainMenuWidget::play() {
     stopped = false;
-    timer->start();
+    //timer->start();
 }
 
 
