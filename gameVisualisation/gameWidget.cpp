@@ -243,3 +243,20 @@ void GameWidget::playBlackHoleAnimation() {
 RecordDatabase* GameWidget::getRecordDatabase() {
     return records;
 }
+GameWidget::~GameWidget() {
+    delete records;
+    delete doubleJumperLabel;
+    if (currentJetpackLabel!=nullptr) {
+        delete currentJetpackLabel;
+    }
+    if (currentHatLabel!=nullptr) {
+        delete currentHatLabel;
+    }
+    for (auto pointer : platforms) {
+        delete pointer;
+    }
+    for (auto pointer : items) {
+        delete pointer;
+    }
+   // game.End();
+}

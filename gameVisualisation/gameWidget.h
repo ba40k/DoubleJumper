@@ -42,6 +42,7 @@ class GameWidget : public QWidget{
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
     GameWidget(QWidget *parent = nullptr);
+    ~GameWidget();
     void stop();
     void run();
     void playBlackHoleAnimation();

@@ -6,6 +6,7 @@
 
 #include <iostream>
 
+#include "../gameVisualisation/gameWidget.h"
 #include "../items/helicopterHat.h"
 #include "../items/Jetpack.h"
 #include "../items/Spring.h"
@@ -269,5 +270,18 @@ bool Game::processBlackHoleInterSection(AbstractPlatform *platform) {
 }
 AbstractPlatform *Game::getFinalBlackHole() {
     return finalBlackHole;
+}
+Game::~Game() {
+    End();
+}
+
+void Game::End() {
+    if (currentHat != nullptr) {
+        delete currentHat;
+    }
+    if (currentJetpack != nullptr) {
+        delete currentJetpack;
+    }
+    delete firstScreen;
 }
 

@@ -12,6 +12,7 @@
 #include "../mainwindow.h"
 
 LoseDialog::LoseDialog(QWidget *parent, int score) {
+    setModal(true);
     setParent(parent);
     background = new QLabel(this);
     background->setPixmap(QPixmap(imagePrefixPath + backgroundPath));

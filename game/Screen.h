@@ -35,6 +35,7 @@ class Screen {
 
     public:
     Screen(int lowerBound, int upperBound, std::deque<AbstractPlatform*> &platforms, double difficultyLevel);
+    ~Screen();
     std::deque<AbstractPlatform*>* getPlatforms();
     std::deque<AbstractItem*>* getItems();
     int getHighestPlatformCoordinate() const;
@@ -42,7 +43,6 @@ class Screen {
     void generatePlatforms();
     void deletePlatformsLowerThan(int shift);
     void deleteItemsLowerThan(int shift);
-    ~Screen();
 };
 
 

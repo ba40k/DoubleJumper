@@ -52,6 +52,8 @@ class Game {
     bool gameEnded = false;
     public:
     Game();
+    ~Game();
+    void End();
     int getScore() const;
     void gameInitialize();
     void gameStateUpdate(int deltaTime, bool leftArrowPressed, bool rightArrowPressed);

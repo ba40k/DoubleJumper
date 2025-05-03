@@ -166,4 +166,3 @@ void Screen::deleteItemsLowerThan(int shift) {
 std::deque<AbstractItem *> *Screen::getItems() {
     return &items;
 }
-
