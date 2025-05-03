@@ -11,7 +11,11 @@
 #include <QTimer>
 #include "ScoreBar.h"
 #include "LoseDialog.h"
+#include "../game/RecordDatabase.h"
+
 class GameWidget : public QWidget{
+    RecordDatabase *records;
+
     LoseDialog *loseDialog;
     QString prefixPath;
     QString backgoundImagePath;
@@ -41,6 +45,7 @@ class GameWidget : public QWidget{
     void stop();
     void run();
     void playBlackHoleAnimation();
+    RecordDatabase* getRecordDatabase();
 
 };
 

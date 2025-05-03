@@ -14,6 +14,7 @@ class LoseDialog : public QDialog {
 private:
     const int HEIGHT = 500;
     const int WIDTH = 500;
+    int score;
     QLabel *background;
     QLabel *yourScoreLabel;
     QLabel *yourNameLabel;
@@ -30,6 +31,9 @@ private:
 
     int fontId;
     QFont *font;
+
+    void saveButtonClicked();
+    void cancelButtonClicked();
 
 public:
     LoseDialog(QWidget *parent, int score);

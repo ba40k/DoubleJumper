@@ -5,9 +5,13 @@
 #include "LoseDialog.h"
 
 #include <iostream>
+#include <qdatetime.h>
 #include <QPushButton>
 
+#include "gameWidget.h"
+
 LoseDialog::LoseDialog(QWidget *parent, int score) {
+    setParent(parent);
     background = new QLabel(this);
     background->setPixmap(QPixmap(imagePrefixPath + backgroundPath));
     background->setScaledContents(true);
@@ -48,6 +52,11 @@ LoseDialog::LoseDialog(QWidget *parent, int score) {
 
     setDefaultStylnig(imagePrefixPath,saveButtonImagePath,saveButton);
     setDefaultStylnig(imagePrefixPath,cancelButtonImagePath,cancelButton);
+
+    connect(saveButton, &QPushButton::clicked, this, &LoseDialog::saveButtonClicked);
+    connect(cancelButton, &QPushButton::clicked, this, &LoseDialog::cancelButtonClicked);
+
+    this->score = score;
 }
 void LoseDialog::setDefaultStylnig(const QString &prefix, const QString &suffix, QPushButton *button) {
     button->setStyleSheet(
@@ -62,4 +71,11 @@ void LoseDialog::setDefaultStylnig(const QString &prefix, const QString &suffix,
 }
 LoseDialog::~LoseDialog() {
     delete font;
+}
+void LoseDialog::cancelButtonClicked() {
+    // возврат в меню
+}
+void LoseDialog::saveButtonClicked() {
+    Record record(yourNameLineEdit->text(), QDateTime::currentDateTime().toString("MM.dd.yyyy HH:mm") , score);
+    dynamic_cast<GameWidget*>(parent())->getRecordDatabase()->insertRecord(record);
 }

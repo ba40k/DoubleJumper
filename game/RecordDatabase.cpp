@@ -10,7 +10,7 @@
 #include <QFile>
 #include <QJsonDocument>
 void RecordDatabase::loadFromFile() {
-        QFile file("records.json");
+        QFile file("/home/radamir/CLionProjects/doubleJumper/game/records.json");
         if (!file.open(QIODevice::ReadOnly)) {
             qWarning("Could not open records.json");
             return;

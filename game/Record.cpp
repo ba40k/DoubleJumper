@@ -32,7 +32,7 @@ void Record::save() {
 
     // Читаем существующие записи из файла (если есть)
     QJsonArray recordsArray;
-    QFile file("records.json");
+    QFile file("/home/radamir/CLionProjects/doubleJumper/game/records.json");
     if (file.open(QIODevice::ReadOnly)) {
         QByteArray data = file.readAll();
         QJsonDocument doc = QJsonDocument::fromJson(data);

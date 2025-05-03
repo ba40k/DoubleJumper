@@ -53,6 +53,7 @@ GameWidget::GameWidget(QWidget *parent) {
 
     connect(timer, &QTimer::timeout ,this, &GameWidget::update);
     stop();
+    records = new RecordDatabase;
 }
 void GameWidget::update() {
     if (game.isGameEnded() && blackHoleAnimationTicks>0 && game.getFinalBlackHole()!=nullptr) {
@@ -237,4 +238,7 @@ void GameWidget::playBlackHoleAnimation() {
     if (currentJetpackLabel!=nullptr) {
         currentJetpackLabel->setGeometry(currentJetpackLabel->x() + deltaX, currentJetpackLabel->y() + deltaY, currentJetpackLabel->width() - 3, currentJetpackLabel->height() - 3);
     }
+}
+RecordDatabase* GameWidget::getRecordDatabase() {
+    return records;
 }
