@@ -21,10 +21,13 @@ class GameWidget : public QWidget{
     QString backgoundImagePath;
     QLabel *backgoundLabel;
     QString  imagePath = "game-tiles@2x.png";
+    QString scoreMarkerImagePath = "score-marker@2x.png";
     Game game;
     QLabel* doubleJumperLabel;
     QVector<QLabel*> platforms;
     QVector<QLabel*> items;
+    QVector<QLabel*> scoreMarkers;
+    QVector<QLabel*> scoreMarkerNames;
     const int deltaTime = 8;
     int blackHoleAnimationTicks = 50;
     QTimer* timer;
@@ -38,6 +41,7 @@ class GameWidget : public QWidget{
     QLabel* currentHatLabel=nullptr;
     QLabel* currentJetpackLabel = nullptr;
     void visualizeItems();
+    void visualizeScoreMarkers();
     public:
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);

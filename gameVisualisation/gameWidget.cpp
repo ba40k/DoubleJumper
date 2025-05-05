@@ -72,6 +72,7 @@ void GameWidget::update() {
     }
     int shift = game.getShift();
     visualizeItems();
+    visualizeScoreMarkers();
     game.gameStateUpdate(deltaTime,leftArrowPressed,rightArrowPressed);
     auto gamePlatforms = game.getPlatforms();
   //  std::cout<<platforms.size()<<'\n';
@@ -259,4 +260,37 @@ GameWidget::~GameWidget() {
         delete pointer;
     }
    // game.End();
+}
+void GameWidget::visualizeScoreMarkers() {
+    for (int i =0;i<scoreMarkers.size();i++) {
+        delete scoreMarkers[i];
+        delete scoreMarkerNames[i];
+    }
+    // bestScore = (850 - cord)/3
+    // 3 * bestScore = 850 - cord
+    //
+    scoreMarkers.clear();
+    scoreMarkerNames.clear();
+    auto recordsStorage = records->getRecords();
+    for (auto pointer : *recordsStorage) {
+        int recordCoord = 850 - pointer.getScore()*3;
+        recordCoord += game.getShift();
+        std::cout<<recordCoord<<'\n';
+        if (recordCoord <=850 && recordCoord  >= 0) {
+            QLabel* label = new QLabel(this);
+            label->setScaledContents(true);
+            label->setPixmap(QPixmap(prefixPath + scoreMarkerImagePath));
+            label->setGeometry(640 - 80, recordCoord , 80,40);
+            scoreMarkers.push_back(label);
+            QLabel* nameLabel = new QLabel(this);
+            nameLabel->setScaledContents(true);
+            nameLabel->setGeometry(640 - 80, recordCoord - 50, 80,40);
+            nameLabel->setText(pointer.getPlayerName());
+            nameLabel->show();
+            scoreMarkerNames.push_back(nameLabel);
+
+            label->show();
+        }
+    }
+
 }

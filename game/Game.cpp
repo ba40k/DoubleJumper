@@ -79,6 +79,7 @@ void Game::gameStateUpdate(int deltaTime, bool leftArrowPressed, bool rightArrow
     }
 
     minDoubleJumperCoordinate = std::min(minDoubleJumperCoordinate, doubleJumper.getCoordinateY());
+    std::cout<<"coord:"<<doubleJumper.getCoordinateY()<<std::endl;
     bestScore = std::max(bestScore,(850 - doubleJumper.getCoordinateY())/3);
     firstScreen->deletePlatformsLowerThan(getShift());
     firstScreen->deleteItemsLowerThan(getShift());

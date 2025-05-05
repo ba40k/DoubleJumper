@@ -13,6 +13,7 @@ private:
     void loadFromFile();
 public:
     RecordDatabase();
+    std::set<Record> *getRecords();
     void insertRecord(Record &record);
 };
 

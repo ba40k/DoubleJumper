@@ -50,3 +50,6 @@ void RecordDatabase::insertRecord(Record &record) {
     }
 
 }
+std::set<Record> *RecordDatabase::getRecords() {
+    return &records;
+}
