@@ -9,6 +9,7 @@
 #include <QMenu>
 #include "MainMenuWidget.h"
 #include "gameVisualisation/gameWidget.h"
+#include "RecordsWidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -21,6 +22,7 @@ class MainWindow : public QMainWindow
 {
     int playClicked = 0;
 public:
+    RecordDatabase *records;
     void backToMenu();
     const int HEIGHT = 850;
     const int WIDTH = 640;

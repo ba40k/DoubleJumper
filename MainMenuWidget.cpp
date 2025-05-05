@@ -78,6 +78,7 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) : physicsModel(0.0019),
 
     connect(timer, &QTimer::timeout, this, &MainMenuWidget::animationRun);
     connect(playButton, &QPushButton::clicked, this, &MainMenuWidget::playButtonPressed);
+    connect(highScoresButton,&QPushButton::clicked,this,&MainMenuWidget::scoresButtonPressed);
 }
 void MainMenuWidget::playButtonPressed() {
     stop();
@@ -188,4 +189,9 @@ QVector<QPair<int, int> > MainMenuWidget::parseJson(const QString &filename) con
 
 QPushButton *MainMenuWidget::getPlayButton() const {
     return playButton;
+}
+void MainMenuWidget::scoresButtonPressed() {
+    RecordsWidget* recordsWind = new RecordsWidget(this);
+    recordsWind->setWindowFlags(Qt::Dialog | Qt::WindowCloseButtonHint);
+    recordsWind->show();
 }

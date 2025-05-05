@@ -14,7 +14,7 @@
 #include "../game/RecordDatabase.h"
 
 class GameWidget : public QWidget{
-    RecordDatabase *records;
+
 
     LoseDialog *loseDialog;
     QString prefixPath;
@@ -52,7 +52,7 @@ class GameWidget : public QWidget{
     void stop();
     void run();
     void playBlackHoleAnimation();
-    RecordDatabase* getRecordDatabase();
+
 
 };
 

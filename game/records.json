@@ -38,5 +38,10 @@
         "playerName": " bob the builder",
         "recordDate": "05.05.2025 19:30",
         "score": 358
+    },
+    {
+        "playerName": "",
+        "recordDate": "05.05.2025 20:44",
+        "score": 188
     }
 ]

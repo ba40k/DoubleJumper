@@ -70,7 +70,7 @@ class MainMenuWidget : public QWidget {
 
     QVector<QPair<int,int>> parseJson(const QString& filename) const;
     void playButtonPressed();
-
+    void scoresButtonPressed();
     public:
 
     QPushButton* getPlayButton() const;

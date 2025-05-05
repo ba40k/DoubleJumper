@@ -4,6 +4,7 @@
 
 #include "RecordDatabase.h"
 
+#include<iostream>
 #include "Record.h"
 #include <QJsonObject>
 #include <QJsonArray>
@@ -41,6 +42,7 @@ void RecordDatabase::loadFromFile() {
         }
 }
 RecordDatabase::RecordDatabase() {
+    std::cout<<"!";
     loadFromFile();
 }
 void RecordDatabase::insertRecord(Record &record) {

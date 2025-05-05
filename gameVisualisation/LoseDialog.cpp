@@ -79,7 +79,7 @@ void LoseDialog::cancelButtonClicked() {
 }
 void LoseDialog::saveButtonClicked() {
     Record record(yourNameLineEdit->text(), QDateTime::currentDateTime().toString("MM.dd.yyyy HH:mm") , score);
-    dynamic_cast<GameWidget*>(parent())->getRecordDatabase()->insertRecord(record);
+    dynamic_cast<MainWindow*>(parent()->parent())->records->insertRecord(record);
     returnToMenu();
 }
 void LoseDialog::returnToMenu() {

@@ -8,6 +8,7 @@
 #include<iostream>
 #include <QKeyEvent>
 
+#include "../mainwindow.h"
 #include "../items/helicopterHat.h"
 #include "../items/Jetpack.h"
 #include "../items/Spring.h"
@@ -56,7 +57,7 @@ GameWidget::GameWidget(QWidget *parent) {
 
     connect(timer, &QTimer::timeout, this, &GameWidget::update);
     stop();
-    records = new RecordDatabase;
+
 }
 
 void GameWidget::update() {
@@ -70,6 +71,7 @@ void GameWidget::update() {
         timer->stop();
         loseDialog = new LoseDialog(this, game.getScore());
         loseDialog->setModal(true);
+        loseDialog->setWindowFlags(Qt::Dialog | Qt::WindowCloseButtonHint);
         loseDialog->show();
         return;
     }
@@ -251,12 +253,8 @@ void GameWidget::playBlackHoleAnimation() {
     }
 }
 
-RecordDatabase *GameWidget::getRecordDatabase() {
-    return records;
-}
-
 GameWidget::~GameWidget() {
-    delete records;
+
     delete doubleJumperLabel;
     if (currentJetpackLabel != nullptr) {
         delete currentJetpackLabel;
@@ -299,7 +297,7 @@ void GameWidget::visualizeScoreMarkers() {
     //
     scoreMarkers.clear();
     scoreMarkerNames.clear();
-    auto recordsStorage = records->getRecords();
+    auto recordsStorage = dynamic_cast<MainWindow*>(parent())->records->getRecords();
     for (auto pointer: *recordsStorage) {
         int recordCoord = 850 - pointer.getScore() * 3;
         recordCoord += game.getShift();

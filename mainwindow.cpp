@@ -4,11 +4,12 @@
 #include <QKeyEvent>
 #include <iostream>
 MainWindow::MainWindow(QWidget *parent)   {
+    records = new RecordDatabase;
     setFocusPolicy(Qt::StrongFocus);
     setFocus();
     resize(WIDTH, HEIGHT);
     mainMenuWidget = new MainMenuWidget(this);
-
+    gameWidget = new GameWidget(this);
     setCentralWidget(mainMenuWidget);
     connect(mainMenuWidget->getPlayButton(),&QPushButton::clicked, this, &MainWindow::playButtonClicked);
 
