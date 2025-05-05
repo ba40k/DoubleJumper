@@ -42,6 +42,8 @@ class GameWidget : public QWidget{
     QLabel* currentJetpackLabel = nullptr;
     void visualizeItems();
     void visualizeScoreMarkers();
+
+    int calculateLabelWidth(const QLabel* label, const QString& text);
     public:
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
