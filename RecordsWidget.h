@@ -42,7 +42,8 @@ class RecordsWidget : public QDialog {
     int calculateLabelWidth(const QLabel* label, const QString& text);
 
     QTimer *timer;
-    const int deltaTime = 7;
+    const int deltaTime = 20;
+
 public:
     RecordsWidget(QWidget *parent = nullptr);
 };
