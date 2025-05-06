@@ -47,7 +47,7 @@ DefaultTheme::DefaultTheme() {
     scoreBarImagePath = "top-score@2x.png";
     themePreviewPath = "default-preview@2x.png";
 }
-Underwater::Underwater() {
+UnderwaterTheme::UnderwaterTheme() {
     backgroundImagePath = "underwater-bck@2x.png";
     leftOrientedImagePath = "underwater-left@2x.png";
     rightOrientedImagePath = "underwater-right@2x.png";

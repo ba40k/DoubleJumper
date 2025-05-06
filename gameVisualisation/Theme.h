@@ -45,9 +45,9 @@ class JungleTheme : public Theme {
 public:
     JungleTheme();
 };
-class Underwater : public Theme {
+class UnderwaterTheme : public Theme {
     public:
-    Underwater();
+    UnderwaterTheme();
 };
 
 

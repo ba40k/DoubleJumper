@@ -31,6 +31,7 @@ class OptionsWidget : public QDialog {
     QLabel* backGroundLabel;
     QLabel* soundLabel;
     QLabel* scoreMarkersLabel;
+    QLabel* themePreview;
     QPushButton* leftArrow;
     QPushButton* rightArrow;
     QPushButton* soundOnButton;
@@ -41,6 +42,7 @@ class OptionsWidget : public QDialog {
     QPushButton* resetHighScoresButton;
     int fontId;
     QFont *font;
+    void setTheme();
     void setDefaultStylnig(const QString &prefix,const QString &suffix, QPushButton *button);
     void soundOnButtonClicked();
     void soundOffButtonClicked();
@@ -48,10 +50,13 @@ class OptionsWidget : public QDialog {
     void scoreMarkersOffButtonClicked();
     void menuButtonClicked();
     void resetHighScoresButtonClicked();
+    void leftArrowPressed();
+    void rightArrowPressed();
     QVector<Theme*> themes;
     QLabel* currentThemePreview;
     static int currentSprite;
     static int currentBackGround;
+    static int currentTheme;
 public:
     OptionsWidget(QWidget* parent, bool currentSoundState, bool currentMarkersState);
 

@@ -10,6 +10,7 @@
 #include "mainwindow.h"
 int OptionsWidget::currentSprite = 0;
 int OptionsWidget::currentBackGround = 0;
+int OptionsWidget::currentTheme = 0;
 void OptionsWidget::setDefaultStylnig(const QString &prefix, const QString &suffix, QPushButton *button) {
     button->setStyleSheet(
         "QPushButton {"
@@ -76,11 +77,11 @@ OptionsWidget::OptionsWidget(QWidget *parent,bool currentSoundState, bool curren
     resetHighScoresButton->setText("Reset");
 
     leftArrow = new QPushButton(this);
-    leftArrow->setGeometry(50,600,45,23);
+    leftArrow->setGeometry(50,450,45,23);
     setDefaultStylnig(imagePrefixPath,leftArrowPath,leftArrow);
 
     rightArrow = new QPushButton(this);
-    rightArrow->setGeometry(550,600,45,23);
+    rightArrow->setGeometry(550,450,45,23);
     setDefaultStylnig(imagePrefixPath,rightArrowPath,rightArrow);
 
     if (soundOn == false) {
@@ -89,12 +90,20 @@ OptionsWidget::OptionsWidget(QWidget *parent,bool currentSoundState, bool curren
     if (scoreMarkersOn == false) {
         scoreMarkersOffButtonClicked();
     }
+    themes = {new DefaultTheme, new HaloweenTheme, new UnderwaterTheme, new JungleTheme};
+
+    themePreview = new QLabel(this);
+    themePreview->setScaledContents(true);
+    themePreview->setGeometry(150,320,350,300);
+    setTheme();
     connect(soundOnButton,&QPushButton::clicked,this,&OptionsWidget::soundOnButtonClicked);
     connect(soundOffButton,&QPushButton::clicked,this,&OptionsWidget::soundOffButtonClicked);
     connect(scoreMarkersOnButton,&QPushButton::clicked,this,&OptionsWidget::scoreMarkersOnButtonClicked);
     connect(scoreMarkersOffButton,&QPushButton::clicked,this,&OptionsWidget::scoreMarkersOffButtonClicked);
     connect(menuButton,&QPushButton::clicked,this,&OptionsWidget::menuButtonClicked);
     connect(resetHighScoresButton,&QPushButton::clicked,this,&OptionsWidget::resetHighScoresButtonClicked);
+    connect(leftArrow,&QPushButton::clicked,this,&OptionsWidget::leftArrowPressed);
+    connect(rightArrow,&QPushButton::clicked,this,&OptionsWidget::rightArrowPressed);
 
 }
 void OptionsWidget::soundOnButtonClicked() {
@@ -132,7 +141,21 @@ void OptionsWidget::scoreMarkersOnButtonClicked() {
     setDefaultStylnig(imagePrefixPath,offImageOffPath,scoreMarkersOffButton);
     dynamic_cast<MainWindow*>(parent()->parent())->visibleScoreMarkers = true;
 }
-
+void OptionsWidget::setTheme() {
+    themePreview->setPixmap(QPixmap(imagePrefixPath + themes[currentTheme]->getThemePreviewPath()));
+    backGroundLabel->setPixmap(QPixmap(imagePrefixPath + themes[currentTheme]->getBackgroundImagePath()));
+}
+void OptionsWidget::leftArrowPressed() {
+    currentTheme--;
+    currentTheme+=themes.size();
+    currentTheme%=themes.size();
+    setTheme();
+}
+void OptionsWidget::rightArrowPressed() {
+    currentTheme++;
+    currentTheme%=themes.size();
+    setTheme();
+}
 
 
 
