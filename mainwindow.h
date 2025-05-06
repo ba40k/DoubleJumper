@@ -22,6 +22,8 @@ class MainWindow : public QMainWindow
 {
     int playClicked = 0;
 public:
+    QVector<Theme*> *themes;
+    bool inites = false;
     bool soundOn = true;
     bool visibleScoreMarkers = true;
     Theme* currentTheme;

@@ -10,9 +10,7 @@
 #include "mainwindow.h"
 int OptionsWidget::currentSprite = 0;
 int OptionsWidget::currentBackGround = 0;
-int OptionsWidget::currentTheme = 0;
-QVector<Theme*>* OptionsWidget::themes = new QVector<Theme*>();
-
+int OptionsWidget::currentThemeNumb = 0;
 void OptionsWidget::setDefaultStylnig(const QString &prefix, const QString &suffix, QPushButton *button) {
     button->setStyleSheet(
         "QPushButton {"
@@ -92,10 +90,7 @@ OptionsWidget::OptionsWidget(QWidget *parent,bool currentSoundState, bool curren
     if (scoreMarkersOn == false) {
         scoreMarkersOffButtonClicked();
     }
-    if (!inites) {
-        *themes = {new DefaultTheme, new HaloweenTheme, new UnderwaterTheme, new JungleTheme};
-        inites = true;
-    }
+
 
     themePreview = new QLabel(this);
     themePreview->setScaledContents(true);
@@ -147,20 +142,23 @@ void OptionsWidget::scoreMarkersOnButtonClicked() {
     dynamic_cast<MainWindow*>(parent()->parent())->visibleScoreMarkers = true;
 }
 void OptionsWidget::setTheme() {
-    dynamic_cast<MainWindow*>(parent()->parent())->currentTheme = themes->at(currentTheme);
-    themePreview->setPixmap(QPixmap(imagePrefixPath + themes->at(currentTheme)->getThemePreviewPath()));
-    backGroundLabel->setPixmap(QPixmap(imagePrefixPath + themes->at(currentTheme)->getBackgroundImagePath()));
-    dynamic_cast<MainMenuWidget*>(parent())->setTheme(themes->at(currentTheme));
+    auto mw = dynamic_cast<MainWindow*>(parent()->parent());
+    mw->currentTheme = mw->themes->at(currentThemeNumb);
+    themePreview->setPixmap(QPixmap(imagePrefixPath + mw->themes->at(currentThemeNumb)->getThemePreviewPath()));
+    backGroundLabel->setPixmap(QPixmap(imagePrefixPath + mw->themes->at(currentThemeNumb)->getBackgroundImagePath()));
+    dynamic_cast<MainMenuWidget*>(parent())->setTheme(mw->themes->at(currentThemeNumb));
 }
 void OptionsWidget::leftArrowPressed() {
-    currentTheme--;
-    currentTheme+=themes->size();
-    currentTheme%=themes->size();
+    auto mw = dynamic_cast<MainWindow*>(parent()->parent());
+    currentThemeNumb--;
+    currentThemeNumb+=mw->themes->size();
+    currentThemeNumb%=mw->themes->size();
     setTheme();
 }
 void OptionsWidget::rightArrowPressed() {
-    currentTheme++;
-    currentTheme%=themes->size();
+    auto mw = dynamic_cast<MainWindow*>(parent()->parent());
+    currentThemeNumb++;
+    currentThemeNumb%=mw->themes->size();
     setTheme();
 }
 

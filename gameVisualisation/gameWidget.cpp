@@ -16,6 +16,7 @@
 #include "../platforms/BluePlatform.h"
 
 GameWidget::GameWidget(bool visibleMarkers,QWidget *parent) : game(dynamic_cast<MainWindow*>(parent)->soundOn) {
+    currentTheme = new DefaultTheme();
     setParent(parent);
     setFocusPolicy(Qt::StrongFocus); // Разрешаем фокус клавиатуры
     setFocus(); // Захватываем фокус
@@ -38,14 +39,17 @@ GameWidget::GameWidget(bool visibleMarkers,QWidget *parent) : game(dynamic_cast<
 
     for (int i = 0; i < gamePlatforms->size(); i++) {
         if (dynamic_cast<BrownPlatform *>((*gamePlatforms)[i])) {
-            platforms[i] = BrownPlatform((*gamePlatforms)[i]->getX(), ((*gamePlatforms)[i]->getY()), imagePath,false).
-                    getQLabel(this);
+            auto temp = BrownPlatform((*gamePlatforms)[i]->getX(), ((*gamePlatforms)[i]->getY()), imagePath,false);
+            temp.setTheme(currentTheme);
+            platforms[i] =  temp.getQLabel(this);
         } else if (dynamic_cast<BluePlatform *>((*gamePlatforms)[i])) {
-            platforms[i] = BluePlatform((*gamePlatforms)[i]->getX(), ((*gamePlatforms)[i]->getY()), imagePath).
-                    getQLabel(this);
+            auto temp = BluePlatform((*gamePlatforms)[i]->getX(), ((*gamePlatforms)[i]->getY()), imagePath);
+            temp.setTheme(currentTheme);
+            platforms[i] = temp.getQLabel(this);
         } else {
-            platforms[i] = GreenPlatform((*gamePlatforms)[i]->getX(), ((*gamePlatforms)[i]->getY()), imagePath,false).
-                    getQLabel(this);
+            auto temp = GreenPlatform((*gamePlatforms)[i]->getX(), ((*gamePlatforms)[i]->getY()), imagePath,false);
+            temp.setTheme(currentTheme);
+            platforms[i] = temp.getQLabel(this);
         }
     }
     visualizeItems();
@@ -94,20 +98,24 @@ void GameWidget::update() {
             dynamic_cast<BrownPlatform *>((*gamePlatforms)[i])->setAnimationCounter(
                 dynamic_cast<BrownPlatform *>((*gamePlatforms)[i])->getAnimationCounter() + 1);
             auto temp = BrownPlatform((*gamePlatforms)[i]->getX(), (*gamePlatforms)[i]->getY() + shift, imagePath,false);
+            temp.setTheme(currentTheme);
             if (dynamic_cast<BrownPlatform *>((*gamePlatforms)[i])->isBroken()) {
                 temp.setBroken();
             }
             temp.setAnimationCounter(dynamic_cast<BrownPlatform *>((*gamePlatforms)[i])->getAnimationCounter());
             platforms[i] = temp.getQLabel(this);
         } else if (dynamic_cast<GreenPlatform *>((*gamePlatforms)[i])) {
-            platforms[i] = GreenPlatform((*gamePlatforms)[i]->getX(), (*gamePlatforms)[i]->getY() + shift, imagePath,false).
-                    getQLabel(this);
+            auto otherTemp = GreenPlatform((*gamePlatforms)[i]->getX(), (*gamePlatforms)[i]->getY() + shift, imagePath,false);
+            otherTemp.setTheme(currentTheme);
+            platforms[i] =  otherTemp.getQLabel(this);
         } else if (dynamic_cast<BlackHole *>((*gamePlatforms)[i])) {
-            platforms[i] = BlackHole((*gamePlatforms)[i]->getX(), (*gamePlatforms)[i]->getY() + shift, imagePath,false).
-                    getQLabel(this);
+            auto otherTemp = BlackHole((*gamePlatforms)[i]->getX(), (*gamePlatforms)[i]->getY() + shift, imagePath,false);
+            otherTemp.setTheme(currentTheme);
+            platforms[i] = otherTemp.getQLabel(this);
         } else {
-            platforms[i] = BluePlatform((*gamePlatforms)[i]->getX(), (*gamePlatforms)[i]->getY() + shift, imagePath).
-                    getQLabel(this);
+            auto otherTemp =BluePlatform((*gamePlatforms)[i]->getX(), (*gamePlatforms)[i]->getY() + shift, imagePath);
+            otherTemp.setTheme(currentTheme);
+            platforms[i] =  otherTemp.getQLabel(this);
         }
         platforms[i]->show();
     }
@@ -326,9 +334,7 @@ void GameWidget::changeScoreMarkersVisibility() {
     showScoreMarkers = !showScoreMarkers;
 }
 void GameWidget::setTheme(Theme *theme) {
-
     currentTheme = theme;
-
     backgoundImagePath = theme->getBackgroundImagePath();
     backgoundLabel->setPixmap(QPixmap(prefixPath + backgoundImagePath));
 }

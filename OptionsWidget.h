@@ -52,12 +52,11 @@ class OptionsWidget : public QDialog {
     void resetHighScoresButtonClicked();
     void leftArrowPressed();
     void rightArrowPressed();
-    static QVector<Theme*> *themes;
-    bool inites = false;
+
     QLabel* currentThemePreview;
     static int currentSprite;
     static int currentBackGround;
-    static int currentTheme;
+    static int currentThemeNumb;
 public:
     OptionsWidget(QWidget* parent, bool currentSoundState, bool currentMarkersState);
 

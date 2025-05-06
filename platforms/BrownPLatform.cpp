@@ -8,7 +8,6 @@ QMediaPlayer* BrownPlatform::player = nullptr;
 QAudioOutput* BrownPlatform::audioOutput = nullptr;
 bool BrownPlatform::isPlayerInitialized = false;
 BrownPlatform::BrownPlatform(int coordinateX, int coordinateY, QString &imagePath,bool soundsOn) : AbstractPlatform(coordinateX, coordinateY,125,soundsOn) {
-    this->imagePath = imagePath;
     if (!isPlayerInitialized) {
         player = new QMediaPlayer();
         audioOutput = new QAudioOutput();
@@ -26,20 +25,20 @@ QLabel* BrownPlatform::getQLabel(QWidget *parent)  {
 
     if (!broken) {
         label->setGeometry(coordinateX,coordinateY,spritesBoundingsRects[0].width(), spritesBoundingsRects[0].height());
-        label->setPixmap(QPixmap(prefixPath + imagePath).copy(spritesBoundingsRects[0]));
+        label->setPixmap(QPixmap(prefixPath + theme->getGameTileImagePath()).copy(spritesBoundingsRects[0]));
     }
    else {
        if (animationCounter<7) {
            label->setGeometry(coordinateX,coordinateY,spritesBoundingsRects[1].width(), spritesBoundingsRects[1].height());
-           label->setPixmap(QPixmap(prefixPath + imagePath).copy(spritesBoundingsRects[1]));
+           label->setPixmap(QPixmap(prefixPath + theme->getGameTileImagePath()).copy(spritesBoundingsRects[1]));
        }
        else if (animationCounter>7& animationCounter<9) {
            label->setGeometry(coordinateX,coordinateY,spritesBoundingsRects[2].width(), spritesBoundingsRects[2].height());
-           label->setPixmap(QPixmap(prefixPath + imagePath).copy(spritesBoundingsRects[2]));
+           label->setPixmap(QPixmap(prefixPath + theme->getGameTileImagePath()).copy(spritesBoundingsRects[2]));
        }
        else if (animationCounter>9) {
            label->setGeometry(coordinateX,coordinateY,spritesBoundingsRects[3].width(), spritesBoundingsRects[3].height());
-           label->setPixmap(QPixmap(prefixPath + imagePath).copy(spritesBoundingsRects[3]));
+           label->setPixmap(QPixmap(prefixPath + theme->getGameTileImagePath()).copy(spritesBoundingsRects[3]));
        }
 
    }

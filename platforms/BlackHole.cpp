@@ -7,7 +7,6 @@ QMediaPlayer* BlackHole::player = nullptr;
 QAudioOutput* BlackHole::audioOutput = nullptr;
 bool BlackHole::isPlayerInitialized = false;
 BlackHole::BlackHole(int coordinateX, int coordinateY, QString &imagePath, bool soundsOn) : AbstractPlatform(coordinateX, coordinateY,125, soundsOn) {
-    this->imagePath = imagePath;
     if (!isPlayerInitialized) {
         player = new QMediaPlayer();
         audioOutput = new QAudioOutput();
@@ -23,7 +22,7 @@ QLabel* BlackHole::getQLabel(QWidget *parent)  {
     QLabel* label = new QLabel(parent);
     label->setScaledContents(true);
     label->setGeometry(coordinateX,coordinateY,spritesBoundingsRects[0].width(), spritesBoundingsRects[0].height());
-    label->setPixmap(QPixmap(prefixPath + imagePath).copy(spritesBoundingsRects[0]));
+    label->setPixmap(QPixmap(prefixPath + theme->getGameTileImagePath()).copy(spritesBoundingsRects[0]));
     return label;
 }
 void BlackHole::playSound() {

@@ -40,5 +40,6 @@ int AbstractPlatform::getWidth() const {
 void AbstractPlatform::setY(int y) {
     this->coordinateY = y;
 }
-
-
+void AbstractPlatform::setTheme(Theme *theme) {
+    this->theme = theme;
+}

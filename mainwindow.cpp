@@ -4,12 +4,17 @@
 #include <QKeyEvent>
 #include <iostream>
 MainWindow::MainWindow(QWidget *parent)   {
+    if (!inites) {
+        currentTheme = new DefaultTheme();
+        themes = new QVector<Theme *>();
+        *themes = {new DefaultTheme, new HaloweenTheme, new UnderwaterTheme, new JungleTheme};
+        inites = true;
+    }
     records = new RecordDatabase;
     setFocusPolicy(Qt::StrongFocus);
     setFocus();
     resize(WIDTH, HEIGHT);
     mainMenuWidget = new MainMenuWidget(this);
-    gameWidget = new GameWidget(visibleScoreMarkers,this);
     setCentralWidget(mainMenuWidget);
     connect(mainMenuWidget->getPlayButton(),&QPushButton::clicked, this, &MainWindow::playButtonClicked);
 
@@ -23,6 +28,7 @@ void MainWindow::playButtonClicked() {
     setCentralWidget(gameWidget);
     gameRunning = true;
     ++playClicked;
+
 }
 void MainWindow::keyPressEvent(QKeyEvent *event) {
 

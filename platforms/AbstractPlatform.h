@@ -5,7 +5,7 @@
 #ifndef ABSTRACTPLATFORM_H
 #define ABSTRACTPLATFORM_H
 #include <QLabel>
-
+#include "../gameVisualisation/Theme.h"
 
 class AbstractPlatform {
     protected:
@@ -16,7 +16,7 @@ class AbstractPlatform {
     int coordinateX;
     int coordinateY;
     QString prefixPath;
-    QString imagePath;
+    Theme* theme = nullptr;
     public:
     void setY(int y);
     AbstractPlatform(const int coordinateX, const int coordinateY, bool soundsOn) ;
@@ -24,7 +24,7 @@ class AbstractPlatform {
     AbstractPlatform(const int coordinateX, const int coordinateY, const int width, const int height, bool soundsOn) ;
     int getX() const;
     int getY() const;
-
+    void setTheme(Theme* theme);
     int getWidth() const;
     int getHeight() const;
     virtual  QLabel* getQLabel(QWidget *parent = nullptr)  = 0;
