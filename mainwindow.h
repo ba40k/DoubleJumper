@@ -22,6 +22,9 @@ class MainWindow : public QMainWindow
 {
     int playClicked = 0;
 public:
+    bool soundOn = true;
+    bool visibleScoreMarkers = true;
+
     RecordDatabase *records;
     void backToMenu();
     const int HEIGHT = 850;

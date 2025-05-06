@@ -4,7 +4,10 @@
 
 #include "OptionsWidget.h"
 #include <QFontDatabase>
+#include <iostream>
 
+#include "MainMenuWidget.h"
+#include "mainwindow.h"
 
 void OptionsWidget::setDefaultStylnig(const QString &prefix, const QString &suffix, QPushButton *button) {
     button->setStyleSheet(
@@ -69,5 +72,51 @@ OptionsWidget::OptionsWidget(QWidget *parent) {
     setDefaultStylnig(imagePrefixPath,templateButtonImagePath,resetHighScoresButton);
     resetHighScoresButton->setText("Reset");
 
+    connect(soundOnButton,&QPushButton::clicked,this,&OptionsWidget::soundOnButtonClicked);
+    connect(soundOffButton,&QPushButton::clicked,this,&OptionsWidget::soundOffButtonClicked);
+    connect(scoreMarkersOnButton,&QPushButton::clicked,this,&OptionsWidget::scoreMarkersOnButtonClicked);
+    connect(scoreMarkersOffButton,&QPushButton::clicked,this,&OptionsWidget::scoreMarkersOffButtonClicked);
+    connect(menuButton,&QPushButton::clicked,this,&OptionsWidget::menuButtonClicked);
+    connect(resetHighScoresButton,&QPushButton::clicked,this,&OptionsWidget::resetHighScoresButtonClicked);
+
 }
+void OptionsWidget::soundOnButtonClicked() {
+    soundOn = true;
+    setDefaultStylnig(imagePrefixPath,onImageOnPath,soundOnButton);
+    setDefaultStylnig(imagePrefixPath,offImageOffPath,soundOffButton);
+    dynamic_cast<MainWindow*>(parent()->parent())->soundOn = true;
+}
+void OptionsWidget::soundOffButtonClicked() {
+    soundOn = false;
+    setDefaultStylnig(imagePrefixPath,offImageOnPath,soundOffButton);
+    setDefaultStylnig(imagePrefixPath,onImageOffPath,soundOnButton);
+    dynamic_cast<MainWindow*>(parent()->parent())->soundOn = false;
+}
+void OptionsWidget::menuButtonClicked() {
+    dynamic_cast<MainMenuWidget*>(parent())->play();
+    delete this;
+}
+void OptionsWidget::resetHighScoresButtonClicked() {
+    QFile file(recordsFilePath);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
+        return ; // Не удалось открыть файл
+    }
+    file.close();
+}
+void OptionsWidget::scoreMarkersOffButtonClicked() {
+    scoreMarkersOn = false;
+    setDefaultStylnig(imagePrefixPath,offImageOnPath,scoreMarkersOffButton);
+    setDefaultStylnig(imagePrefixPath,onImageOffPath,scoreMarkersOnButton);
+    dynamic_cast<MainWindow*>(parent()->parent())->visibleScoreMarkers = false;
+}
+void OptionsWidget::scoreMarkersOnButtonClicked() {
+    scoreMarkersOn = true;
+    setDefaultStylnig(imagePrefixPath,onImageOnPath,scoreMarkersOnButton);
+    setDefaultStylnig(imagePrefixPath,offImageOffPath,scoreMarkersOffButton);
+    dynamic_cast<MainWindow*>(parent()->parent())->visibleScoreMarkers = true;
+
+}
+
+
+
 

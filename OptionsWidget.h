@@ -23,6 +23,7 @@ class OptionsWidget : public QDialog {
     QString menuImagePath = "menu@2x.png";
     QString fontPath = "/home/radamir/CLionProjects/doubleJumper/requirments/DoodleJump.ttf";
     QString templateButtonImagePath = "button-template@2x.png";
+    QString recordsFilePath = "/home/radamir/CLionProjects/doubleJumper/game/records.json";
     QLabel* optionsLabel;
     QLabel* backGroundLabel;
     QLabel* soundLabel;
@@ -36,6 +37,12 @@ class OptionsWidget : public QDialog {
     int fontId;
     QFont *font;
     void setDefaultStylnig(const QString &prefix,const QString &suffix, QPushButton *button);
+    void soundOnButtonClicked();
+    void soundOffButtonClicked();
+    void scoreMarkersOnButtonClicked();
+    void scoreMarkersOffButtonClicked();
+    void menuButtonClicked();
+    void resetHighScoresButtonClicked();
 public:
     OptionsWidget(QWidget* parent = nullptr);
 

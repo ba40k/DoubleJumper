@@ -92,7 +92,7 @@ void MainMenuWidget::stop() {
 
 void MainMenuWidget::play() {
     stopped = false;
-    //timer->start();
+    timer->start();
 }
 
 
@@ -103,7 +103,7 @@ void MainMenuWidget::animationRun() {
     if (doubleJumper.getSpeed() < 0 || doubleJumper.getCoordinateY() > doubleJumperStartY) {
         doubleJumper.changeDirection();
         doubleJumper.getDirection() > 0 ? doubleJumper.setSpeed(0) : doubleJumper.setSpeed(1.0);
-        if (doubleJumper.getDirection() == -1) {
+        if (doubleJumper.getDirection() == -1 && dynamic_cast<MainWindow*>(parent())->soundOn==true) {
             jumpSound.play();
         }
     }
@@ -193,7 +193,8 @@ QPushButton *MainMenuWidget::getPlayButton() const {
 }
 void MainMenuWidget::scoresButtonPressed() {
     RecordsWidget* recordsWind = new RecordsWidget(this);
-    //recordsWind->setWindowFlags(Qt::Dialog | Qt::WindowCloseButtonHint);
+    stop();
+    recordsWind->setWindowFlags(Qt::Dialog | Qt::WindowCloseButtonHint);
     recordsWind->show();
 }
 void MainMenuWidget::optionsButtonPressed() {
