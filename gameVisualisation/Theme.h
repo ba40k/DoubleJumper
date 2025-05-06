@@ -41,9 +41,9 @@ class HaloweenTheme : public Theme {
     public:
     HaloweenTheme();
 };
-class JungleTheme : public Theme {
+class SpaceTheme : public Theme {
 public:
-    JungleTheme();
+    SpaceTheme();
 };
 class UnderwaterTheme : public Theme {
     public:

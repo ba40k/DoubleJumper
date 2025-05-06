@@ -8,9 +8,12 @@
 #include <QWidget>
 #include <QVector>
 #include <QLabel>
+
+#include "Theme.h"
+
 class ScoreBar : public QWidget{
     QString imagePrefixPath =  "requirments/Sprites/Doodle Jump/";
-    QString scoreTilePath = "top-score@2x.png";
+    Theme* theme;
     const int backGroundHeight = 92;
     const int backGroundWidth = 401;
     QVector<QLabel*> currentScore;
@@ -20,6 +23,7 @@ class ScoreBar : public QWidget{
     public:
     ScoreBar(QWidget *parent = nullptr);
     void displayScore(int score);
+    void setTheme(Theme* theme);
     ~ScoreBar();
 };
 

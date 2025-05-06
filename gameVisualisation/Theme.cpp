@@ -71,16 +71,16 @@ HaloweenTheme::HaloweenTheme() {
     scoreBarImagePath = "halloween-top-score@2x.png";
     themePreviewPath = "doodlestein-preview@2x.png";
 }
-JungleTheme::JungleTheme() {
-    backgroundImagePath = "jungle-bck@2x.png";
-    leftOrientedImagePath = "jungle-left@2x.png";
-    rightOrientedImagePath = "jungle-right@2x.png";
-    leftOrientedHoppedImagePath = "jungle-left-odskok@2x.png";
-    rightOrientedHoppedImagePath = "jungle-right-odskok@2x.png";
-    gameTileImagePath = "game-tiles-jungle@2x.png";
-    jetpackImagePath = "jetpack@2x.png";
-    propellerImagePath = "propeller@2x.png";
-    scoreBarImagePath = "jungle-top-score@2x.png";
-    themePreviewPath = "jungle-preview@2x.png";
+SpaceTheme::SpaceTheme() {
+    backgroundImagePath = "space-bck@2x.png";
+    leftOrientedImagePath = "space-left@2x.png";
+    rightOrientedImagePath = "space-right@2x.png";
+    leftOrientedHoppedImagePath = "space-left-odskok@2x.png";
+    rightOrientedHoppedImagePath = "space-right-odskok@2x.png";
+    gameTileImagePath = "game-tiles-space@2x.png";
+    jetpackImagePath = "jetpack-space@2x.png";
+    propellerImagePath = "propeller-space@2x.png";
+    scoreBarImagePath = "space-top-score@2x.png";
+    themePreviewPath = "space-preview@2x.png";
 }
 

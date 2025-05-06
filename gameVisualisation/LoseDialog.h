@@ -10,6 +10,8 @@
 #include <QLineEdit>
 #include <QFontDatabase>
 
+#include "Theme.h"
+
 class LoseDialog : public QDialog {
 private:
     const int HEIGHT = 500;
@@ -25,7 +27,7 @@ private:
     QString cancelButtonImagePath;
     QString fontPath = "/home/radamir/CLionProjects/doubleJumper/requirments/DoodleJump.ttf";
     QString imagePrefixPath = "requirments/Sprites/Doodle Jump/";
-    QString backgroundPath = "bck@2x.png";
+    Theme* theme;
 
     void setDefaultStylnig(const QString &prefix, const QString &suffix, QPushButton *button);
 
@@ -37,8 +39,7 @@ private:
     void returnToMenu();
 
 public:
-    LoseDialog(QWidget *parent, int score);
-
+    LoseDialog(QWidget *parent, int score,Theme* theme);
     ~LoseDialog();
 };
 

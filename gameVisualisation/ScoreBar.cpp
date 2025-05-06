@@ -47,7 +47,7 @@ void ScoreBar::displayScore(int score) {
     for (int i =0;i<digits.size();i++) {
         currentScore[i] = new QLabel(this);
         currentScore[i]->setScaledContents(true);
-        currentScore[i]->setPixmap(QPixmap(imagePrefixPath + scoreTilePath).copy(digitsCoords[digits[i]]));
+        currentScore[i]->setPixmap(QPixmap(imagePrefixPath + theme->getScoreBarImagePath()).copy(digitsCoords[digits[i]]));
         currentScore[i]->move(coordinateX,coordinateY);
         coordinateX += digitsCoords[digits[i]].width();
         currentScore[i]->show();
@@ -58,4 +58,8 @@ ScoreBar::~ScoreBar() {
         delete currentScore[i];
     }
 }
+void ScoreBar::setTheme(Theme *theme) {
+    this->theme = theme;
+}
+
 

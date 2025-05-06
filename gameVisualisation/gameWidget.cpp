@@ -33,6 +33,7 @@ GameWidget::GameWidget(bool visibleMarkers,QWidget *parent) : game(dynamic_cast<
 
     backgoundLabel->setPixmap(QPixmap(prefixPath + backgoundImagePath));
     scoreBar = new ScoreBar(this);
+    scoreBar->setTheme(currentTheme);
     auto gamePlatforms = game.getPlatforms();
     platforms.resize(gamePlatforms->size());
 
@@ -74,7 +75,7 @@ void GameWidget::update() {
     }
     if (game.isGameEnded() && (blackHoleAnimationTicks == 0 || game.getFinalBlackHole() == nullptr)) {
         timer->stop();
-        loseDialog = new LoseDialog(this, game.getScore());
+        loseDialog = new LoseDialog(this, game.getScore(),currentTheme);
         loseDialog->setModal(true);
         loseDialog->setWindowFlags(Qt::Dialog | Qt::WindowCloseButtonHint);
         loseDialog->show();
@@ -340,4 +341,5 @@ void GameWidget::setTheme(Theme *theme) {
     currentTheme = theme;
     backgoundImagePath = theme->getBackgroundImagePath();
     backgoundLabel->setPixmap(QPixmap(prefixPath + backgoundImagePath));
+    scoreBar->setTheme(currentTheme);
 }

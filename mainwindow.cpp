@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent)   {
     if (!inites) {
         currentTheme = new DefaultTheme();
         themes = new QVector<Theme *>();
-        *themes = {new DefaultTheme, new HaloweenTheme, new UnderwaterTheme, new JungleTheme};
+        *themes = {new DefaultTheme, new HaloweenTheme, new UnderwaterTheme, new SpaceTheme};
         inites = true;
     }
     records = new RecordDatabase;

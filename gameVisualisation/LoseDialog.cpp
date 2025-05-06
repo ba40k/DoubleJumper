@@ -11,11 +11,12 @@
 #include "gameWidget.h"
 #include "../mainwindow.h"
 
-LoseDialog::LoseDialog(QWidget *parent, int score) {
+LoseDialog::LoseDialog(QWidget *parent, int score, Theme *theme) {
+    this->theme = theme;
     setModal(true);
     setParent(parent);
     background = new QLabel(this);
-    background->setPixmap(QPixmap(imagePrefixPath + backgroundPath));
+    background->setPixmap(QPixmap(imagePrefixPath + theme->getBackgroundImagePath()));
     background->setScaledContents(true);
     background->setGeometry(QRect(0, 0, WIDTH, HEIGHT));
     fontId = QFontDatabase::addApplicationFont(fontPath);
