@@ -36,6 +36,7 @@ GameWidget::GameWidget(bool visibleMarkers,QWidget *parent) : game(dynamic_cast<
     auto gamePlatforms = game.getPlatforms();
     platforms.resize(gamePlatforms->size());
 
+    game.getDoubleJumper()->setTheme(currentTheme);
 
     for (int i = 0; i < gamePlatforms->size(); i++) {
         if (dynamic_cast<BrownPlatform *>((*gamePlatforms)[i])) {
@@ -335,6 +336,7 @@ void GameWidget::changeScoreMarkersVisibility() {
     showScoreMarkers = !showScoreMarkers;
 }
 void GameWidget::setTheme(Theme *theme) {
+    game.getDoubleJumper()->setTheme(theme);
     currentTheme = theme;
     backgoundImagePath = theme->getBackgroundImagePath();
     backgoundLabel->setPixmap(QPixmap(prefixPath + backgoundImagePath));

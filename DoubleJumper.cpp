@@ -10,10 +10,6 @@ DoubleJumper::DoubleJumper(int coordinateX, int coordinateY, long double speed, 
     this->speed = speed;
     this->direction = direction;
     prefixPath = "requirments/Sprites/Doodle Jump/";
-    leftOrientedSpritePath = "lik-left@2x.png";
-    rightOrientedSpritePath = "lik-right@2x.png";
-    leftHoppedSpritePath = "lik-left-odskok@2x.png";
-    rightHoppedSpritePath = "lik-right-odskok@2x.png";
 }
 long double DoubleJumper::getDirection() const {
     return direction;
@@ -45,15 +41,15 @@ QLabel *DoubleJumper::getLabel(QWidget *parent) {
     label->setScaledContents(true);
     if (hopped == false) {
         if (orintation == false) {
-            label->setPixmap(QPixmap(prefixPath + leftOrientedSpritePath));
+            label->setPixmap(QPixmap(prefixPath + theme->getLeftOrientedImagePath()));
         } else {
-            label->setPixmap(QPixmap(prefixPath + rightOrientedSpritePath));
+            label->setPixmap(QPixmap(prefixPath + theme->getRightOrientedImagePath()));
         }
     } else {
         if (orintation == false) {
-            label->setPixmap(QPixmap(prefixPath + leftHoppedSpritePath));
+            label->setPixmap(QPixmap(prefixPath + theme->getLeftOrientedHoppedImagePath()));
         } else {
-            label->setPixmap(QPixmap(prefixPath + rightHoppedSpritePath));
+            label->setPixmap(QPixmap(prefixPath + theme->getRightOrientedHoppedImagePath()));
         }
     }
     return label;
@@ -84,4 +80,7 @@ int DoubleJumper::getRightestHitboxPoint() {
 }
 void DoubleJumper::setHopped(bool hopped) {
     this->hopped = hopped;
+}
+void DoubleJumper::setTheme(Theme *theme) {
+    this->theme = theme;
 }

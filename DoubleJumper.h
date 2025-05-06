@@ -8,17 +8,16 @@
 #include <QLabel>
 #include <QString>
 
+#include "gameVisualisation/Theme.h"
+
 class DoubleJumper {
+    Theme* theme;
     const int WIDTH = 124;
     const int HEIGHT = 120;
     const int shiftFromBack=120 - 83; // расстояние от спины до ножки
     const int shiftFromFront = 30;  // расстояние от хоботка до ножки
     QString prefixPath ;
-    QString leftOrientedSpritePath ;
-    QString rightOrientedSpritePath;
     bool hopped = false;
-    QString leftHoppedSpritePath;
-    QString rightHoppedSpritePath;
     int coordinateX;
     int coordinateY;
     long double speed;
@@ -42,6 +41,7 @@ class DoubleJumper {
     bool getOrintation() const;
     int getLeftestHitboxPoint();
     int getRightestHitboxPoint();
+    void setTheme(Theme* theme);
 };
 
 

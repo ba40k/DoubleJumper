@@ -45,6 +45,7 @@ void MainWindow::backToMenu() {
     gameWidget->stop();
     gameRunning = false;
     mainMenuWidget = new MainMenuWidget(this);
+    mainMenuWidget->setTheme(currentTheme);
     setCentralWidget(mainMenuWidget);
     connect(mainMenuWidget->getPlayButton(),&QPushButton::clicked, this, &MainWindow::playButtonClicked);
 }
