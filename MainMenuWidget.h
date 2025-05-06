@@ -17,7 +17,7 @@
 #include "PhysicsModel.h"
 #include "DoubleJumper.h"
 #include "gameVisualisation/gameWidget.h"
-
+#include"OptionsWidget.h"
 class MainMenuWidget : public QWidget {
     Q_OBJECT
     QTimer* timer;
@@ -57,7 +57,7 @@ class MainMenuWidget : public QWidget {
 
     DoubleJumper doubleJumper;
 
-    const int deltaTime  = 10;
+    const int deltaTime  = 15;
 
 
     bool stopped;
@@ -71,6 +71,7 @@ class MainMenuWidget : public QWidget {
     QVector<QPair<int,int>> parseJson(const QString& filename) const;
     void playButtonPressed();
     void scoresButtonPressed();
+    void optionsButtonPressed();
     public:
 
     QPushButton* getPlayButton() const;

@@ -79,6 +79,7 @@ MainMenuWidget::MainMenuWidget(QWidget *parent) : physicsModel(0.0019),
     connect(timer, &QTimer::timeout, this, &MainMenuWidget::animationRun);
     connect(playButton, &QPushButton::clicked, this, &MainMenuWidget::playButtonPressed);
     connect(highScoresButton,&QPushButton::clicked,this,&MainMenuWidget::scoresButtonPressed);
+    connect(optionsButton,&QPushButton::clicked,this,&MainMenuWidget::optionsButtonPressed);
 }
 void MainMenuWidget::playButtonPressed() {
     stop();
@@ -192,6 +193,11 @@ QPushButton *MainMenuWidget::getPlayButton() const {
 }
 void MainMenuWidget::scoresButtonPressed() {
     RecordsWidget* recordsWind = new RecordsWidget(this);
-    recordsWind->setWindowFlags(Qt::Dialog | Qt::WindowCloseButtonHint);
+    //recordsWind->setWindowFlags(Qt::Dialog | Qt::WindowCloseButtonHint);
     recordsWind->show();
+}
+void MainMenuWidget::optionsButtonPressed() {
+    OptionsWidget* options = new OptionsWidget(this);
+    stop();
+    options->show();
 }

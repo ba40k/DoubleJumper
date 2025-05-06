@@ -28,6 +28,7 @@ class GameWidget : public QWidget{
     QVector<QLabel*> items;
     QVector<QLabel*> scoreMarkers;
     QVector<QLabel*> scoreMarkerNames;
+    bool showScoreMarkers = true;
     const int deltaTime = 8;
     int blackHoleAnimationTicks = 50;
     QTimer* timer;
@@ -52,7 +53,7 @@ class GameWidget : public QWidget{
     void stop();
     void run();
     void playBlackHoleAnimation();
-
+    void changeScoreMarkersVisibility();
 
 };
 

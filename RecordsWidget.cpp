@@ -10,6 +10,10 @@
 #include <iostream>
 #include<thread>
 void RecordsWidget::wheelEvent(QWheelEvent *event) {
+   if (wheelShift%3==0 && wheelShift!=0) {
+       wheelShift++;
+       return;
+   }
     // Получаем дельту прокрутки
     QPoint delta = event->angleDelta();
 
@@ -18,10 +22,10 @@ void RecordsWidget::wheelEvent(QWheelEvent *event) {
         // Вертикальная прокрутка
         if (delta.y() != 0) {
             if (delta.y() > 0) {
-                wheelShift-=5;
+                wheelShift-=10;
 
             } else {
-                wheelShift+=5;
+                wheelShift+=10;
             }
             wheelShift = std::max(0, wheelShift);
             wheelShift = std::min(wheelShift, (int)recordsLabels.size()* 30);

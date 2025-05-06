@@ -77,7 +77,9 @@ void GameWidget::update() {
     }
     int shift = game.getShift();
     visualizeItems();
-    visualizeScoreMarkers();
+    if (showScoreMarkers) {
+        visualizeScoreMarkers();
+    }
     game.gameStateUpdate(deltaTime, leftArrowPressed, rightArrowPressed);
     auto gamePlatforms = game.getPlatforms();
     //  std::cout<<platforms.size()<<'\n';
@@ -319,4 +321,7 @@ void GameWidget::visualizeScoreMarkers() {
             label->show();
         }
     }
+}
+void GameWidget::changeScoreMarkersVisibility() {
+    showScoreMarkers = !showScoreMarkers;
 }
