@@ -75,6 +75,14 @@ OptionsWidget::OptionsWidget(QWidget *parent,bool currentSoundState, bool curren
     setDefaultStylnig(imagePrefixPath,templateButtonImagePath,resetHighScoresButton);
     resetHighScoresButton->setText("Reset");
 
+    leftArrow = new QPushButton(this);
+    leftArrow->setGeometry(50,600,45,23);
+    setDefaultStylnig(imagePrefixPath,leftArrowPath,leftArrow);
+
+    rightArrow = new QPushButton(this);
+    rightArrow->setGeometry(550,600,45,23);
+    setDefaultStylnig(imagePrefixPath,rightArrowPath,rightArrow);
+
     if (soundOn == false) {
         soundOffButtonClicked();
     }
@@ -123,7 +131,6 @@ void OptionsWidget::scoreMarkersOnButtonClicked() {
     setDefaultStylnig(imagePrefixPath,onImageOnPath,scoreMarkersOnButton);
     setDefaultStylnig(imagePrefixPath,offImageOffPath,scoreMarkersOffButton);
     dynamic_cast<MainWindow*>(parent()->parent())->visibleScoreMarkers = true;
-
 }
 
 

@@ -9,6 +9,7 @@
 #include <QWidget>
 #include <QLabel>
 #include <QPushButton>
+#include "gameVisualisation/Theme.h"
 class OptionsWidget : public QDialog {
     const int WIDTH = 640;
     const int HEIGHT = 850;
@@ -24,10 +25,14 @@ class OptionsWidget : public QDialog {
     QString fontPath = "/home/radamir/CLionProjects/doubleJumper/requirments/DoodleJump.ttf";
     QString templateButtonImagePath = "button-template@2x.png";
     QString recordsFilePath = "/home/radamir/CLionProjects/doubleJumper/game/records.json";
+    QString leftArrowPath = "left-arrow@2x.png";
+    QString rightArrowPath = "right-arrow@2x.png";
     QLabel* optionsLabel;
     QLabel* backGroundLabel;
     QLabel* soundLabel;
     QLabel* scoreMarkersLabel;
+    QPushButton* leftArrow;
+    QPushButton* rightArrow;
     QPushButton* soundOnButton;
     QPushButton* soundOffButton;
     QPushButton* scoreMarkersOnButton;
@@ -43,7 +48,8 @@ class OptionsWidget : public QDialog {
     void scoreMarkersOffButtonClicked();
     void menuButtonClicked();
     void resetHighScoresButtonClicked();
-
+    QVector<Theme*> themes;
+    QLabel* currentThemePreview;
     static int currentSprite;
     static int currentBackGround;
 public:

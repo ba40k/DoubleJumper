@@ -19,6 +19,7 @@ protected:
     QString jetpackImagePath;
     QString gameTileImagePath;
     QString scoreBarImagePath;
+    QString themePreviewPath;
 public:
     QString getBackgroundImagePath();
     QString getLeftOrientedImagePath();
@@ -28,11 +29,14 @@ public:
     QString getPropellerImagePath();
     QString getJetpackImagePath();
     QString getGameTileImagePath();
+    QString getScoreBarImagePath();
+    QString getThemePreviewPath();
+
 };
 class DefaultTheme : public Theme {
     public:
     DefaultTheme();
-}
+};
 class HaloweenTheme : public Theme {
     public:
     HaloweenTheme();

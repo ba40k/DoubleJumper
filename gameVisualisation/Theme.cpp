@@ -3,6 +3,37 @@
 //
 
 #include "Theme.h"
+QString Theme::getBackgroundImagePath() {
+    return backgroundImagePath;
+}
+QString Theme::getJetpackImagePath() {
+    return jetpackImagePath;
+}
+QString Theme::getPropellerImagePath() {
+    return propellerImagePath;
+}
+QString Theme::getThemePreviewPath() {
+    return themePreviewPath;
+}
+QString Theme::getGameTileImagePath() {
+    return gameTileImagePath;
+}
+QString Theme::getLeftOrientedImagePath() {
+    return leftOrientedImagePath;
+}
+QString Theme::getRightOrientedImagePath() {
+    return rightOrientedImagePath;
+}
+QString Theme::getScoreBarImagePath() {
+    return scoreBarImagePath;
+}
+QString Theme::getLeftOrientedHoppedImagePath() {
+    return leftOrientedHoppedImagePath;
+}
+QString Theme::getRightOrientedHoppedImagePath() {
+    return rightOrientedHoppedImagePath;
+}
+
 
 DefaultTheme::DefaultTheme() {
     backgroundImagePath = "bck@2x.png";
@@ -14,6 +45,7 @@ DefaultTheme::DefaultTheme() {
     jetpackImagePath = "jetpack@2x.png";
     propellerImagePath = "propeller@2x.png";
     scoreBarImagePath = "top-score@2x.png";
+    themePreviewPath = "default-preview@2x.png";
 }
 Underwater::Underwater() {
     backgroundImagePath = "underwater-bck@2x.png";
@@ -25,6 +57,7 @@ Underwater::Underwater() {
     jetpackImagePath = "jetpack-underwater@2x.png";
     propellerImagePath = "propeller-underwater@2x.png";
     scoreBarImagePath = "underwater-top-score@2x.png";
+    themePreviewPath = "underwater-preview@2x.png";
 }
 HaloweenTheme::HaloweenTheme() {
     backgroundImagePath = "doodlestein-bck@2x.png";
@@ -32,10 +65,11 @@ HaloweenTheme::HaloweenTheme() {
     rightOrientedImagePath = "doodlestein-right@2x.png";
     leftOrientedHoppedImagePath = "doodlestein-left-odskok@2x.png";
     rightOrientedHoppedImagePath = "doodlestein-right-odskok@2x.png";
-    gameTileImagePath = "game-tiles-hallowenn@2x.png";
+    gameTileImagePath = "game-tiles-halloween@2x.png";
     jetpackImagePath = "jetpack-doodlestein@2x.png";
     propellerImagePath = "propeller-doodlestein@2x.png";
     scoreBarImagePath = "halloween-top-score@2x.png";
+    themePreviewPath = "doodlestein-preview@2x.png";
 }
 JungleTheme::JungleTheme() {
     backgroundImagePath = "jungle-bck@2x.png";
@@ -44,9 +78,9 @@ JungleTheme::JungleTheme() {
     leftOrientedHoppedImagePath = "jungle-left-odskok@2x.png";
     rightOrientedHoppedImagePath = "jungle-right-odskok@2x.png";
     gameTileImagePath = "game-tiles-jungle@2x.png";
-    jetpackImagePath = "jetpack-jungle@2x.png";
-    propellerImagePath = "propeller-jungle@2x.png";
+    jetpackImagePath = "jetpack@2x.png";
+    propellerImagePath = "propeller@2x.png";
     scoreBarImagePath = "jungle-top-score@2x.png";
-
+    themePreviewPath = "jungle-preview@2x.png";
 }
 
