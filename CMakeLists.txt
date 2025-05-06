@@ -23,7 +23,7 @@ add_executable(DoubleJumper main.cpp mainwindow.cpp MainMenuWidget.cpp PhysicsMo
         platforms/GreenPlatform.cpp gameVisualisation/gameWidget.cpp game/Game.cpp game/Screen.cpp platforms/BrownPLatform.cpp
         platforms/BluePlatform.cpp gameVisualisation/ScoreBar.cpp items/AbstractItem.cpp items/Spring.cpp
         items/helicopterHat.cpp items/Jetpack.cpp platforms/BlackHole.cpp
-        gameVisualisation/LoseDialog.cpp game/Record.cpp game/RecordDatabase.cpp OptionsWidget.cpp RecordsWidget.cpp
+        gameVisualisation/LoseDialog.cpp game/Record.cpp game/RecordDatabase.cpp OptionsWidget.cpp RecordsWidget.cpp gameVisualisation/Theme.cpp
 )
 target_link_libraries(DoubleJumper
 

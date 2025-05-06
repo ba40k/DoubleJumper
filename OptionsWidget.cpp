@@ -8,7 +8,8 @@
 
 #include "MainMenuWidget.h"
 #include "mainwindow.h"
-
+int OptionsWidget::currentSprite = 0;
+int OptionsWidget::currentBackGround = 0;
 void OptionsWidget::setDefaultStylnig(const QString &prefix, const QString &suffix, QPushButton *button) {
     button->setStyleSheet(
         "QPushButton {"

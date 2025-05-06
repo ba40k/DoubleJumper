@@ -43,6 +43,9 @@ class OptionsWidget : public QDialog {
     void scoreMarkersOffButtonClicked();
     void menuButtonClicked();
     void resetHighScoresButtonClicked();
+
+    static int currentSprite;
+    static int currentBackGround;
 public:
     OptionsWidget(QWidget* parent, bool currentSoundState, bool currentMarkersState);
 
