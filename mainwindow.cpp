@@ -9,13 +9,13 @@ MainWindow::MainWindow(QWidget *parent)   {
     setFocus();
     resize(WIDTH, HEIGHT);
     mainMenuWidget = new MainMenuWidget(this);
-    gameWidget = new GameWidget(this);
+    gameWidget = new GameWidget(visibleScoreMarkers,this);
     setCentralWidget(mainMenuWidget);
     connect(mainMenuWidget->getPlayButton(),&QPushButton::clicked, this, &MainWindow::playButtonClicked);
 
 }
 void MainWindow::playButtonClicked() {
-    gameWidget = new GameWidget(this);
+    gameWidget = new GameWidget(visibleScoreMarkers,this);
     mainMenuWidget->stop();
     gameWidget->run();
     gameWidget->showFullScreen();

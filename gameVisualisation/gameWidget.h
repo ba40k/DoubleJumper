@@ -48,7 +48,7 @@ class GameWidget : public QWidget{
     public:
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
-    GameWidget(QWidget *parent = nullptr);
+    GameWidget(bool visibleMarkers,QWidget *parent = nullptr);
     ~GameWidget();
     void stop();
     void run();

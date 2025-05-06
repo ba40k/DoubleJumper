@@ -15,12 +15,12 @@
 #include "../platforms/BlackHole.h"
 #include "../platforms/BluePlatform.h"
 
-GameWidget::GameWidget(QWidget *parent) : game(dynamic_cast<MainWindow*>(parent)->soundOn) {
+GameWidget::GameWidget(bool visibleMarkers,QWidget *parent) : game(dynamic_cast<MainWindow*>(parent)->soundOn) {
     setParent(parent);
     setFocusPolicy(Qt::StrongFocus); // Разрешаем фокус клавиатуры
     setFocus(); // Захватываем фокус
     game.gameInitialize();
-
+    showScoreMarkers = visibleMarkers;
 
     prefixPath = "requirments/Sprites/Doodle Jump/";
     backgoundImagePath = "bck@2x.png";
