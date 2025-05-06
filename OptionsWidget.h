@@ -14,20 +14,27 @@ class OptionsWidget : public QDialog {
     const int HEIGHT = 850;
     QString imagePrefixPath = "requirments/Sprites/Doodle Jump/";
     bool soundOn = true;
-    bool scoreMarkers = true;
+    bool scoreMarkersOn = true;
     QString backGroundPath = "bck@2x.png";
     QString onImageOnPath = "on-button-on@2x.png";
     QString offImageOnPath = "off-button-on@2x.png";
     QString offImageOffPath = "off-button@2x.png";
     QString onImageOffPath = "on-button@2x.png";
     QString menuImagePath = "menu@2x.png";
+    QString fontPath = "/home/radamir/CLionProjects/doubleJumper/requirments/DoodleJump.ttf";
+    QString templateButtonImagePath = "button-template@2x.png";
     QLabel* optionsLabel;
     QLabel* backGroundLabel;
+    QLabel* soundLabel;
+    QLabel* scoreMarkersLabel;
     QPushButton* soundOnButton;
     QPushButton* soundOffButton;
     QPushButton* scoreMarkersOnButton;
     QPushButton* scoreMarkersOffButton;
     QPushButton* menuButton;
+    QPushButton* resetHighScoresButton;
+    int fontId;
+    QFont *font;
     void setDefaultStylnig(const QString &prefix,const QString &suffix, QPushButton *button);
 public:
     OptionsWidget(QWidget* parent = nullptr);
