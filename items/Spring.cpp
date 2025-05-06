@@ -8,7 +8,7 @@
 QMediaPlayer* Spring::player = nullptr;
 QAudioOutput* Spring::audioOutput = nullptr;
 bool Spring::isPlayerInitialized = false;
-Spring::Spring(int coordinateX, AbstractPlatform* platform) : AbstractItem(coordinateX,35,21,platform) {
+Spring::Spring(int coordinateX, AbstractPlatform* platform, bool soundsOn) : AbstractItem(coordinateX,35,21,platform, soundsOn) {
     onTileCoordinateX =  nonActivatedOnTileCoordinateX;
     onTileCoordinateY =  nonActivatedOnTileCoordinateY;
     shiftY = 3;
@@ -37,7 +37,9 @@ void Spring::setActivated() {
 void Spring::activate(DoubleJumper &activator) {
    // std::cout<<1;
     setActivated();
-    player->play();
+    if (soundsOn) {
+        player->play();
+    }
     activator.setSpeed(speedBuff);
 }
 

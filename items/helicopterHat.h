@@ -26,7 +26,7 @@ class HelicopterHat : public AbstractItem {
     int activatedTicks = 300;
     DoubleJumper* jumper;
 public:
-    HelicopterHat(int coordinateX, AbstractPlatform* platform);
+    HelicopterHat(int coordinateX, AbstractPlatform* platform, bool soundsOn);
     QLabel* getQLabel(QWidget *parent = nullptr) override;
     void activate(DoubleJumper &activator) override;
     void setActivated();

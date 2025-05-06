@@ -10,6 +10,7 @@
 
 class AbstractItem {
     protected:
+    bool soundsOn = true;
     int width;
     int height;
     int coordinateX;
@@ -21,7 +22,7 @@ class AbstractItem {
     QString imagePath = "game-tiles@2x.png";
     QString prefixSoundPath = "requirments/Doodle Jump SFX/";
     public:
-    AbstractItem(int coordinateX ,int width, int height, AbstractPlatform* platform);
+    AbstractItem(int coordinateX ,int width, int height, AbstractPlatform* platform,bool soundsOn);
     virtual void activate(DoubleJumper &activator) = 0;
     virtual  QLabel* getQLabel(QWidget *parent = nullptr)  = 0;
     virtual int getCoordinateX();

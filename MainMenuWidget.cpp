@@ -198,7 +198,7 @@ void MainMenuWidget::scoresButtonPressed() {
     recordsWind->show();
 }
 void MainMenuWidget::optionsButtonPressed() {
-    OptionsWidget* options = new OptionsWidget(this);
+    OptionsWidget* options = new OptionsWidget(this,dynamic_cast<MainWindow*>(parent())->soundOn,dynamic_cast<MainWindow*>(parent())->visibleScoreMarkers);
     stop();
     options->show();
 }

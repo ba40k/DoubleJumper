@@ -14,7 +14,8 @@
 #include "../platforms/BluePlatform.h"
 
 
-Game::Game() : physicsModel(0.003), doubleJumper(doubleJumperSpawnX,doubleJumperSpawnY,defaultSpeed,startDirection){
+Game::Game(bool soundsOn) : physicsModel(0.003), doubleJumper(doubleJumperSpawnX,doubleJumperSpawnY,defaultSpeed,startDirection){
+    this->soundsOn = soundsOn;
     srand(time(NULL));
 }
 void Game::gameInitialize() {
@@ -26,7 +27,7 @@ void Game::gameInitialize() {
     AbstractPlatform* startPlatform = new GreenPlatform(260, SCREEN_HEIGHT- PLATFORM_HEIGHT,path);
     std::deque<AbstractPlatform*> platforms;
     platforms.push_back(startPlatform);
-    firstScreen = new Screen(0,850,platforms,1.0);
+    firstScreen = new Screen(0,850,platforms,1.0, soundsOn);
     platforms.push_back(startPlatform);
 }
 void Game::gameStateUpdate(int deltaTime, bool leftArrowPressed, bool rightArrowPressed) {

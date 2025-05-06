@@ -44,7 +44,7 @@ class OptionsWidget : public QDialog {
     void menuButtonClicked();
     void resetHighScoresButtonClicked();
 public:
-    OptionsWidget(QWidget* parent = nullptr);
+    OptionsWidget(QWidget* parent, bool currentSoundState, bool currentMarkersState);
 
 };
 

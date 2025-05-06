@@ -15,7 +15,7 @@
 #include "../platforms/BlackHole.h"
 #include "../platforms/BluePlatform.h"
 
-GameWidget::GameWidget(QWidget *parent) {
+GameWidget::GameWidget(QWidget *parent) : game(dynamic_cast<MainWindow*>(parent)->soundOn) {
     setParent(parent);
     setFocusPolicy(Qt::StrongFocus); // Разрешаем фокус клавиатуры
     setFocus(); // Захватываем фокус

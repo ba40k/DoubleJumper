@@ -28,7 +28,7 @@ class Jetpack : public AbstractItem {
     int activatedTicks = 300;
     DoubleJumper* jumper;
 public:
-    Jetpack(int coordinateX, AbstractPlatform* platform);
+    Jetpack(int coordinateX, AbstractPlatform* platform, bool soundsOn);
     QLabel* getQLabel(QWidget *parent = nullptr) override;
     void activate(DoubleJumper &activator) override;
     void setActivated();

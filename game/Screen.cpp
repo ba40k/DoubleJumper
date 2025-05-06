@@ -13,8 +13,9 @@
 #include "../items/Jetpack.h"
 #include "../platforms/BlackHole.h"
 
-Screen::Screen(int lowerBound, int upperBound, std::deque<AbstractPlatform*> &platforms, double difficultyLevel) {
+Screen::Screen(int lowerBound, int upperBound, std::deque<AbstractPlatform*> &platforms, double difficultyLevel, bool soundsOn) {
     srand(time(NULL));
+    this->soundsOn = soundsOn;
     this->lowerBound = lowerBound;
     this->platforms = platforms;
     this->difficultyLevel = difficultyLevel;
@@ -70,32 +71,32 @@ void Screen::generatePlatforms() {
             }
             if (rand()%100 < springSpawnProbability && !dynamic_cast<BrownPlatform*>(platform)
                 && !dynamic_cast<BlackHole*>(platform)) {
-                Spring temp(0,0);
+                Spring temp(0,0,soundsOn);
                 int springWidth = temp.getWidth();
                 int onPlatformX =rand()%(platform->getWidth() - springWidth);
                 onPlatformX = std::max(8,onPlatformX);
                 onPlatformX = std::min(platform->getWidth() - springWidth - 8,onPlatformX);
-                AbstractItem *spring = new Spring(onPlatformX,platform);
+                AbstractItem *spring = new Spring(onPlatformX,platform,soundsOn);
                 items.push_back(spring);
             } else if (rand()%100 < helicopterHatSpawnProbability && !dynamic_cast<BrownPlatform*>(platform)
                 && !dynamic_cast<BlackHole*>(platform)) {
 
-                HelicopterHat temp(0,0);
+                HelicopterHat temp(0,0,soundsOn);
                 int hatWidth = temp.getWidth();
                 int onPlatformX =rand()%(platform->getWidth() - hatWidth);
                 onPlatformX = std::max(8,onPlatformX);
                 onPlatformX = std::min(platform->getWidth() - hatWidth - 8,onPlatformX);
-                AbstractItem *hat = new HelicopterHat(onPlatformX,platform);
+                AbstractItem *hat = new HelicopterHat(onPlatformX,platform,soundsOn);
                 items.push_back(hat);
 
             } else if (rand()%100 < jetpackSpawnProbability && !dynamic_cast<BrownPlatform*>(platform)
                 && !dynamic_cast<BlackHole*>(platform)) {
-                Jetpack temp(0,0);
+                Jetpack temp(0,0,soundsOn);
                 int jetpackWidth = temp.getWidth();
                 int onPlatformX =rand()%(platform->getWidth() - jetpackWidth);
                 onPlatformX = std::max(8,onPlatformX);
                 onPlatformX = std::min(platform->getWidth() - jetpackWidth - 8,onPlatformX);
-                AbstractItem *jetpack = new Jetpack(onPlatformX,platform);
+                AbstractItem *jetpack = new Jetpack(onPlatformX,platform,soundsOn);
                 items.push_back(jetpack);
             }
             platforms.push_back(platform);

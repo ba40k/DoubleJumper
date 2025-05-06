@@ -22,7 +22,9 @@ void OptionsWidget::setDefaultStylnig(const QString &prefix, const QString &suff
         "}"
     );
 }
-OptionsWidget::OptionsWidget(QWidget *parent) {
+OptionsWidget::OptionsWidget(QWidget *parent,bool currentSoundState, bool currentMarkersState) {
+    soundOn = currentSoundState;
+    scoreMarkersOn = currentMarkersState;
     fontId = QFontDatabase::addApplicationFont(fontPath);
     QStringList fontFamilies = QFontDatabase::applicationFontFamilies(fontId);
     font = new QFont(fontFamilies.at(0), 40);
@@ -72,6 +74,12 @@ OptionsWidget::OptionsWidget(QWidget *parent) {
     setDefaultStylnig(imagePrefixPath,templateButtonImagePath,resetHighScoresButton);
     resetHighScoresButton->setText("Reset");
 
+    if (soundOn == false) {
+        soundOffButtonClicked();
+    }
+    if (scoreMarkersOn == false) {
+        scoreMarkersOffButtonClicked();
+    }
     connect(soundOnButton,&QPushButton::clicked,this,&OptionsWidget::soundOnButtonClicked);
     connect(soundOffButton,&QPushButton::clicked,this,&OptionsWidget::soundOffButtonClicked);
     connect(scoreMarkersOnButton,&QPushButton::clicked,this,&OptionsWidget::scoreMarkersOnButtonClicked);

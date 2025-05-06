@@ -9,13 +9,14 @@
 #include "../platforms/AbstractPlatform.h"
 #include "../DoubleJumper.h"
 #include "../PhysicsModel.h"
-
+#include "../items/AbstractItem.h"
 #include <QVector>
 #include <QSoundEffect>
 #include "Screen.h"
 #include "../items/helicopterHat.h"
 
 class Game {
+    bool soundsOn = true;
     double difficulcyCoef = 1.0;
     const int doubleJumperSpawnX = 260;
     int minDoubleJumperCoordinate=400;
@@ -51,7 +52,7 @@ class Game {
     void processHopped();
     bool gameEnded = false;
     public:
-    Game();
+    Game(bool soundsOn);
     ~Game();
     void End();
     int getScore() const;

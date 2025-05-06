@@ -23,7 +23,7 @@ class Spring : public AbstractItem{
     static QAudioOutput *audioOutput;
     static bool isPlayerInitialized;
     public:
-    Spring(int coordinateX, AbstractPlatform* platform);
+    Spring(int coordinateX, AbstractPlatform* platform, bool soundsOn);
     QLabel* getQLabel(QWidget *parent = nullptr) override;
     void activate(DoubleJumper &activator) override;
     void setActivated();

@@ -4,13 +4,14 @@
 
 #ifndef SCREEN_H
 #define SCREEN_H
-
+#include"../items/AbstractItem.h"
 #include "../platforms/GreenPlatform.h"
 #include <deque>
 
 #include "../items/AbstractItem.h"
 #include "../platforms/BrownPLatform.h"
 class Screen {
+    bool soundsOn;
     QString imagePath = "game-tile@2x.png";
     const int HEIGHT = 850;
     const int WIDTH = 640-120;
@@ -34,7 +35,7 @@ class Screen {
     bool intersectPrevious(int x,int y, bool isBlue);
 
     public:
-    Screen(int lowerBound, int upperBound, std::deque<AbstractPlatform*> &platforms, double difficultyLevel);
+    Screen(int lowerBound, int upperBound, std::deque<AbstractPlatform*> &platforms, double difficultyLevel, bool soundsOn);
     ~Screen();
     std::deque<AbstractPlatform*>* getPlatforms();
     std::deque<AbstractItem*>* getItems();

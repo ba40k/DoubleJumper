@@ -5,11 +5,12 @@
 #include "AbstractItem.h"
 
 
-AbstractItem::AbstractItem(int coordinateX, int width, int height, AbstractPlatform* platform) {
+AbstractItem::AbstractItem(int coordinateX, int width, int height, AbstractPlatform* platform, bool soundsOn) {
     this->coordinateX = coordinateX;
     this->width = width;
     this->height = height;
     this->platform = platform;
+    this->soundsOn = soundsOn;
 }
 int AbstractItem::getCoordinateX() {
     return platform->getX() + coordinateX;

@@ -8,7 +8,7 @@
 QMediaPlayer* HelicopterHat::player = nullptr;
 QAudioOutput* HelicopterHat::audioOutput = nullptr;
 bool HelicopterHat::isPlayerInitialized = false;
-HelicopterHat::HelicopterHat(int coordinateX, AbstractPlatform* platform) : AbstractItem(coordinateX,35,21,platform) {
+HelicopterHat::HelicopterHat(int coordinateX, AbstractPlatform* platform, bool soundsOn) : AbstractItem(coordinateX,35,21,platform,soundsOn) {
     onTileCoordinateX =  662;
     onTileCoordinateY =  470;
     width = 65;
@@ -52,7 +52,9 @@ void HelicopterHat::activate(DoubleJumper &activator) {
     jumper = &activator;
     setActivated();
     height-=5;
-    player->play();
+    if (soundsOn) {
+        player->play();
+    }
     width = activatedWidth;
     height = activatedHeight;
 

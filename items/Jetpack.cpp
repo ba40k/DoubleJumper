@@ -8,7 +8,7 @@
 QMediaPlayer* Jetpack::player = nullptr;
 QAudioOutput* Jetpack::audioOutput = nullptr;
 bool Jetpack::isPlayerInitialized = false;
-Jetpack::Jetpack(int coordinateX, AbstractPlatform* platform) : AbstractItem(coordinateX,35,21,platform) {
+Jetpack::Jetpack(int coordinateX, AbstractPlatform* platform, bool soundsOn) : AbstractItem(coordinateX,35,21,platform, soundsOn) {
     onTileCoordinateX =  391;
     onTileCoordinateY =  527;
     width = 54;
@@ -65,7 +65,9 @@ void Jetpack::activate(DoubleJumper &activator) {
     jumper = &activator;
     setActivated();
     height-=5;
-    player->play();
+    if (soundsOn) {
+        player->play();
+    }
     width = activatedWidth;
     height = activatedHeight;
 
