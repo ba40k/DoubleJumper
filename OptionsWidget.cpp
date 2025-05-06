@@ -11,6 +11,8 @@
 int OptionsWidget::currentSprite = 0;
 int OptionsWidget::currentBackGround = 0;
 int OptionsWidget::currentTheme = 0;
+QVector<Theme*>* OptionsWidget::themes = new QVector<Theme*>();
+
 void OptionsWidget::setDefaultStylnig(const QString &prefix, const QString &suffix, QPushButton *button) {
     button->setStyleSheet(
         "QPushButton {"
@@ -90,7 +92,10 @@ OptionsWidget::OptionsWidget(QWidget *parent,bool currentSoundState, bool curren
     if (scoreMarkersOn == false) {
         scoreMarkersOffButtonClicked();
     }
-    themes = {new DefaultTheme, new HaloweenTheme, new UnderwaterTheme, new JungleTheme};
+    if (!inites) {
+        *themes = {new DefaultTheme, new HaloweenTheme, new UnderwaterTheme, new JungleTheme};
+        inites = true;
+    }
 
     themePreview = new QLabel(this);
     themePreview->setScaledContents(true);
@@ -120,7 +125,7 @@ void OptionsWidget::soundOffButtonClicked() {
 }
 void OptionsWidget::menuButtonClicked() {
     dynamic_cast<MainMenuWidget*>(parent())->play();
-    hide();
+    delete this;
 }
 void OptionsWidget::resetHighScoresButtonClicked() {
     QFile file(recordsFilePath);
@@ -142,20 +147,20 @@ void OptionsWidget::scoreMarkersOnButtonClicked() {
     dynamic_cast<MainWindow*>(parent()->parent())->visibleScoreMarkers = true;
 }
 void OptionsWidget::setTheme() {
-    dynamic_cast<MainWindow*>(parent()->parent())->currentTheme = themes[currentTheme];
-    themePreview->setPixmap(QPixmap(imagePrefixPath + themes[currentTheme]->getThemePreviewPath()));
-    backGroundLabel->setPixmap(QPixmap(imagePrefixPath + themes[currentTheme]->getBackgroundImagePath()));
-    dynamic_cast<MainMenuWidget*>(parent())->setTheme(themes[currentTheme]);
+    dynamic_cast<MainWindow*>(parent()->parent())->currentTheme = themes->at(currentTheme);
+    themePreview->setPixmap(QPixmap(imagePrefixPath + themes->at(currentTheme)->getThemePreviewPath()));
+    backGroundLabel->setPixmap(QPixmap(imagePrefixPath + themes->at(currentTheme)->getBackgroundImagePath()));
+    dynamic_cast<MainMenuWidget*>(parent())->setTheme(themes->at(currentTheme));
 }
 void OptionsWidget::leftArrowPressed() {
     currentTheme--;
-    currentTheme+=themes.size();
-    currentTheme%=themes.size();
+    currentTheme+=themes->size();
+    currentTheme%=themes->size();
     setTheme();
 }
 void OptionsWidget::rightArrowPressed() {
     currentTheme++;
-    currentTheme%=themes.size();
+    currentTheme%=themes->size();
     setTheme();
 }
 

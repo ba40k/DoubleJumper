@@ -52,7 +52,8 @@ class OptionsWidget : public QDialog {
     void resetHighScoresButtonClicked();
     void leftArrowPressed();
     void rightArrowPressed();
-    QVector<Theme*> themes;
+    static QVector<Theme*> *themes;
+    bool inites = false;
     QLabel* currentThemePreview;
     static int currentSprite;
     static int currentBackGround;

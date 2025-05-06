@@ -203,8 +203,6 @@ void MainMenuWidget::optionsButtonPressed() {
     options->show();
 }
 void MainMenuWidget::setTheme(Theme* theme) {
-    backgroundImagePath = theme->getBackgroundImagePath();
     doubleJumperImagePath = theme->getLeftOrientedImagePath();
     doubleJumperLabel->setPixmap(QPixmap(imagePrefixPath + doubleJumperImagePath));
-    backgroundLabel->setPixmap(QPixmap(imagePrefixPath + backgroundImagePath));
 }
