@@ -29,3 +29,7 @@ int AbstractItem::getHeight() {
 AbstractPlatform* AbstractItem::getPlatform() {
     return platform;
 }
+
+void AbstractItem::setTheme(Theme *theme) {
+    this->currentTheme = theme;
+}

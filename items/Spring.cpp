@@ -24,7 +24,7 @@ QLabel *Spring::getQLabel(QWidget *parent) {
     QLabel *label = new QLabel(parent);
     label->setScaledContents(true);
     label->setGeometry(getCoordinateX(),getCoordinateY(),width, height);
-    label->setPixmap(QPixmap(prefixPath + imagePath).copy(onTileCoordinateX,onTileCoordinateY,width,height));
+    label->setPixmap(QPixmap(prefixPath + currentTheme->getGameTileImagePath()).copy(onTileCoordinateX,onTileCoordinateY,width,height));
     return label;
 }
 void Spring::setActivated() {

@@ -37,7 +37,7 @@ QLabel *Jetpack::getQLabel(QWidget *parent) {
         QLabel *label = new QLabel(parent);
         label->setScaledContents(true);
         label->setGeometry(getCoordinateX(),getCoordinateY(),width, height);
-        label->setPixmap(QPixmap(prefixPath + imagePath).copy(onTileCoordinateX,onTileCoordinateY,width,height));
+        label->setPixmap(QPixmap(prefixPath + currentTheme->getGameTileImagePath()).copy(onTileCoordinateX,onTileCoordinateY,width,height));
 
         return label;
     } else {
@@ -48,9 +48,9 @@ QLabel *Jetpack::getQLabel(QWidget *parent) {
         label->setScaledContents(true);
         label->setGeometry(getCoordinateX(),getCoordinateY(),width,height);
         if (jumper->getOrintation() == false) {
-            label->setPixmap(QPixmap(prefixPath + activatedImagesPath).copy(boundingRectsForAnimation[index].x(),boundingRectsForAnimation[index].y(),width,height));
+            label->setPixmap(QPixmap(prefixPath + currentTheme->getJetpackImagePath()).copy(boundingRectsForAnimation[index].x(),boundingRectsForAnimation[index].y(),width,height));
         } else {
-            QPixmap pix = QPixmap(prefixPath + activatedImagesPath).copy(boundingRectsForAnimation[index].x(),boundingRectsForAnimation[index].y(),width,height);
+            QPixmap pix = QPixmap(prefixPath + currentTheme->getJetpackImagePath()).copy(boundingRectsForAnimation[index].x(),boundingRectsForAnimation[index].y(),width,height);
             pix = pix.transformed(QTransform().scale(-1, 1));
             label->setPixmap(pix);
         }

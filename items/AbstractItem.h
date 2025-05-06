@@ -10,6 +10,7 @@
 
 class AbstractItem {
     protected:
+    Theme* currentTheme;
     bool soundsOn = true;
     int width;
     int height;
@@ -19,7 +20,6 @@ class AbstractItem {
     int onTileCoordinateX;
     int onTileCoordinateY;
     QString prefixPath = "requirments/Sprites/Doodle Jump/";
-    QString imagePath = "game-tiles@2x.png";
     QString prefixSoundPath = "requirments/Doodle Jump SFX/";
     public:
     AbstractItem(int coordinateX ,int width, int height, AbstractPlatform* platform,bool soundsOn);
@@ -31,7 +31,7 @@ class AbstractItem {
     int getWidth();
     AbstractPlatform* getPlatform();
     virtual ~AbstractItem() = default;
-
+    void setTheme(Theme* theme);
 };
 
 
