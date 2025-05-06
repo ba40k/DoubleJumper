@@ -325,3 +325,10 @@ void GameWidget::visualizeScoreMarkers() {
 void GameWidget::changeScoreMarkersVisibility() {
     showScoreMarkers = !showScoreMarkers;
 }
+void GameWidget::setTheme(Theme *theme) {
+
+    currentTheme = theme;
+
+    backgoundImagePath = theme->getBackgroundImagePath();
+    backgoundLabel->setPixmap(QPixmap(prefixPath + backgoundImagePath));
+}

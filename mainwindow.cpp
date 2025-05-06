@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent)   {
 }
 void MainWindow::playButtonClicked() {
     gameWidget = new GameWidget(visibleScoreMarkers,this);
+    gameWidget->setTheme(currentTheme);
     mainMenuWidget->stop();
     gameWidget->run();
     gameWidget->showFullScreen();

@@ -120,7 +120,7 @@ void OptionsWidget::soundOffButtonClicked() {
 }
 void OptionsWidget::menuButtonClicked() {
     dynamic_cast<MainMenuWidget*>(parent())->play();
-    delete this;
+    hide();
 }
 void OptionsWidget::resetHighScoresButtonClicked() {
     QFile file(recordsFilePath);
@@ -142,8 +142,10 @@ void OptionsWidget::scoreMarkersOnButtonClicked() {
     dynamic_cast<MainWindow*>(parent()->parent())->visibleScoreMarkers = true;
 }
 void OptionsWidget::setTheme() {
+    dynamic_cast<MainWindow*>(parent()->parent())->currentTheme = themes[currentTheme];
     themePreview->setPixmap(QPixmap(imagePrefixPath + themes[currentTheme]->getThemePreviewPath()));
     backGroundLabel->setPixmap(QPixmap(imagePrefixPath + themes[currentTheme]->getBackgroundImagePath()));
+    dynamic_cast<MainMenuWidget*>(parent())->setTheme(themes[currentTheme]);
 }
 void OptionsWidget::leftArrowPressed() {
     currentTheme--;

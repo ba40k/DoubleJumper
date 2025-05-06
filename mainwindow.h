@@ -24,7 +24,7 @@ class MainWindow : public QMainWindow
 public:
     bool soundOn = true;
     bool visibleScoreMarkers = true;
-
+    Theme* currentTheme;
     RecordDatabase *records;
     void backToMenu();
     const int HEIGHT = 850;

@@ -12,6 +12,7 @@
 #include "ScoreBar.h"
 #include "LoseDialog.h"
 #include "../game/RecordDatabase.h"
+#include"Theme.h"
 
 class GameWidget : public QWidget{
 
@@ -45,10 +46,12 @@ class GameWidget : public QWidget{
     void visualizeScoreMarkers();
 
     int calculateLabelWidth(const QLabel* label, const QString& text);
+    Theme* currentTheme;
     public:
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
     GameWidget(bool visibleMarkers,QWidget *parent = nullptr);
+    void setTheme(Theme* theme);
     ~GameWidget();
     void stop();
     void run();

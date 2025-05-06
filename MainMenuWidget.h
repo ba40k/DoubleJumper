@@ -57,7 +57,7 @@ class MainMenuWidget : public QWidget {
 
     DoubleJumper doubleJumper;
 
-    const int deltaTime  = 7;
+    const int deltaTime  = 10;
 
 
     bool stopped;
@@ -79,7 +79,7 @@ class MainMenuWidget : public QWidget {
     void stop();
     void play();
     MainMenuWidget(QWidget *parent = nullptr);
-
+    void setTheme(Theme* theme);
 
 };
 
