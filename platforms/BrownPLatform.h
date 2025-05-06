@@ -20,7 +20,7 @@ class BrownPlatform : public AbstractPlatform{
     QString breakingSoundPath = "lomise.mp3";
     QVector<QRect> spritesBoundingsRects;
     public:
-    BrownPlatform(int coordinateX, int coordinateY, QString &imagePath);
+    BrownPlatform(int coordinateX, int coordinateY, QString &imagePath, bool soundsOn);
     QLabel* getQLabel(QWidget *parent = nullptr)  override;
     void setBroken();
     bool isBroken();

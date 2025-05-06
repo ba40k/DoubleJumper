@@ -7,7 +7,7 @@
 QMediaPlayer* BrownPlatform::player = nullptr;
 QAudioOutput* BrownPlatform::audioOutput = nullptr;
 bool BrownPlatform::isPlayerInitialized = false;
-BrownPlatform::BrownPlatform(int coordinateX, int coordinateY, QString &imagePath) : AbstractPlatform(coordinateX, coordinateY,125) {
+BrownPlatform::BrownPlatform(int coordinateX, int coordinateY, QString &imagePath,bool soundsOn) : AbstractPlatform(coordinateX, coordinateY,125,soundsOn) {
     this->imagePath = imagePath;
     if (!isPlayerInitialized) {
         player = new QMediaPlayer();
@@ -61,7 +61,7 @@ void BrownPlatform::setAnimationCounter(int counter) {
         animationCounter = 0;
         return ;
     }
-    if (broken && animationCounter == 1) {
+    if (broken && animationCounter == 1 && soundsOn) {
         player->play();
     }
     if (animationCounter> 9 && broken) {

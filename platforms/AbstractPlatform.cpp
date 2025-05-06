@@ -4,21 +4,23 @@
 
 #include "AbstractPlatform.h"
 
-AbstractPlatform::AbstractPlatform(const int coordinateX, const int coordinateY) {
+AbstractPlatform::AbstractPlatform(const int coordinateX, const int coordinateY, bool soundsOn) {
+    this->soundsOn = soundsOn;
     this->coordinateX = coordinateX;
     this->coordinateY = coordinateY;
     prefixPath = "requirments/Sprites/Doodle Jump/";
 }
-AbstractPlatform::AbstractPlatform(const int coordinateX, const int coordinateY, const int width) : WIDTH(width) {
+AbstractPlatform::AbstractPlatform(const int coordinateX, const int coordinateY, const int width, bool soundsOn) : WIDTH(width) {
     this->coordinateX = coordinateX;
     this->coordinateY = coordinateY;
-
+    this->soundsOn = soundsOn;
     prefixPath = "requirments/Sprites/Doodle Jump/";
 }
 
-AbstractPlatform::AbstractPlatform(const int coordinateX, const int coordinateY, const int width, const int height) : WIDTH(width),HEIGHT(height) {
+AbstractPlatform::AbstractPlatform(const int coordinateX, const int coordinateY, const int width, const int height, bool soundsOn) : WIDTH(width),HEIGHT(height) {
     this->coordinateX = coordinateX;
     this->coordinateY = coordinateY;
+    this->soundsOn = soundsOn;
     prefixPath = "requirments/Sprites/Doodle Jump/";
 }
 

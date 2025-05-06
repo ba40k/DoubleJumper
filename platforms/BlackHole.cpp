@@ -6,7 +6,7 @@
 QMediaPlayer* BlackHole::player = nullptr;
 QAudioOutput* BlackHole::audioOutput = nullptr;
 bool BlackHole::isPlayerInitialized = false;
-BlackHole::BlackHole(int coordinateX, int coordinateY, QString &imagePath) : AbstractPlatform(coordinateX, coordinateY,125) {
+BlackHole::BlackHole(int coordinateX, int coordinateY, QString &imagePath, bool soundsOn) : AbstractPlatform(coordinateX, coordinateY,125, soundsOn) {
     this->imagePath = imagePath;
     if (!isPlayerInitialized) {
         player = new QMediaPlayer();
@@ -27,6 +27,8 @@ QLabel* BlackHole::getQLabel(QWidget *parent)  {
     return label;
 }
 void BlackHole::playSound() {
-    player->play();
+    if (soundsOn) {
+        player->play();
+    }
 }
 

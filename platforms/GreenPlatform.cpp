@@ -4,7 +4,7 @@
 
 #include "GreenPlatform.h"
 
-GreenPlatform::GreenPlatform(int coordinateX, int coordinateY, QString &imagePath) : AbstractPlatform(coordinateX, coordinateY) {
+GreenPlatform::GreenPlatform(int coordinateX, int coordinateY, QString &imagePath, bool soundsOn) : AbstractPlatform(coordinateX, coordinateY,soundsOn) {
     this->imagePath = imagePath;
 }
 QLabel* GreenPlatform::getQLabel(QWidget *parent)  {

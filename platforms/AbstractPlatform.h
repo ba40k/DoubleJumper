@@ -9,6 +9,7 @@
 
 class AbstractPlatform {
     protected:
+    bool soundsOn = true;
     QString soundPrefixPath = "requirments/Doodle Jump SFX/";
     int WIDTH = 120;
     int HEIGHT = 32;
@@ -18,9 +19,9 @@ class AbstractPlatform {
     QString imagePath;
     public:
     void setY(int y);
-    AbstractPlatform(const int coordinateX, const int coordinateY) ;
-    AbstractPlatform(const int coordinateX, const int coordinateY, const int width) ;
-    AbstractPlatform(const int coordinateX, const int coordinateY, const int width, const int height) ;
+    AbstractPlatform(const int coordinateX, const int coordinateY, bool soundsOn) ;
+    AbstractPlatform(const int coordinateX, const int coordinateY, const int width, bool soundsOn) ;
+    AbstractPlatform(const int coordinateX, const int coordinateY, const int width, const int height, bool soundsOn) ;
     int getX() const;
     int getY() const;
 

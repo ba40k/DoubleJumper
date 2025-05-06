@@ -38,13 +38,13 @@ GameWidget::GameWidget(QWidget *parent) : game(dynamic_cast<MainWindow*>(parent)
 
     for (int i = 0; i < gamePlatforms->size(); i++) {
         if (dynamic_cast<BrownPlatform *>((*gamePlatforms)[i])) {
-            platforms[i] = BrownPlatform((*gamePlatforms)[i]->getX(), ((*gamePlatforms)[i]->getY()), imagePath).
+            platforms[i] = BrownPlatform((*gamePlatforms)[i]->getX(), ((*gamePlatforms)[i]->getY()), imagePath,false).
                     getQLabel(this);
         } else if (dynamic_cast<BluePlatform *>((*gamePlatforms)[i])) {
             platforms[i] = BluePlatform((*gamePlatforms)[i]->getX(), ((*gamePlatforms)[i]->getY()), imagePath).
                     getQLabel(this);
         } else {
-            platforms[i] = GreenPlatform((*gamePlatforms)[i]->getX(), ((*gamePlatforms)[i]->getY()), imagePath).
+            platforms[i] = GreenPlatform((*gamePlatforms)[i]->getX(), ((*gamePlatforms)[i]->getY()), imagePath,false).
                     getQLabel(this);
         }
     }
@@ -93,17 +93,17 @@ void GameWidget::update() {
         if (dynamic_cast<BrownPlatform *>((*gamePlatforms)[i])) {
             dynamic_cast<BrownPlatform *>((*gamePlatforms)[i])->setAnimationCounter(
                 dynamic_cast<BrownPlatform *>((*gamePlatforms)[i])->getAnimationCounter() + 1);
-            auto temp = BrownPlatform((*gamePlatforms)[i]->getX(), (*gamePlatforms)[i]->getY() + shift, imagePath);
+            auto temp = BrownPlatform((*gamePlatforms)[i]->getX(), (*gamePlatforms)[i]->getY() + shift, imagePath,false);
             if (dynamic_cast<BrownPlatform *>((*gamePlatforms)[i])->isBroken()) {
                 temp.setBroken();
             }
             temp.setAnimationCounter(dynamic_cast<BrownPlatform *>((*gamePlatforms)[i])->getAnimationCounter());
             platforms[i] = temp.getQLabel(this);
         } else if (dynamic_cast<GreenPlatform *>((*gamePlatforms)[i])) {
-            platforms[i] = GreenPlatform((*gamePlatforms)[i]->getX(), (*gamePlatforms)[i]->getY() + shift, imagePath).
+            platforms[i] = GreenPlatform((*gamePlatforms)[i]->getX(), (*gamePlatforms)[i]->getY() + shift, imagePath,false).
                     getQLabel(this);
         } else if (dynamic_cast<BlackHole *>((*gamePlatforms)[i])) {
-            platforms[i] = BlackHole((*gamePlatforms)[i]->getX(), (*gamePlatforms)[i]->getY() + shift, imagePath).
+            platforms[i] = BlackHole((*gamePlatforms)[i]->getX(), (*gamePlatforms)[i]->getY() + shift, imagePath,false).
                     getQLabel(this);
         } else {
             platforms[i] = BluePlatform((*gamePlatforms)[i]->getX(), (*gamePlatforms)[i]->getY() + shift, imagePath).

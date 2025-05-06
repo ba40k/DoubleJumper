@@ -52,15 +52,15 @@ void Screen::generatePlatforms() {
                 platform = new BluePlatform(newX,newY,imagePath);
 
             } else if (rand()%100 < brownPlatformSpawnProbability) {
-                platform = new BrownPlatform(newX, newY,imagePath);
+                platform = new BrownPlatform(newX, newY,imagePath,soundsOn);
                 i--; // коричневые плафтормы не учитываем при генерации
             } else if (rand()%100 < blackHoleSpawnProbability && !blackHoleGenerated) {
-                platform = new BlackHole(newX, newY, imagePath);
+                platform = new BlackHole(newX, newY, imagePath,soundsOn);
                 blackHoleGenerated = true;
                 i-=3; // черные дыры, ясное дело, не учитываем
             }
             else {
-                platform = new GreenPlatform(newX, newY,imagePath);
+                platform = new GreenPlatform(newX, newY,imagePath,soundsOn);
             }
 
 

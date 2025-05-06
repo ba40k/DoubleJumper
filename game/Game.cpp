@@ -24,7 +24,7 @@ void Game::gameInitialize() {
     jumpSoundPath = "jump.wav";
     jumpSound.setSource(QUrl::fromLocalFile(soundPrefixPath + jumpSoundPath));
     QString path = "game-tiles@2x.png";
-    AbstractPlatform* startPlatform = new GreenPlatform(260, SCREEN_HEIGHT- PLATFORM_HEIGHT,path);
+    AbstractPlatform* startPlatform = new GreenPlatform(260, SCREEN_HEIGHT- PLATFORM_HEIGHT,path,soundsOn);
     std::deque<AbstractPlatform*> platforms;
     platforms.push_back(startPlatform);
     firstScreen = new Screen(0,850,platforms,1.0, soundsOn);
@@ -70,7 +70,9 @@ void Game::gameStateUpdate(int deltaTime, bool leftArrowPressed, bool rightArrow
         doubleJumper.setCoordinateX(0);
     }
     if (isIntersectAnyPLatfrom() && doubleJumper.getSpeed()<=0) { // делаем отскок только тогда, когда он паадет
-        jumpSound.play();
+        if (soundsOn) {
+            jumpSound.play();
+        }
         doubleJumper.setSpeed(defaultSpeed);
     }
     if (abs(minDoubleJumperCoordinate - firstScreen->getHighestPlatformCoordinate()) < 500) {

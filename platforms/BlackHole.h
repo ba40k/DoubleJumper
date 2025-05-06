@@ -18,7 +18,7 @@ private:
     QString activatedSound = "crnarupa.mp3";
     QVector<QRect> spritesBoundingsRects;
 public:
-    BlackHole(int coordinateX, int coordinateY, QString &imagePath);
+    BlackHole(int coordinateX, int coordinateY, QString &imagePath, bool soundsOn);
     QLabel* getQLabel(QWidget *parent = nullptr)  override;
     void activate(DoubleJumper *activator);
     void playSound();
